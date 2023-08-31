@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 try
 {
-    // Open the text file using a stream reader.
     // Lines 10 - 20 inspired by https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp/34265869#34265869
     // Lines 10 - 24 inspired by https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
+    // Open the text file using a stream reader.
     using (var sr = new StreamReader("chirp_cli_db.csv"))
     {
         string line; 

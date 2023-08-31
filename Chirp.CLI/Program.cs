@@ -24,8 +24,6 @@ try
             Console.WriteLine($"{cheep[0]} @ {time}: {cheep[1].Substring(1, cheep[1].Length - 2)}");
 
         }
-        // Read the stream as a string, and write the string to the console.
-        //Console.WriteLine(sr.ReadToEnd());
     }
 }
 catch (IOException e)

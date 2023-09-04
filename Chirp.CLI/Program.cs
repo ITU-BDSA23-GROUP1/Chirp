@@ -11,10 +11,8 @@ using System.Globalization;
 
 // Open the text file using a stream reader.
 
-if (args[0] == "read") {
-
-    try
-    {
+try{
+    if (args[0] == "read") {
         using (var sr = new StreamReader("chirp_cli_db.csv"))
         {
             string line; 
@@ -33,12 +31,6 @@ if (args[0] == "read") {
                 Console.WriteLine($"{cheep[0]} @ {localTime.ToString("MM/dd/yy HH:mm:ss")}: {cheep[1].Substring(1, cheep[1].Length - 2)}");
             }
         }
-    }
-    catch (IOException e)
-    {
-        Console.WriteLine("The file could not be read:");
-        Console.WriteLine(e.Message);
-    }
 
 } else if (args[0] == "cheep") {
         // Next couple of lines are inspired by https://joshclose.github.io/CsvHelper/examples/writing/appending-to-an-existing-file/
@@ -59,10 +51,16 @@ if (args[0] == "read") {
         //Following line inspired by https://learn.microsoft.com/en-us/dotnet/api/system.environment.username?view=net-7.0
         csv.WriteRecord(new Cheep {author = Environment.UserName, message = '"' + args[1] + '"', timestamp = unixTime});
     }
-}
+} 
+    }
+    catch (IOException e)
+    {
+        Console.WriteLine("The file could not be read:");
+        Console.WriteLine(e.Message);
+    }
 
 public class Cheep {
-    public string author { get; set; }
-    public string message { get; set; }
+    public string author { get; set; } = null!;
+    public string message { get; set; } = null!;
     public long timestamp { get; set; }
 }

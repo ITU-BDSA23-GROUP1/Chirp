@@ -5,14 +5,16 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
 
- //Reading the CSV file is inspired by:
- // - https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp/34265869#34265869
+// Reading the CSV file is inspired by:
+// - https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp/34265869#34265869
 // - https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
 
 // Open the text file using a stream reader.
 
-try{
-    if (args[0] == "read") {
+try
+{
+    if (args[0] == "read")
+    {
         using (var sr = new StreamReader("chirp_cli_db.csv"))
         {
             string line; 
@@ -32,32 +34,42 @@ try{
             }
         }
 
-} else if (args[0] == "cheep") {
+    } else if (args[0] == "cheep") 
+    {
         // Next couple of lines are inspired by https://joshclose.github.io/CsvHelper/examples/writing/appending-to-an-existing-file/
         // Append to the file.
-    var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-    {
-        // Don't write the header again.
-        HasHeaderRecord = false,
-    };
-    using (var stream = File.Open("chirp_cli_db.csv", FileMode.Append))
-    using (var writer = new StreamWriter(stream))
-    using (var csv = new CsvWriter(writer, config))
-    {
-        DateTime currentTime = DateTime.Now;
-        long unixTime = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            // Don't write the header again.
+            HasHeaderRecord = false,
+            // Following lines are inspired by https://stackoverflow.com/questions/56579848/csvhelper-configuration-shouldquote-return-true-for-only-fields-on-the-dto-whi
+            ShouldQuote = args =>
+            {
+                if (string.IsNullOrEmpty(args.Field)) return false;
+                else if (args.Field.Equals(Environment.UserName)) return false;
 
-        csv.NextRecord();
-        //Following line inspired by https://learn.microsoft.com/en-us/dotnet/api/system.environment.username?view=net-7.0
-        csv.WriteRecord(new Cheep {author = Environment.UserName, message = '"' + args[1] + '"', timestamp = unixTime});
-    }
-} 
-    }
-    catch (IOException e)
-    {
-        Console.WriteLine("The file could not be read:");
-        Console.WriteLine(e.Message);
-    }
+                return args.FieldType == typeof(string);
+            }
+        };
+    
+        using (var stream = File.Open("chirp_cli_db.csv", FileMode.Append))
+        using (var writer = new StreamWriter(stream))
+        using (var csv = new CsvWriter(writer, config))
+        {
+            DateTime currentTime = DateTime.Now;
+            long unixTime = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
+
+            csv.NextRecord();
+            //Following line inspired by https://learn.microsoft.com/en-us/dotnet/api/system.environment.username?view=net-7.0
+            csv.WriteRecord(new Cheep {author = Environment.UserName, message = args[1], timestamp = unixTime});
+        }
+    } 
+}
+catch (IOException e)
+{
+    Console.WriteLine("The file could not be read:");
+    Console.WriteLine(e.Message);
+}
 
 public class Cheep {
     public string author { get; set; } = null!;

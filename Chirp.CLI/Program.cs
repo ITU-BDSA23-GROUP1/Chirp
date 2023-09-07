@@ -48,7 +48,7 @@ void Write(string CheepMsg) {
     DateTime CurrentTime = DateTime.Now;
     long UnixTime = ((DateTimeOffset)CurrentTime).ToUnixTimeSeconds();
     
-    Cheep cheep = new Cheep {Author = Environment.UserName, Message = {CheepMsg}, Timestamp = UnixTime};
+    Cheep cheep = new Cheep {Author = Environment.UserName, Message = CheepMsg, Timestamp = UnixTime};
     
     cd.Store(cheep);
 }

@@ -22,8 +22,11 @@ public sealed class CSVDatabase<T> : IDatabaseRepository<T> {
         {
             // Don't write the header again.
             HasHeaderRecord = false,
-        };
-    
+            // Don't make quotation marks automatically
+            // Next line is inspired by https://stackoverflow.com/questions/62460380/adding-double-quotes-to-string-while-writing-to-csv-c-sharp
+            ShouldQuote = (context) => false        
+            };
+
         using (var Stream = File.Open(fileName, FileMode.Append))
         using (var Writer = new StreamWriter(Stream))
         using (var Csv = new CsvWriter(Writer, Config))

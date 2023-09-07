@@ -29,20 +29,17 @@ catch (IOException E)
 
 static void Read() {
     using (var Sr = new StreamReader("chirp_cli_db.csv"))
+    using (var Csv = new CsvReader(Sr, CultureInfo.InvariantCulture))
     {
-        string? Line; 
-        Sr.ReadLine();
-        while ((Line = Sr.ReadLine()) != null)
+        var Records = Csv.GetRecords<Cheep>();
+        foreach (Cheep CurCheep in Records)
         {
-            //Define pattern
-            Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-            //Separating columns to array
-            string[] Cheep = CSVParser.Split(Line);
             // Following lines inspired by https://peterdaugaardrasmussen.com/2022/11/26/csharp-convert-datetimeoffset-to-and-from-unix-timestamp/#:~:text=In%20order%20to%20get%20a%20DateTime%20form%20a,DateTimeOffset.FromUnixTimeMilliseconds%281669321628392%29%3B%20var%20dateTime%20%3D%20dateTimeOffset.DateTime%3B%20That%20is%20all%21
-            DateTimeOffset Time = DateTimeOffset.FromUnixTimeSeconds(long.Parse(Cheep[2]));
+            DateTimeOffset Time = DateTimeOffset.FromUnixTimeSeconds(CurCheep.Timestamp);
             // Following lines inspired by  https://learn.microsoft.com/en-us/dotnet/api/system.datetime.tolocaltime?view=net-7.0
             var LocalTime = Time.DateTime.ToLocalTime();
-            Console.WriteLine($"{Cheep[0]} @ {LocalTime.ToString("MM/dd/yy HH:mm:ss")}: {Cheep[1].Substring(1, Cheep[1].Length - 2)}");
+            Console.WriteLine($"{CurCheep.Author} @ {LocalTime}: {CurCheep.Message}");
+
         }
     }
 }

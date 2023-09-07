@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/home/olivia/.nuget/packages/": {}
+    "C:\\Users\\Bruger\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/SimpleDB.csproj",
+      "projectUniqueName": "c:\\Users\\Bruger\\OneDrive\\Skrivebord\\ITU\\3Semester\\Analysis_Design_and_Software_Architecture\\ExamProject\\Chirp\\SimpleDB\\SimpleDB.csproj",
       "projectName": "SimpleDB",
-      "projectPath": "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/SimpleDB.csproj",
-      "packagesPath": "/home/olivia/.nuget/packages/",
-      "outputPath": "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/obj/",
+      "projectPath": "c:\\Users\\Bruger\\OneDrive\\Skrivebord\\ITU\\3Semester\\Analysis_Design_and_Software_Architecture\\ExamProject\\Chirp\\SimpleDB\\SimpleDB.csproj",
+      "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\Bruger\\OneDrive\\Skrivebord\\ITU\\3Semester\\Analysis_Design_and_Software_Architecture\\ExamProject\\Chirp\\SimpleDB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/olivia/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

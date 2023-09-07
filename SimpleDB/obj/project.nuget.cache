@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "IAnGaDp2tmKXn7K2lYUxE0zaccLaypAKHqj7Sw5uUvvobWRfM+9oP8/a02mG2vVCbdcHT+SG+ISSOvi/qNOwsA==",
+  "dgSpecHash": "rMGTsOkNqgRiTNj3RXg9CfOGvSHR6Oc4MX49cBA823tUkfnqcCyABD11PElSxZ7e5/LJAL+GusjqmKEO+VUAtQ==",
   "success": true,
-  "projectFilePath": "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/SimpleDB.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/alebj/bdsa2023/Chirp/SimpleDB/SimpleDB.csproj",
+  "expectedPackageFiles": [
+    "/home/alebj/.nuget/packages/csvhelper/30.0.1/csvhelper.30.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

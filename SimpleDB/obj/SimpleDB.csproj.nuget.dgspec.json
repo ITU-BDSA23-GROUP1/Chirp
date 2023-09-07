@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/SimpleDB.csproj": {}
+    "/home/alebj/bdsa2023/Chirp/SimpleDB/SimpleDB.csproj": {}
   },
   "projects": {
-    "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/SimpleDB.csproj": {
+    "/home/alebj/bdsa2023/Chirp/SimpleDB/SimpleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/SimpleDB.csproj",
+        "projectUniqueName": "/home/alebj/bdsa2023/Chirp/SimpleDB/SimpleDB.csproj",
         "projectName": "SimpleDB",
-        "projectPath": "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/SimpleDB.csproj",
-        "packagesPath": "/home/olivia/.nuget/packages/",
-        "outputPath": "/mnt/c/Users/Bruger/OneDrive/Skrivebord/ITU/3Semester/Analysis_Design_and_Software_Architecture/ExamProject/Chirp/SimpleDB/obj/",
+        "projectPath": "/home/alebj/bdsa2023/Chirp/SimpleDB/SimpleDB.csproj",
+        "packagesPath": "/home/alebj/.nuget/packages/",
+        "outputPath": "/home/alebj/bdsa2023/Chirp/SimpleDB/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/olivia/.nuget/NuGet/NuGet.Config"
+          "/home/alebj/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[30.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -53,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.110/RuntimeIdentifierGraph.json"
         }
       }
     }

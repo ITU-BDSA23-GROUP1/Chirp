@@ -479,3 +479,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+SimpleDB/obj/project.assets.json
+SimpleDB/obj/project.nuget.cache
+SimpleDB/obj/SimpleDB.csproj.nuget.dgspec.json
+SimpleDB/obj/SimpleDB.csproj.nuget.g.props

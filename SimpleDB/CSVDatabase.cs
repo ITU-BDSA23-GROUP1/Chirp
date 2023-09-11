@@ -8,6 +8,9 @@ using System.Globalization;
 public sealed class CSVDatabase<T> : IDatabaseRepository<T> {
     public string fileName { get; set; } = null!;
     public IEnumerable<T> Read(int? limit = null) {
+        // Reading the CSV file is inspired by:
+        // - https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp/34265869#34265869
+        // - https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
         var Sr = new StreamReader(fileName);
         var Csv = new CsvReader(Sr, CultureInfo.InvariantCulture);
         IEnumerable<T> Records = Csv.GetRecords<T>();
@@ -18,7 +21,7 @@ public sealed class CSVDatabase<T> : IDatabaseRepository<T> {
         // Append to the file.
         var Config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
-            // Don't write the header again.
+            // Don't write the header.
             HasHeaderRecord = false,
             // Don't make quotation marks automatically
             // Next line is inspired by https://stackoverflow.com/questions/62460380/adding-double-quotes-to-string-while-writing-to-csv-c-sharp

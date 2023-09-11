@@ -1,30 +1,32 @@
 ﻿using Chirp.CLI;
 using SimpleDB;
-
-// Reading the CSV file is inspired by:
-// - https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp/34265869#34265869
-// - https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
-
-// Open the text file using a stream reader.
+using System.CommandLine;
 
 IDatabaseRepository<Cheep> cd = new CSVDatabase<Cheep>();
 cd.fileName = "../Chirp.CLI/chirp_cli_db.csv";
 
-try
-{
-    if (args[0] == "read")
-    {
-        UserInterface.PrintCheeps(cd.Read(10));
-    } else if (args[0] == "cheep") 
-    {
-        Write(args[1]);
-    } 
-}
-catch (IOException E)
-{
-    Console.WriteLine("The file could not be read:");
-    Console.WriteLine(E.Message);
-}
+// The following is inspired by:
+//  https://learn.microsoft.com/en-us/dotnet/standard/commandline/define-commands
+//  https://learn.microsoft.com/en-us/dotnet/standard/commandline/get-started-tutorial
+var rootCommand = new RootCommand();
+var readCommand = new Command("read", "Read subcommand");
+var cheepCommand = new Command("cheep", "Cheep subcommand");
+var cheepArgument = new Argument<string>
+    ("cheepMsg", "The message written to the csv file");
+
+rootCommand.Add(readCommand);
+rootCommand.Add(cheepCommand);
+cheepCommand.Add(cheepArgument);
+
+readCommand.SetHandler(() => {
+    UserInterface.PrintCheeps(cd.Read(10));
+});
+cheepCommand.SetHandler((cheepArgumentValue) => {
+        Write(cheepArgumentValue);
+    }, cheepArgument);
+
+await rootCommand.InvokeAsync(args);
+
 
 void Write(string CheepMsg) {
     DateTime CurrentTime = DateTime.Now;

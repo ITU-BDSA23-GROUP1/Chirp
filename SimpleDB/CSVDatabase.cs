@@ -1,8 +1,6 @@
 ﻿namespace SimpleDB;
 
-using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;

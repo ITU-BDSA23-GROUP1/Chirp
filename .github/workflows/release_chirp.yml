@@ -51,10 +51,10 @@ jobs:
               shell: bash
               run: |
                 tag=$(git describe --tags --abbrev=0)
-                macOS_release_name=Chirp-$tag-osx-64
+                macOS_release_name=Chirp-$tag-osx-x64
                 
                 # Build everything
-                dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-64" -c Release -o "${macOS_release_name}"
+                dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-x64" -c Release -o "${macOS_release_name}"
     
                 tar czvf "${macOS_release_name}.tar.gz" "$macOS_release_name"
                 

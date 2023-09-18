@@ -2,7 +2,7 @@
 using SimpleDB;
 using System.CommandLine;
 
-IDatabaseRepository<Cheep> cd = new CSVDatabase<Cheep>();
+IDatabaseRepository<Cheep> cd = CSVDatabase<Cheep>.Instance;
 cd.fileName = "../../data/chirp_cli_db.csv";
 
 // The following is inspired by:
@@ -51,6 +51,3 @@ public record Cheep
     public long Timestamp { get; set; }
 }
 
-public partial class Program {
-
-}

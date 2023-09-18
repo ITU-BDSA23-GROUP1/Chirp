@@ -3,7 +3,7 @@ using SimpleDB;
 using System.CommandLine;
 
 IDatabaseRepository<Cheep> cd = new CSVDatabase<Cheep>();
-cd.fileName = "../Chirp.CLI/chirp_cli_db.csv";
+cd.fileName = "../../data/chirp_cli_db.csv";
 
 // The following is inspired by:
 //  https://learn.microsoft.com/en-us/dotnet/standard/commandline/define-commands
@@ -18,27 +18,39 @@ rootCommand.Add(readCommand);
 rootCommand.Add(cheepCommand);
 cheepCommand.Add(cheepArgument);
 
-readCommand.SetHandler(() => {
+readCommand.SetHandler(() =>
+{
     UserInterface.PrintCheeps(cd.Read(10));
 });
-cheepCommand.SetHandler((cheepArgumentValue) => {
-        Write(cheepArgumentValue);
-    }, cheepArgument);
+cheepCommand.SetHandler((cheepArgumentValue) =>
+{
+    Write(cheepArgumentValue);
+}, cheepArgument);
 
 await rootCommand.InvokeAsync(args);
 
+static long getUnixTime(DateTime dateTime)
+{
+    long UnixTime = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
+    return UnixTime;
+}
 
-void Write(string CheepMsg) {
-    DateTime CurrentTime = DateTime.Now;
-    long UnixTime = ((DateTimeOffset)CurrentTime).ToUnixTimeSeconds();
-    
-    Cheep cheep = new Cheep {Author = Environment.UserName, Message = $"\"{CheepMsg}\"", Timestamp = UnixTime};
-    
+void Write(string CheepMsg)
+{
+    long UnixTime = getUnixTime(DateTime.Now);
+
+    Cheep cheep = new Cheep { Author = Environment.UserName, Message = $"\"{CheepMsg}\"", Timestamp = UnixTime };
+
     cd.Store(cheep);
 }
 
-public record Cheep {
+public record Cheep
+{
     public string Author { get; set; } = null!;
     public string Message { get; set; } = null!;
     public long Timestamp { get; set; }
+}
+
+public partial class Program {
+
 }

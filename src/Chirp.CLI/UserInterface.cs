@@ -13,4 +13,10 @@ public class UserInterface
             Console.WriteLine($"{CurCheep.Author} @ {LocalTime}: {CurCheep.Message}");
         }
     }
+
+        public static long getUnixTime(DateTime dateTime)
+    {
+        long UnixTime = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
+        return UnixTime;
+    }
 }

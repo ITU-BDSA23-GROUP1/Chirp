@@ -11,22 +11,44 @@ public class IntegrationTest
     public void StoreAndRead_EntryFromDataBase_CorrectCheep()
     {
         // Arrange
+
         CSVDatabase<Cheep> testDB = CSVDatabase<Cheep>.Instance;
         testDB.fileName = "../../../test_chirp.csv";
 
         Cheep testCheep = new Cheep { Author = "Username", Message = "Test123", Timestamp = 1694349000 };
 
         // Act
-
         testDB.Store(testCheep);
+        IEnumerable<Cheep> cheeps = testDB.Read(1);
+        Cheep storedCheep = cheeps.First();
 
         // Assert
 
-        string actual = "ABCDEFGHI";
-        actual.Should().StartWith("AB").And.EndWith("HI").And.Contain("EF").And.HaveLength(9);
+        Assert.Equal(testCheep,storedCheep);
 
+    }
 
-        // Assert.Equal(testCheep,testDB.Read(1));
+    [Fact]
+    public void StoreAndRead_EntryFromDataBase_WrongCheep()
+    {
+
+        // Arrange
+        
+        CSVDatabase<Cheep> testDB = CSVDatabase<Cheep>.Instance;
+        testDB.fileName = "../../../test_chirp.csv";
+
+        Cheep testCheep = new Cheep { Author = "Username", Message = "Test123", Timestamp = 1694349000 };
+        Cheep testCheep2 = new Cheep { Author = "UsernameWrong", Message = "Test123Wrong", Timestamp = 1694349000 };
+        
+        // Act
+
+        testDB.Store(testCheep);
+        IEnumerable<Cheep> cheeps = testDB.Read(1);
+        Cheep storedCheep = cheeps.First();
+
+        // Assert
+
+        Assert.NotEqual(testCheep2,storedCheep);
 
     }
 }

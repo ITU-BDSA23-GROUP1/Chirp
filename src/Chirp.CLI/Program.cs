@@ -29,15 +29,10 @@ cheepCommand.SetHandler((cheepArgumentValue) =>
 
 await rootCommand.InvokeAsync(args);
 
-static long getUnixTime(DateTime dateTime)
-{
-    long UnixTime = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
-    return UnixTime;
-}
 
 void Write(string CheepMsg)
 {
-    long UnixTime = getUnixTime(DateTime.Now);
+    long UnixTime = UserInterface.getUnixTime(DateTime.Now);
 
     Cheep cheep = new Cheep { Author = Environment.UserName, Message = $"\"{CheepMsg}\"", Timestamp = UnixTime };
 

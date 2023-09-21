@@ -1,9 +1,8 @@
 ﻿using Chirp.CLI;
-using SimpleDB;
 using System.CommandLine;
-
-IDatabaseRepository<Cheep> cd = CSVDatabase<Cheep>.Instance;
-cd.fileName = "../../data/chirp_cli_db.csv";
+using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 // The following is inspired by:
 //  https://learn.microsoft.com/en-us/dotnet/standard/commandline/define-commands
@@ -18,25 +17,48 @@ rootCommand.Add(readCommand);
 rootCommand.Add(cheepCommand);
 cheepCommand.Add(cheepArgument);
 
+var baseURL = "http://localhost:5000";
+using HttpClient client = new();
+client.DefaultRequestHeaders.Accept.Clear();
+client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+client.BaseAddress = new Uri(baseURL);
+
+var cheeps = await client.GetFromJsonAsync<IEnumerable<Cheep>>("cheeps");
+
 readCommand.SetHandler(() =>
 {
-    UserInterface.PrintCheeps(cd.Read(10));
+    UserInterface.PrintCheeps(cheeps);
 });
 cheepCommand.SetHandler((cheepArgumentValue) =>
 {
-    Write(cheepArgumentValue);
+    WriteAsync(cheepArgumentValue);
 }, cheepArgument);
 
 await rootCommand.InvokeAsync(args);
 
 
-void Write(string CheepMsg)
+async Task WriteAsync(string CheepMsg)
 {
     long UnixTime = UserInterface.getUnixTime(DateTime.Now);
 
     Cheep cheep = new Cheep { Author = Environment.UserName, Message = $"\"{CheepMsg}\"", Timestamp = UnixTime };
 
-    cd.Store(cheep);
+    JsonContent content = JsonContent.Create(cheep);
+
+    var response = await client.PostAsync("/cheeps", content);
+
+     if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("POST request successful. Response: " + responseString);
+            }
+            else
+            {
+                Console.WriteLine("POST request failed with status code: " + response.StatusCode);
+            }
+
+
+    //var responseString = await response.Content.ReadAsStringAsync();
 }
 
 public record Cheep

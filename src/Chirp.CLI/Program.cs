@@ -23,10 +23,9 @@ client.DefaultRequestHeaders.Accept.Clear();
 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 client.BaseAddress = new Uri(baseURL);
 
-var cheeps = await client.GetFromJsonAsync<IEnumerable<Cheep>>("cheeps");
-
-readCommand.SetHandler(() =>
+readCommand.SetHandler(async () =>
 {
+    var cheeps = await client.GetFromJsonAsync<IEnumerable<Cheep>>("cheeps");
     UserInterface.PrintCheeps(cheeps);
 });
 cheepCommand.SetHandler(async (cheepArgumentValue) =>

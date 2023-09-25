@@ -6,6 +6,8 @@ public class IntegrationTest
 {
 
     private static void CreateFile()
+    // The below code is inspired by:
+    // https://www.programiz.com/csharp-programming/files
     {
         if (File.Exists("../../../test_chirp.csv"))
         {

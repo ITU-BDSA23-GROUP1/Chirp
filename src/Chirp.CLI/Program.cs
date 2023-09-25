@@ -49,7 +49,7 @@ async Task WriteAsync(string CheepMsg)
      if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("POST request successful. Response: " + responseString);
+                Console.WriteLine("POST request successful.");
             }
             else
             {

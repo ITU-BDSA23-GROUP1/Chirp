@@ -29,9 +29,9 @@ readCommand.SetHandler(() =>
 {
     UserInterface.PrintCheeps(cheeps);
 });
-cheepCommand.SetHandler((cheepArgumentValue) =>
+cheepCommand.SetHandler(async (cheepArgumentValue) =>
 {
-    WriteAsync(cheepArgumentValue);
+    await WriteAsync(cheepArgumentValue);
 }, cheepArgument);
 
 await rootCommand.InvokeAsync(args);
@@ -45,7 +45,7 @@ async Task WriteAsync(string CheepMsg)
 
     JsonContent content = JsonContent.Create(cheep);
 
-    var response = await client.PostAsync("/cheeps", content);
+    var response = await client.PostAsync("/cheep", content);
 
      if (response.IsSuccessStatusCode)
             {

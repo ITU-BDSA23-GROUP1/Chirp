@@ -24,10 +24,14 @@ public sealed class CSVDatabase<T> : IDatabaseRepository<T>
         // Reading the CSV file is inspired by:
         // - https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp/34265869#34265869
         // - https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
-        var Sr = new StreamReader(fileName);
-        var Csv = new CsvReader(Sr, CultureInfo.InvariantCulture);
-        IEnumerable<T> Records = Csv.GetRecords<T>();
-        return Records;        
+        using (var Sr = new StreamReader(fileName))
+        using (var Csv = new CsvReader(Sr, CultureInfo.InvariantCulture))
+        {   
+            foreach (var record in Csv.GetRecords<T>())
+            {
+                yield return record;
+            }
+        }     
     }
     public void Store(T record)
     {

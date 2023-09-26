@@ -16,6 +16,9 @@ User manual:
 Test:
 In Chirp folder run the command: dotnet test
 
+Build:
+In Chirp folder run the command: dotnet build
+
 Run program:
 First start a server in one terminal by navigating to Chirp.CSVDBService
 In there run the command: dotnet run

@@ -13,25 +13,13 @@ public class UnitTest1
         //Arrange
         var baseURL = "http://localhost:5000";
         using HttpClient client = new();
-
         client.BaseAddress = new Uri(baseURL);
-
 
         //Act
         var response = await client.GetAsync("/cheeps");
 
-
         //Assert
-
-
-        //Assert.IsType<List<Cheep>>(response.Content.);
-        //Assert.IsType<JsonContent>(response.Content);
-        //Assert.IsType<List<Cheep>>(JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync()));
-
-
-        Assert.Equal(HttpStatusCode.OK,  response.StatusCode);
-
-
-
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode); // Test if the status code is 200
+        Assert.IsType<List<Cheep>>(await response.Content.ReadFromJsonAsync<IEnumerable<Cheep>>()); // Test if the response body is of type List<Cheep> (when deserialized from JSON)
     }
 }

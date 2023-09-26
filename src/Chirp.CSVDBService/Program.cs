@@ -1,4 +1,5 @@
 using SimpleDB;
+using Chirp.CLI;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,5 +12,3 @@ app.MapGet("/cheeps", () => cd.Read(10));
 app.MapPost("/cheep", (Cheep cheep) => cd.Store(cheep));
 
 app.Run();
-
-public record Cheep(string Author, string Message, long Timestamp);

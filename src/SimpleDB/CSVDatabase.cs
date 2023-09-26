@@ -24,6 +24,7 @@ public sealed class CSVDatabase<T> : IDatabaseRepository<T>
         // Reading the CSV file is inspired by:
         // - https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp/34265869#34265869
         // - https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
+        // - https://stackoverflow.com/questions/66601682/lazy-load-a-list-that-is-obtained-from-a-using-statement
         using (var Sr = new StreamReader(fileName))
         using (var Csv = new CsvReader(Sr, CultureInfo.InvariantCulture))
         {   

@@ -1,3 +1,5 @@
+namespace Chirp.SQLite;
+
 using System.Data;
 using Microsoft.Data.Sqlite;
 
@@ -7,7 +9,7 @@ public class DBFacade
     public static void Main()
     {
         // This is to be able to run 'dotnet run' to test if our desired methods works as intended in the terminal
-        foreach (CheepDataModel cdm in GetCheeps())
+        foreach (CheepDataModel cdm in GetDBCheeps())
         {
             Console.WriteLine($"Author = {cdm.Author}, Message = {cdm.Message}");
         }
@@ -15,13 +17,14 @@ public class DBFacade
 
     public record CheepDataModel(string Author, string Message, string Timestamp, string MessageID, string UserID, string Email);
 
-    public static List<CheepDataModel> GetCheeps()
+    public static List<CheepDataModel> GetDBCheeps()
     {
         var sqlDBFilePath = "/tmp/chirp.db";
 
         var sqlQuery = @"
         SELECT * FROM message m
         JOIN user u ON u.user_id = m.author_id
+        ORDER BY m.pub_date desc
         ";
 
         //Inspired by Helge's Chirp.SQLite project 

@@ -1,30 +1,50 @@
-// This entire file was taken from Helge
 using System.Data;
 using Microsoft.Data.Sqlite;
 
-var sqlDBFilePath = "/tmp/chirp.db";
-var sqlQuery = @"SELECT * FROM message ORDER by message.pub_date desc";
-
-using (var connection = new SqliteConnection($"Data Source={sqlDBFilePath}"))
+public class DBFacade
 {
-    connection.Open();
 
-    var command = connection.CreateCommand();
-    command.CommandText = sqlQuery;
-
-    using var reader = command.ExecuteReader();
-    while (reader.Read())
+    public static void Main()
     {
-        // https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqldatareader?view=dotnet-plat-ext-7.0#examples
-        var dataRecord = (IDataRecord)reader;
-        for (int i = 0; i < dataRecord.FieldCount; i++)
-            Console.WriteLine($"{dataRecord.GetName(i)}: {dataRecord[i]}");
+        // This is to be able to run 'dotnet run' to test if our desired methods works as intended in the terminal
+        foreach (CheepDataModel cdm in GetCheeps())
+        {
+            Console.WriteLine($"Author = {cdm.Author}, Message = {cdm.Message}");
+        }
+    }
 
-        // See https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqldatareader.getvalues?view=dotnet-plat-ext-7.0
-        // for documentation on how to retrieve complete columns from query results
-        Object[] values = new Object[reader.FieldCount];
-        int fieldCount = reader.GetValues(values);
-        for (int i = 0; i < fieldCount; i++)
-            Console.WriteLine($"{reader.GetName(i)}: {values[i]}");
+    public record CheepDataModel(string Author, string Message, string Timestamp, string MessageID, string UserID, string Email);
+
+    public static List<CheepDataModel> GetCheeps()
+    {
+        var sqlDBFilePath = "/tmp/chirp.db";
+
+        var sqlQuery = @"
+        SELECT * FROM message m
+        JOIN user u ON u.user_id = m.author_id
+        ";
+
+        //Inspired by Helge's Chirp.SQLite project 
+        using (var connection = new SqliteConnection($"Data Source={sqlDBFilePath}"))
+        {
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = sqlQuery;
+
+            using var reader = command.ExecuteReader();
+
+            var cheepList = new List<CheepDataModel>();
+
+            while (reader.Read())
+            {
+                // See https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqldatareader.getvalues?view=dotnet-plat-ext-7.0
+                // for documentation on how to retrieve complete columns from query results
+                Object[] values = new Object[reader.FieldCount];
+                reader.GetValues(values);
+                cheepList.Add(new CheepDataModel(Author: $"{values[5]}", Message: $"{values[2]}", Timestamp: $"{values[3]}", MessageID: $"{values[0]}", UserID: $"{values[1]}", Email: $"{values[6]}"));
+            }
+            return cheepList;
+        }
     }
 }

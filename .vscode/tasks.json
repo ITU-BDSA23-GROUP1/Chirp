@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Chirp.CLI/Chirp.CLI.csproj",
+                "${workspaceFolder}/Chirp.Razor/Chirp.Razor.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Chirp.CLI/Chirp.CLI.csproj",
+                "${workspaceFolder}/Chirp.Razor/Chirp.Razor.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Chirp.CLI/Chirp.CLI.csproj"
+                "${workspaceFolder}/Chirp.Razor/Chirp.Razor.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

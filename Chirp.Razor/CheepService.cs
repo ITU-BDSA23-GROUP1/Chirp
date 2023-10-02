@@ -4,19 +4,19 @@ public record CheepViewModel(string Author, string Message, string Timestamp);
 
 public interface ICheepService
 {
-    public List<CheepViewModel> GetCheeps();
+    public List<CheepViewModel> GetCheeps(int offset, int limit);
     public List<CheepViewModel> GetCheepsFromAuthor(string author);
 }
 
 public class CheepService : ICheepService
 {
-    public List<CheepViewModel> GetCheeps()
+    public List<CheepViewModel> GetCheeps(int offset, int limit)
     {
         //return _cheeps;
 
         List<CheepViewModel> cheeps = new();
 
-        foreach (DBFacade.CheepDataModel cdm in DBFacade.GetDBCheeps())
+        foreach (DBFacade.CheepDataModel cdm in DBFacade.GetDBCheeps(offset, limit))
         {
             cheeps.Add(new CheepViewModel(cdm.Author, cdm.Message, UnixTimeStampToDateTimeString(Convert.ToDouble(cdm.Timestamp))));
         }
@@ -28,7 +28,7 @@ public class CheepService : ICheepService
     public List<CheepViewModel> GetCheepsFromAuthor(string author)
     {
         // filter by the provided author name
-        return GetCheeps().Where(x => x.Author == author).ToList();
+        return GetCheeps(0, 32).Where(x => x.Author == author).ToList();
     }
 
     private static string UnixTimeStampToDateTimeString(double unixTimeStamp)

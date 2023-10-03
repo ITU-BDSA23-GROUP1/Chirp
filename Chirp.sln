@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Razor", "Chirp.Razor\Chirp.Razor.csproj", "{A10DF601-334C-4B52-B16C-A789AB2F079D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.SQLite", "Chirp.SQLite\Chirp.SQLite.csproj", "{A1EFFA61-13CA-4A35-8467-05416D27CA29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{A10DF601-334C-4B52-B16C-A789AB2F079D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A10DF601-334C-4B52-B16C-A789AB2F079D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A10DF601-334C-4B52-B16C-A789AB2F079D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1EFFA61-13CA-4A35-8467-05416D27CA29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1EFFA61-13CA-4A35-8467-05416D27CA29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1EFFA61-13CA-4A35-8467-05416D27CA29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1EFFA61-13CA-4A35-8467-05416D27CA29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

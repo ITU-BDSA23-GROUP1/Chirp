@@ -3,6 +3,16 @@
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
+    int NextPage = Model.PageNo;
+    if (NextPage < 2)
+    {
+        NextPage = 2;
+    }
+    else
+    {
+        NextPage = Model.PageNo + 1;
+    }
+    int PrevPage = Model.PageNo - 1;
 }
 
 <div>
@@ -16,7 +26,7 @@
                 <li>
                     <p>
                         <strong>
-                            <a href="/@cheep.Author">@cheep.Author</a>
+                            <a href="/@cheep.AuthorID">@cheep.Author</a>
                         </strong>
                         @cheep.Message
                         <small>&mdash; @cheep.Timestamp</small>
@@ -24,6 +34,14 @@
                 </li>
             }
         </ul>
+        <td>
+            @if (Model.PageNo >= 2)
+            {
+                <a href="/?page=@PrevPage">Previous Page</a>
+                <span>|</span>
+            }
+            <a href="/?page=@NextPage">Next Page</a>
+        </td>
     }
     else
     {

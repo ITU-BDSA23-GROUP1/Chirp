@@ -1,13 +1,13 @@
-﻿@page "/{author}"
+﻿@page "/{AuthorID}"
 @model Chirp.Razor.Pages.UserTimelineModel
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
-    var routeName = HttpContext.GetRouteValue("author");
+    var routeName = HttpContext.GetRouteValue("AuthorID");
 }
 
 <div>
-    <h2> @routeName's Timeline </h2>
+    <h2> @Model.Cheeps[0].Author Timeline </h2>
 
     @if (Model.Cheeps.Any())
     {
@@ -17,7 +17,7 @@
                 <li>
                     <p>
                         <strong>
-                            <a href="/@cheep.Author">@cheep.Author</a>
+                            <a href="/@cheep.AuthorID">@cheep.Author</a>
                         </strong>
                         @cheep.Message
                         <small>&mdash; @cheep.Timestamp</small>

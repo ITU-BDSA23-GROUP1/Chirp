@@ -1,34 +1,42 @@
 using Chirp.SQLite;
 
-public record CheepViewModel(string Author, string Message, string Timestamp);
+public record CheepViewModel(string Author, string Message, string Timestamp, string AuthorID);
 
 public interface ICheepService
 {
-    public List<CheepViewModel> GetCheeps(int offset, int limit);
-    public List<CheepViewModel> GetCheepsFromAuthor(string author);
+    public List<CheepViewModel> GetCheeps(int offset);
+    public List<CheepViewModel> GetCheepsFromAuthor(int offset, string author);
 }
 
 public class CheepService : ICheepService
 {
-    public List<CheepViewModel> GetCheeps(int offset, int limit)
+    public List<CheepViewModel> GetCheeps(int offset)
     {
         //return _cheeps;
 
         List<CheepViewModel> cheeps = new();
 
-        foreach (DBFacade.CheepDataModel cdm in DBFacade.GetDBCheeps(offset, limit))
+        foreach (DBFacade.CheepDataModel cdm in DBFacade.GetAllDBCheeps(offset))
         {
-            cheeps.Add(new CheepViewModel(cdm.Author, cdm.Message, UnixTimeStampToDateTimeString(Convert.ToDouble(cdm.Timestamp))));
+            cheeps.Add(new CheepViewModel(cdm.Author, cdm.Message, UnixTimeStampToDateTimeString(Convert.ToDouble(cdm.Timestamp)), cdm.UserID));
         }
 
         return cheeps;
 
     }
 
-    public List<CheepViewModel> GetCheepsFromAuthor(string author)
+    public List<CheepViewModel> GetCheepsFromAuthor(int offset, string author)
     {
         // filter by the provided author name
-        return GetCheeps(0, 32).Where(x => x.Author == author).ToList();
+
+        List<CheepViewModel> cheeps = new();
+
+        foreach (DBFacade.CheepDataModel cdm in DBFacade.GetAuthorDBCheeps(offset, author))
+        {
+            cheeps.Add(new CheepViewModel(cdm.Author, cdm.Message, UnixTimeStampToDateTimeString(Convert.ToDouble(cdm.Timestamp)), cdm.UserID));
+        }
+
+        return cheeps;
     }
 
     private static string UnixTimeStampToDateTimeString(double unixTimeStamp)

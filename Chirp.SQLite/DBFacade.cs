@@ -9,7 +9,7 @@ public class DBFacade
     public static void Main()
     {
         // This is to be able to run 'dotnet run' to test if our desired methods works as intended in the terminal
-        foreach (CheepDataModel cdm in GetDBCheeps(0, 32))
+        foreach (CheepDataModel cdm in GetAllDBCheeps(0))
         {
             Console.WriteLine($"Author = {cdm.Author}, Message = {cdm.Message}");
         }
@@ -17,16 +17,34 @@ public class DBFacade
 
     public record CheepDataModel(string Author, string Message, string Timestamp, string MessageID, string UserID, string Email);
 
-    public static List<CheepDataModel> GetDBCheeps(int offset, int limit)
+    public static List<CheepDataModel> GetAllDBCheeps(int offset)
     {
-        var sqlDBFilePath = "/tmp/chirp.db";
-
         var sqlQuery = @$"
         SELECT * FROM message m
         JOIN user u ON u.user_id = m.author_id
         ORDER BY m.pub_date desc
-        LIMIT {limit} OFFSET {offset}
+        LIMIT 32 OFFSET {offset}
         ";
+
+        return GetDBCheeps(sqlQuery);
+    }
+
+    public static List<CheepDataModel> GetAuthorDBCheeps(int offset, string author_id)
+    {
+        var sqlQuery = @$"
+        SELECT * FROM message m
+        JOIN user u ON u.user_id = m.author_id
+        WHERE m.author_id = {author_id}
+        ORDER BY m.pub_date desc
+        LIMIT 32 OFFSET {offset}
+        ";
+
+        return GetDBCheeps(sqlQuery);
+    }
+
+    private static List<CheepDataModel> GetDBCheeps(string query)
+    {
+        var sqlDBFilePath = "/tmp/chirp.db";
 
         //Inspired by Helge's Chirp.SQLite project 
         using (var connection = new SqliteConnection($"Data Source={sqlDBFilePath}"))
@@ -34,7 +52,7 @@ public class DBFacade
             connection.Open();
 
             var command = connection.CreateCommand();
-            command.CommandText = sqlQuery;
+            command.CommandText = query;
 
             using var reader = command.ExecuteReader();
 

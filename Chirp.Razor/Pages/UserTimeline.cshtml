@@ -4,6 +4,16 @@
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
     var routeName = HttpContext.GetRouteValue("AuthorID");
+    int NextPage = Model.PageNo;
+    if (NextPage < 2)
+    {
+        NextPage = 2;
+    }
+    else
+    {
+        NextPage = Model.PageNo + 1;
+    }
+    int PrevPage = Model.PageNo - 1;
 }
 
 <div>
@@ -25,6 +35,14 @@
                 </li>
             }
         </ul>
+        <td>
+            @if (Model.PageNo >= 2)
+            {
+                <a href="/@routeName/?page=@PrevPage">Previous Page</a>
+                <span>|</span>
+            }
+            <a href="/@routeName/?page=@NextPage">Next Page</a>
+        </td>
     }
     else
     {

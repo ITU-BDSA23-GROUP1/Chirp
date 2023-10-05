@@ -1,0 +1,9 @@
+public interface IRepository<T> where T : IAggregateRoot
+{
+    //....
+}
+
+public class CheepRepository<Cheep> : IRepository<Cheep>
+{
+
+}

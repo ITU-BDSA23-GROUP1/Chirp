@@ -1,9 +1,11 @@
-using Chirp.EF;
+using Microsoft.EntityFrameworkCore;
 
-public interface IRepository<out T, in TFilter>
+namespace Chirp.EF;
+
+public interface IRepository<T, in TFilter>
 {
-    public IEnumerable<T> Get(int offset);
-    public IEnumerable<T> GetByFilter(TFilter attribute, int offset);
+    public Task<IEnumerable<T>> Get(int offset);
+    public Task<IEnumerable<T>> GetByFilter(TFilter attribute, int offset);
 }
 
 public class CheepRepository : IRepository<Cheep, Author>
@@ -11,9 +13,10 @@ public class CheepRepository : IRepository<Cheep, Author>
 
     private readonly CheepContext context;
 
-    public CheepRepository(OrderingContext context)
+    public CheepRepository()
     {
-        context = context ?? throw new ArgumentNullException(nameof(context));
+        context = new CheepContext();
+        //?? throw new ArgumentNullException(nameof(context));
     }
 
     public Cheep Add(Cheep cheep)
@@ -21,20 +24,19 @@ public class CheepRepository : IRepository<Cheep, Author>
         return context.cheeps.Add(cheep).Entity;
     }
 
-    public async Task<Cheep> GetCheepsAsync(int offset)
+    public async Task<IEnumerable<Cheep>> Get(int offset)
     {
-        var cheeps = await
+        var cheeps = await context.cheeps.Take(32).Skip(offset).Select(c => new Cheep(author: new Author(authorID: c.author.authorID, name: c.author.name, email: c.author.email), text: c.text, timeStamp: c.timeStamp)).ToListAsync();
 
-            .From c in context.cheeps
-            .limit(32).offset(offset)
+            /*.limit(32).offset(offset)
             .Select(new Cheep(author: new Author(authorID: c.author.authorID, name: c.author.name, email: c.author.email), text: c.text, timeStamp: c.timeStamp))
-            .ToListAsync()
+            .ToListAsync()*/
 
             return cheeps;
     }
 
 
-    public async Task<Cheep> GetCheepsByAuthorAsync(string authorID, int offset)
+    public async Task<IEnumerable<Cheep>> GetByFilter(Author author, int offset)
     {
         var cheeps = await
 

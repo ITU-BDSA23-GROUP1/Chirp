@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.EF;
@@ -26,27 +27,49 @@ public class CheepRepository : IRepository<Cheep, Author>
 
     public async Task<IEnumerable<Cheep>> Get(int offset)
     {
-        var cheeps = await context.cheeps.Take(32).Skip(offset).Select(c => new Cheep(author: new Author(authorID: c.author.authorID, name: c.author.name, email: c.author.email), text: c.text, timeStamp: c.timeStamp)).ToListAsync();
+        var cheeps = await context.cheeps
+            .Take(32)
+            .Skip(offset)
+            .Select(c => new Cheep
+            {
+                cheepID = c.cheepID,
+                text = c.text,
+                timeStamp = c.timeStamp,
+                author = new Author
+                {
+                    authorID = c.author.authorID,
+                    name = c.author.name,
+                    email = c.author.email
+                },
+            })
+            .ToListAsync();
 
-            /*.limit(32).offset(offset)
-            .Select(new Cheep(author: new Author(authorID: c.author.authorID, name: c.author.name, email: c.author.email), text: c.text, timeStamp: c.timeStamp))
-            .ToListAsync()*/
 
-            return cheeps;
+        return cheeps;
     }
 
 
     public async Task<IEnumerable<Cheep>> GetByFilter(Author author, int offset)
     {
-        var cheeps = await
+        var cheeps = await context.cheeps
+            .Take(32)
+            .Skip(offset)
+            .Select(c => new Cheep
+            {
+                cheepID = c.cheepID,
+                text = c.text,
+                timeStamp = c.timeStamp,
+                author = new Author
+                {
+                    authorID = c.author.authorID,
+                    name = c.author.name,
+                    email = c.author.email
+                },
+            })
+        .Where(c => c.author.authorID == author.authorID)
+        .ToListAsync();
 
-            .From c in context.cheeps
-            .limit(32).offset(offset)
-            .Where(c => c.authorID == authorID)
-            .Select(new Cheep(author: new Author(authorID: c.author.authorID, name: c.author.name, email: c.author.email), text: c.text, timeStamp: c.timeStamp))
-            .ToListAsync()
-
-            return cheeps;
+        return cheeps;
     }
 
 

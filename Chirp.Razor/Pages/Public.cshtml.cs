@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Chirp.EF;
 
 namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
 {
-    private readonly ICheepService _service;
-    public List<CheepViewModel> Cheeps { get; set; }
+    private readonly IRepository<Cheep, Author> _service;
+    public List<Cheep> Cheeps { get; set; }
 
-    public PublicModel(ICheepService service)
+    public PublicModel(IRepository<Cheep, Author> service)
     {
         _service = service;
     }
@@ -16,9 +17,10 @@ public class PublicModel : PageModel
     [FromQuery(Name = "page")]
     public int PageNo {get; set;}
     
-    public ActionResult OnGet()
-    {
-        Cheeps = _service.GetCheeps((PageNo-1)*32);
-        return Page();
-    }
+    public async Task<IActionResult> OnGetAsync()
+{
+    var cheeps = await _service.Get((PageNo - 1) * 32);
+    Cheeps = cheeps.ToList();
+    return Page();
+}
 }

@@ -17,6 +17,10 @@ public class CheepRepository : IRepository<Cheep, Author>
     public CheepRepository()
     {
         context = new CheepContext();
+        context.Add(new Cheep 
+            { text = "Hello World!", timeStamp = DateTime.Now, 
+            author = new Author { name = "John Doe", email = "mgon@itu.dk" } });
+        context.SaveChanges();
         //?? throw new ArgumentNullException(nameof(context));
     }
 

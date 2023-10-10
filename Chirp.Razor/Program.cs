@@ -14,7 +14,11 @@ var app = builder.Build();
 using (var sp = app.Services.CreateScope())
 using (var context = sp.ServiceProvider.GetRequiredService<ChirpDBContext>())
 {
-    if (context.Database.IsRelational()) context.Database.Migrate();
+    if (context.Database.IsRelational()) 
+    {
+        context.Database.Migrate();
+    }
+    DbInitializer.SeedDatabase(context);
 }
 
 // Configure the HTTP request pipeline.

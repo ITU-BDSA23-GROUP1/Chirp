@@ -6,10 +6,10 @@ namespace Chirp.Razor.Pages;
 
 public class UserTimelineModel : PageModel
 {
-    private readonly IRepository<Cheep, string> _service;
-    public List<Cheep> Cheeps { get; set; }
+    private readonly IRepository<CheepDTO, string> _service;
+    public List<CheepDTO> Cheeps { get; set; }
 
-    public UserTimelineModel(IRepository<Cheep, string> service)
+    public UserTimelineModel(IRepository<CheepDTO, string> service)
     {
         _service = service;
     }

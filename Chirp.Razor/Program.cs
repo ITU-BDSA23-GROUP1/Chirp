@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics;
-using System.IO;
 using Chirp.EF;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
-builder.Services.AddSingleton<IRepository<Cheep, string>, CheepRepository>();
+builder.Services.AddSingleton<IRepository<CheepDTO, string>, CheepRepository>();
 
 
 var app = builder.Build();

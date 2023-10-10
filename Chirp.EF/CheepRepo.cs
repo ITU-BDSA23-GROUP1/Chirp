@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.EF;
@@ -9,7 +8,7 @@ public interface IRepository<T, in Tstring>
     public Task<IEnumerable<T>> GetByFilter(string attribute, int offset);
 }
 
-public class CheepRepository : IRepository<Cheep, string>
+public class CheepRepository : IRepository<CheepDTO, string>
 {
 
     private readonly CheepContext context;
@@ -29,21 +28,19 @@ public class CheepRepository : IRepository<Cheep, string>
         return context.cheeps.Add(cheep).Entity;
     }
 
-    public async Task<IEnumerable<Cheep>> Get(int offset)
+    public async Task<IEnumerable<CheepDTO>> Get(int offset)
     {
         var cheeps = await context.cheeps
             .Take(32)
             .Skip(offset)
-            .Select(c => new Cheep
+            .Select(c => new CheepDTO
             {
-                cheepID = c.cheepID,
                 text = c.text,
                 timeStamp = c.timeStamp,
-                author = new Author
+                author = new AuthorDTO
                 {
                     authorID = c.author.authorID,
                     name = c.author.name,
-                    email = c.author.email
                 },
             })
             .ToListAsync();
@@ -53,21 +50,19 @@ public class CheepRepository : IRepository<Cheep, string>
     }
 
 
-    public async Task<IEnumerable<Cheep>> GetByFilter(string authorID, int offset)
+    public async Task<IEnumerable<CheepDTO>> GetByFilter(string authorID, int offset)
     {
         var cheeps = await context.cheeps
             .Take(32)
             .Skip(offset)
-            .Select(c => new Cheep
+            .Select(c => new CheepDTO
             {
-                cheepID = c.cheepID,
                 text = c.text,
                 timeStamp = c.timeStamp,
-                author = new Author
+                author = new AuthorDTO
                 {
                     authorID = c.author.authorID,
                     name = c.author.name,
-                    email = c.author.email
                 },
             })
         .Where(c => c.author.authorID == Int32.Parse(authorID))

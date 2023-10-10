@@ -6,10 +6,10 @@ namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
 {
-    private readonly IRepository<Cheep, Author> _service;
+    private readonly IRepository<Cheep, string> _service;
     public List<Cheep> Cheeps { get; set; }
 
-    public PublicModel(IRepository<Cheep, Author> service)
+    public PublicModel(IRepository<Cheep, string> service)
     {
         _service = service;
     }

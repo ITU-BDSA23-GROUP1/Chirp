@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Razor", "Chirp.Razor\Chirp.Razor.csproj", "{A10DF601-334C-4B52-B16C-A789AB2F079D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.SQLite", "Chirp.SQLite\Chirp.SQLite.csproj", "{A1EFFA61-13CA-4A35-8467-05416D27CA29}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.EF", "Chirp.EF\Chirp.EF.csproj", "{1756972E-4E09-4317-A206-AA91691454DD}"
 EndProject
 Global

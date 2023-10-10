@@ -46,6 +46,7 @@ public class CheepRepository : IRepository<CheepDTO, string>
                     name = c.Author.Name,
                 },
             })
+            .OrderByDescending(c => c.timeStamp)
             .ToListAsync();
 
 
@@ -69,6 +70,7 @@ public class CheepRepository : IRepository<CheepDTO, string>
                 },
             })
         .Where(c => c.author.authorID == Int32.Parse(authorID))
+        .OrderByDescending(c => c.timeStamp)
         .ToListAsync();
 
         return cheeps;

@@ -13,9 +13,9 @@ public class CheepRepository : IRepository<CheepDTO, string>
 
     private readonly CheepContext context;
 
-    public CheepRepository()
+    public CheepRepository(CheepContext context)
     {
-        context = new CheepContext();
+        this.context = context;
         context.Add(new Cheep 
             { text = "Hello World!", timeStamp = DateTime.Now, 
             author = new Author { name = "John Doe", email = "mgon@itu.dk" } });

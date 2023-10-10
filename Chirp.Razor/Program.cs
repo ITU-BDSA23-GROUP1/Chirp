@@ -1,14 +1,21 @@
 using Chirp.EF;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
-builder.Services.AddSingleton<IRepository<CheepDTO, string>, CheepRepository>();
-
+builder.Services.AddTransient<IRepository<CheepDTO, string>, CheepRepository>();
+builder.Services.AddDbContext<CheepContext>(options =>
+    options.UseSqlite("Data Source=Chirp.db"));
 
 var app = builder.Build();
+using (var sp = app.Services.CreateScope())
+using (var context = sp.ServiceProvider.GetRequiredService<CheepContext>())
+{
+    if(context.Database.IsRelational())    context.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

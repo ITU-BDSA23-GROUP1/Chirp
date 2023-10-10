@@ -6,20 +6,8 @@ public class CheepContext : DbContext
     public DbSet<Cheep> cheeps { get; set; }
     public DbSet<Author> authors { get; set; }
 
-    public string DbPath { get; }
+    public CheepContext(DbContextOptions<CheepContext> options) : base(options){}
 
-    public CheepContext()
-    {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "cheep.db");
-        System.Console.WriteLine(DbPath);
-    }
-
-    // The following configures EF to create a Sqlite database file in the
-    // special "local" folder for your platform.
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
 }
 public class Cheep
 {

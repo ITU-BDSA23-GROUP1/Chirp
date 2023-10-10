@@ -3,12 +3,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.IO;
+using Chirp.EF;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<ICheepService, CheepService>();
+//builder.Services.AddSingleton<ICheepService, CheepService>();
+builder.Services.AddSingleton<IRepository<Cheep, string>, CheepRepository>();
 
 
 var app = builder.Build();
@@ -21,7 +23,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-string scriptPath = "../Chirp.SQLite/scripts/initDB.sh";
+/*string scriptPath = "../Chirp.SQLite/scripts/initDB.sh";
 
         // Check if the script file exists
         if (File.Exists(scriptPath))
@@ -50,7 +52,9 @@ string scriptPath = "../Chirp.SQLite/scripts/initDB.sh";
         else
         {
             // Handle the case where the script file doesn't exist
-}
+}*/
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

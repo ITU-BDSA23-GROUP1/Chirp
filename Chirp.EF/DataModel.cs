@@ -1,12 +1,12 @@
 ﻿namespace Chirp.EF;
 using Microsoft.EntityFrameworkCore;
 
-public class CheepContext : DbContext
+public class ChirpDBContext : DbContext
 {
     public DbSet<Cheep> cheeps { get; set; }
     public DbSet<Author> authors { get; set; }
 
-    public CheepContext(DbContextOptions<CheepContext> options) : base(options){}
+    public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) { }
 
 }
 public class Cheep

@@ -11,14 +11,17 @@ public interface IRepository<T, in Tstring>
 public class CheepRepository : IRepository<CheepDTO, string>
 {
 
-    private readonly CheepContext context;
+    private readonly ChirpDBContext context;
 
-    public CheepRepository(CheepContext context)
+    public CheepRepository(ChirpDBContext context)
     {
         this.context = context;
-        context.Add(new Cheep 
-            { text = "Hello World!", timeStamp = DateTime.Now, 
-            author = new Author { name = "John Doe", email = "mgon@itu.dk" } });
+        context.Add(new Cheep
+        {
+            text = "Hello World!",
+            timeStamp = DateTime.Now,
+            author = new Author { name = "John Doe", email = "mgon@itu.dk" }
+        });
         context.SaveChanges();
         //?? throw new ArgumentNullException(nameof(context));
     }

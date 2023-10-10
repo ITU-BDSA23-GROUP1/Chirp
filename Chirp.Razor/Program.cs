@@ -7,14 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddTransient<IRepository<CheepDTO, string>, CheepRepository>();
-builder.Services.AddDbContext<CheepContext>(options =>
+builder.Services.AddDbContext<ChirpDBContext>(options =>
     options.UseSqlite("Data Source=Chirp.db"));
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())
-using (var context = sp.ServiceProvider.GetRequiredService<CheepContext>())
+using (var context = sp.ServiceProvider.GetRequiredService<ChirpDBContext>())
 {
-    if(context.Database.IsRelational())    context.Database.Migrate();
+    if (context.Database.IsRelational()) context.Database.Migrate();
 }
 
 // Configure the HTTP request pipeline.

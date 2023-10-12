@@ -18,9 +18,9 @@ public class CheepRepository : IRepository<CheepDTO, string>
         this.context = context;
         context.Add(new Cheep
         {
-            text = "Hello World!",
-            timeStamp = DateTime.Now,
-            author = new Author { name = "John Doe", email = "mgon@itu.dk" }
+            Text = "Hello World!",
+            TimeStamp = DateTime.Now,
+            Author = new Author { Name = "John Doe", Email = "mgon@itu.dk" }
         });
         context.SaveChanges();
         //?? throw new ArgumentNullException(nameof(context));
@@ -28,24 +28,25 @@ public class CheepRepository : IRepository<CheepDTO, string>
 
     public Cheep Add(Cheep cheep)
     {
-        return context.cheeps.Add(cheep).Entity;
+        return context.Cheeps.Add(cheep).Entity;
     }
 
     public async Task<IEnumerable<CheepDTO>> Get(int offset)
     {
-        var cheeps = await context.cheeps
+        var cheeps = await context.Cheeps
             .Take(32)
             .Skip(offset)
             .Select(c => new CheepDTO
             {
-                text = c.text,
-                timeStamp = c.timeStamp,
+                text = c.Text,
+                timeStamp = c.TimeStamp,
                 author = new AuthorDTO
                 {
-                    authorID = c.author.authorID,
-                    name = c.author.name,
+                    authorID = c.Author.AuthorId,
+                    name = c.Author.Name,
                 },
             })
+            .OrderByDescending(c => c.timeStamp)
             .ToListAsync();
 
 
@@ -55,20 +56,21 @@ public class CheepRepository : IRepository<CheepDTO, string>
 
     public async Task<IEnumerable<CheepDTO>> GetByFilter(string authorID, int offset)
     {
-        var cheeps = await context.cheeps
+        var cheeps = await context.Cheeps
             .Take(32)
             .Skip(offset)
             .Select(c => new CheepDTO
             {
-                text = c.text,
-                timeStamp = c.timeStamp,
+                text = c.Text,
+                timeStamp = c.TimeStamp,
                 author = new AuthorDTO
                 {
-                    authorID = c.author.authorID,
-                    name = c.author.name,
+                    authorID = c.Author.AuthorId,
+                    name = c.Author.Name,
                 },
             })
         .Where(c => c.author.authorID == Int32.Parse(authorID))
+        .OrderByDescending(c => c.timeStamp)
         .ToListAsync();
 
         return cheeps;

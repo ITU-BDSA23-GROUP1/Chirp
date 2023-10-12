@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 public class ChirpDBContext : DbContext
 {
-    public DbSet<Cheep> cheeps { get; set; }
-    public DbSet<Author> authors { get; set; }
+    public DbSet<Cheep> Cheeps { get; set; }
+    public DbSet<Author> Authors { get; set; }
 
     public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) { }
 
@@ -12,18 +12,18 @@ public class ChirpDBContext : DbContext
 
 public class Cheep
 {
-    public int cheepID { get; set; }
-    public string text { get; set; }
-    public DateTime timeStamp { get; set; }
-    public Author author { get; set; }
+    public int CheepId { get; set; }
+    public string Text { get; set; }
+    public DateTime TimeStamp { get; set; }
+    public int AuthorId { get; set; }
+    public Author Author { get; set; }
 
 }
 
 public class Author
 {
-    public int authorID { get; set; }
-    public string name { get; set; }
-    public string email { get; set; }
-    public List<Cheep> cheeps { get; } = new();
-
+    public int AuthorId { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public List<Cheep> Cheeps { get; set; }
 }

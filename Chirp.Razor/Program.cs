@@ -22,7 +22,11 @@ var app = builder.Build();
 using (var sp = app.Services.CreateScope())
 using (var context = sp.ServiceProvider.GetRequiredService<ChirpDBContext>())
 {
-    if (context.Database.IsRelational()) context.Database.Migrate();
+    if (context.Database.IsRelational()) 
+    {
+        context.Database.Migrate();
+    }
+    DbInitializer.SeedDatabase(context);
 }
 
 // Configure the HTTP request pipeline.
@@ -32,39 +36,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-/*string scriptPath = "../Chirp.SQLite/scripts/initDB.sh";
-
-        // Check if the script file exists
-        if (File.Exists(scriptPath))
-        {
-            // Create a process to run the script
-            Process process = new Process();
-            process.StartInfo.FileName = "bash"; // Use the appropriate shell (e.g., "bash" for a Bash script)
-            process.StartInfo.Arguments = scriptPath;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-
-            // Start the process
-            process.Start();
-
-            // Optionally, read and log the script's output
-            string output = process.StandardOutput.ReadToEnd();
-            Console.WriteLine(output);
-            // Log or handle the output as needed
-
-            // Wait for the process to finish
-            process.WaitForExit();
-
-            // Close the process
-            process.Close();
-        }
-        else
-        {
-            // Handle the case where the script file doesn't exist
-}*/
-
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

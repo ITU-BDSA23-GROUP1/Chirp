@@ -7,8 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddTransient<IRepository<CheepDTO, string>, CheepRepository>();
+
+
+var dbFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Chirp");
+if (!Directory.Exists(dbFolder)) 
+{
+    Directory.CreateDirectory(dbFolder);
+}
 builder.Services.AddDbContext<ChirpDBContext>(options =>
-    options.UseSqlite("Data Source=Chirp.db"));
+    options.UseSqlite($"Data Source={Path.Combine(dbFolder, "Chirp.db")}"));
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())

@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Chirp.EF;
+using Chirp.Infrastructure;
+using Chirp.Core;
 
 namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
 {
-    private readonly IRepository<CheepDTO, string> _service;
+    private readonly ICheepRepository<CheepDTO, string> _service;
     public List<CheepDTO> Cheeps { get; set; }
 
-    public PublicModel(IRepository<CheepDTO, string> service)
+    public PublicModel(ICheepRepository<CheepDTO, string> service)
     {
         _service = service;
     }

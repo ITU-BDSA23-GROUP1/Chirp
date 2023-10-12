@@ -1,14 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+namespace Chirp.Infrastructure;
+using Chirp.Core;
 
-namespace Chirp.EF;
-
-public interface IRepository<T, in Tstring>
-{
-    public Task<IEnumerable<T>> Get(int offset);
-    public Task<IEnumerable<T>> GetByFilter(string attribute, int offset);
-}
-
-public class CheepRepository : IRepository<CheepDTO, string>
+public class CheepRepository : ICheepRepository<CheepDTO, string>
 {
 
     private readonly ChirpDBContext context;

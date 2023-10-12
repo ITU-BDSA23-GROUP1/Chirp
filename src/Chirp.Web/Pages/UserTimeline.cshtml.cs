@@ -1,15 +1,16 @@
-﻿using Chirp.EF;
+﻿using Chirp.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Chirp.Core;
 
 namespace Chirp.Razor.Pages;
 
 public class UserTimelineModel : PageModel
 {
-    private readonly IRepository<CheepDTO, string> _service;
+    private readonly ICheepRepository<CheepDTO, string> _service;
     public List<CheepDTO> Cheeps { get; set; }
 
-    public UserTimelineModel(IRepository<CheepDTO, string> service)
+    public UserTimelineModel(ICheepRepository<CheepDTO, string> service)
     {
         _service = service;
     }

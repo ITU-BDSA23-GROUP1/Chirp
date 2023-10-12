@@ -1,4 +1,4 @@
-namespace Chirp.EF;
+namespace Chirp.Core;
 
 public class CheepDTO
 {
@@ -12,6 +12,6 @@ public class AuthorDTO
 {
     public int authorID { get; set; }
     public string name { get; set; }
-    public List<Cheep> cheeps { get; } = new();
+    public List<CheepDTO> cheeps { get; } = new();
 
 }

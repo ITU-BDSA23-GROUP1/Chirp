@@ -1,4 +1,4 @@
-namespace Chirp.EF;
+using Chirp.Infrastructure;
 
 public static class DbInitializer
 {

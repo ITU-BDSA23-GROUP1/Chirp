@@ -1,4 +1,4 @@
-﻿namespace Chirp.EF;
+﻿namespace Chirp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 public class ChirpDBContext : DbContext

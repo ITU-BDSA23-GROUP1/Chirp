@@ -1,6 +1,6 @@
-using Chirp.EF;
+using Chirp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-
+using Chirp.Core;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +14,7 @@ builder.Services.AddDbContext<ChirpDBContext>(options =>
 
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
-builder.Services.AddScoped<IRepository<CheepDTO, string>, CheepRepository>();
+builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 
 
 

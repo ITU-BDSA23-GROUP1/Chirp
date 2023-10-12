@@ -46,7 +46,7 @@ public class CheepRepository : IRepository<CheepDTO, string>
     }
 
 
-    public async Task<IEnumerable<CheepDTO>> GetByFilter(string authorID, int offset)
+    public async Task<IEnumerable<CheepDTO>> GetByFilter(string authorName, int offset)
     {
         var cheeps = await context.Cheeps
             .OrderByDescending(c => c.TimeStamp)
@@ -60,7 +60,7 @@ public class CheepRepository : IRepository<CheepDTO, string>
                     name = c.Author.Name,
                 },
             })
-        .Where(c => c.author.authorID == Int32.Parse(authorID))
+        .Where(c => c.author.name == authorName)
         .Skip(offset)
         .Take(32)
         .ToListAsync();

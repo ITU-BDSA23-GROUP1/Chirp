@@ -4,18 +4,19 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
-//builder.Services.AddSingleton<ICheepService, CheepService>();
-builder.Services.AddTransient<IRepository<CheepDTO, string>, CheepRepository>();
-
-
-var dbFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Chirp");
-if (!Directory.Exists(dbFolder)) 
+var dbFolder = Path.Join(Path.GetTempPath(), "Chirp");
+if (!Directory.Exists(dbFolder))
 {
     Directory.CreateDirectory(dbFolder);
 }
 builder.Services.AddDbContext<ChirpDBContext>(options =>
     options.UseSqlite($"Data Source={Path.Combine(dbFolder, "Chirp.db")}"));
+
+builder.Services.AddRazorPages();
+//builder.Services.AddSingleton<ICheepService, CheepService>();
+builder.Services.AddScoped<IRepository<CheepDTO, string>, CheepRepository>();
+
+
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())

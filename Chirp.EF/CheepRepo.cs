@@ -50,8 +50,6 @@ public class CheepRepository : IRepository<CheepDTO, string>
     {
         var cheeps = await context.Cheeps
             .OrderByDescending(c => c.TimeStamp)
-            .Skip(offset)
-            .Take(32)
             .Select(c => new CheepDTO
             {
                 text = c.Text,
@@ -63,6 +61,8 @@ public class CheepRepository : IRepository<CheepDTO, string>
                 },
             })
         .Where(c => c.author.authorID == Int32.Parse(authorID))
+        .Skip(offset)
+        .Take(32)
         .ToListAsync();
 
         return cheeps;

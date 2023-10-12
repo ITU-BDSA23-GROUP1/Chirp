@@ -16,9 +16,9 @@ public class UserTimelineModel : PageModel
 
     [FromQuery(Name = "page")]
     public int PageNo {get; set;}
-    public async Task<IActionResult> OnGetAsync(string AuthorID)
+    public async Task<IActionResult> OnGetAsync(string AuthorName)
     {
-        var cheeps = await _service.GetByFilter(AuthorID, (PageNo-1)*32);
+        var cheeps = await _service.GetByFilter(AuthorName, (PageNo-1)*32);
         Cheeps = cheeps.ToList();
         return Page();
     }

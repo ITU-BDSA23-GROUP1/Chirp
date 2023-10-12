@@ -16,14 +16,6 @@ public class CheepRepository : IRepository<CheepDTO, string>
     public CheepRepository(ChirpDBContext context)
     {
         this.context = context;
-        context.Add(new Cheep
-        {
-            Text = "Hello World!",
-            TimeStamp = DateTime.Now,
-            Author = new Author { Name = "John Doe", Email = "mgon@itu.dk" }
-        });
-        context.SaveChanges();
-        //?? throw new ArgumentNullException(nameof(context));
     }
 
     public Cheep Add(Cheep cheep)
@@ -34,8 +26,9 @@ public class CheepRepository : IRepository<CheepDTO, string>
     public async Task<IEnumerable<CheepDTO>> Get(int offset)
     {
         var cheeps = await context.Cheeps
-            .Take(32)
+            .OrderByDescending(c => c.TimeStamp)
             .Skip(offset)
+            .Take(32)
             .Select(c => new CheepDTO
             {
                 text = c.Text,
@@ -46,7 +39,6 @@ public class CheepRepository : IRepository<CheepDTO, string>
                     name = c.Author.Name,
                 },
             })
-            .OrderByDescending(c => c.timeStamp)
             .ToListAsync();
 
 
@@ -57,8 +49,9 @@ public class CheepRepository : IRepository<CheepDTO, string>
     public async Task<IEnumerable<CheepDTO>> GetByFilter(string authorID, int offset)
     {
         var cheeps = await context.Cheeps
-            .Take(32)
+            .OrderByDescending(c => c.TimeStamp)
             .Skip(offset)
+            .Take(32)
             .Select(c => new CheepDTO
             {
                 text = c.Text,
@@ -70,7 +63,6 @@ public class CheepRepository : IRepository<CheepDTO, string>
                 },
             })
         .Where(c => c.author.authorID == Int32.Parse(authorID))
-        .OrderByDescending(c => c.timeStamp)
         .ToListAsync();
 
         return cheeps;

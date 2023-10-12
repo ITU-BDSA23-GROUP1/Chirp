@@ -9,6 +9,7 @@ public class ChirpDBContext : DbContext
     public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) { }
 
 }
+
 public class Cheep
 {
     public int cheepID { get; set; }

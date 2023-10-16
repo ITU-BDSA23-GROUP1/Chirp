@@ -4,7 +4,7 @@ using Chirp.Web;
 
 namespace Chirp.Web.Tests;
 
-public class UnitTest1
+public class UnitTestsWeb
 {
     [Fact]
     public void AddCheep_CheckCheepEntity()

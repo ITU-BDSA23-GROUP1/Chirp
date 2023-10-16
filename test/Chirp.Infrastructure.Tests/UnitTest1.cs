@@ -1,4 +1,4 @@
-namespace Chirp.Infrastructure.Tests;
+namespace Chirp.Tests.Infrastructure;
 using Chirp.Infrastructure;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -6,18 +6,17 @@ using Microsoft.EntityFrameworkCore;
 public class UnitTestsInfrastructure
 {
     [Fact]
-    public void AddCheep_CheckCheepEntity()
+    public async void AddCheep_CheckCheepEntity()
     {
         //Arrange
-        /*using SqliteConnection connection = new("Filename=:memory:");
+        using var connection = new SqliteConnection("Filename=:memory:");
         connection.Open();
         var builder = new DbContextOptionsBuilder<ChirpDBContext>().UseSqlite(connection);
-        using var context = new ChirpDBContext.ChirpDBContext(builder.Options);
+        using var context = new ChirpDBContext(builder.Options);
         await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
-        var repository = new AuthorRepository(context);*/
+        var repository = new CheepRepository(context);
 
         //Act
-
 
         //Assert
 

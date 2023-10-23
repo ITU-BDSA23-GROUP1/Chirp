@@ -10,11 +10,6 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         this.context = context;
     }
 
-    public Cheep Add(Cheep cheep)
-    {
-        return context.Cheeps.Add(cheep).Entity;
-    }
-
     public async Task<IEnumerable<CheepDTO>> Get(int offset)
     {
         var cheeps = await context.Cheeps
@@ -90,30 +85,42 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         return author;
     }
 
-    public AuthorDTO CreateAuthor(int authorID, string name)
+    private Author FindAuthorByAuthorDTO(AuthorDTO authorDTO)
     {
-        var author = new AuthorDTO
-        {
-            authorID = authorID,
-            name = name,     
-            };
+        var author = context.Authors
+            .Where(a => a.AuthorId == authorDTO.authorID)
+            .FirstOrDefault();
 
         return author;
     }
 
-    public CheepDTO CreateCheep(string text, DateTime timeStamp, AuthorDTO author)
+    public Author CreateAuthor(int authorID, string name, string email)
     {
-        AuthorDTO checkAuthor = FindAuthorByName(author.name).Result;
-        if (FindAuthorByName(author.name) == null)
+        var author = new Author
         {
-            checkAuthor = CreateAuthor(author.authorID, author.name); 
+            AuthorId = authorID,
+            Name = name,
+            Email = email,
+            Cheeps = new List<Cheep>()
+        };
+        return context.Authors.Add(author).Entity;
+    }
+
+    public Cheep CreateCheep(int CheepId, string text, DateTime timeStamp, int AuthorId, Author author)
+    {
+        Author checkAuthor = FindAuthorByAuthorDTO(FindAuthorByName(author.Name).Result);
+        if (FindAuthorByName(author.Name) == null)
+        {
+            checkAuthor = CreateAuthor(author.AuthorId, author.Name, author.Email); 
         }
 
-        var cheep = new CheepDTO
+        var cheep = new Cheep
         {
-            text = text,
-            timeStamp = timeStamp,
-            author = checkAuthor
+            Text = text,
+            TimeStamp = timeStamp,
+            Author = checkAuthor,
+            CheepId = CheepId,
+            AuthorId = AuthorId
         };
 
         return cheep;

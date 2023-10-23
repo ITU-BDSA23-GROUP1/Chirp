@@ -9,20 +9,24 @@ Co-authored-by: Alex <alebj@itu.dk>
 
 
 
-// Husk at noter at test er navnviget og arrangeret ud fra microsoft anbefalinger
+// Husk at noter at test er navngivet og arrangeret ud fra microsoft anbefalinger
 // link: https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test
 
 ### User manual:
 
-Load scripts:
-Navigate to Chirp/Chirp.SQLite/scripts and run the command: 
-./initDB.sh
+Changing migrations:
+Step 1: Delete current migrations
+Step 2: Navigate to src/Chirp.Infrastructure
+Step 3: Write in terminal "dotnet-ef migrations add InitialCreate --startup-project ../Chirp.Web/Chirp.Web.csproj"
 
 Build:
 In Chirp folder run the command: dotnet build
 
 Run program:
-Navigate to Chirp/Chirp.Razor and run the command: dotnet run 
+Navigate to src/Chirp.Web and run the command: dotnet run 
+
+Test program:
+In Chirp folder run the command: dotnet test
 
 The program runs on http://localhost:5000 
 (The public timeline, page 1 with the latest 32 cheeps are shown as default)

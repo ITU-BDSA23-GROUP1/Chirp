@@ -10,11 +10,6 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         this.context = context;
     }
 
-    public Cheep Add(Cheep cheep)
-    {
-        return context.Cheeps.Add(cheep).Entity;
-    }
-
     public async Task<IEnumerable<CheepDTO>> Get(int offset)
     {
         var cheeps = await context.Cheeps
@@ -23,12 +18,13 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             .Take(32)
             .Select(c => new CheepDTO
             {
-                text = c.Text,
-                timeStamp = c.TimeStamp,
-                author = new AuthorDTO
+                Text = c.Text,
+                TimeStamp = c.TimeStamp,
+                Author = new AuthorDTO
                 {
-                    authorID = c.Author.AuthorId,
-                    name = c.Author.Name,
+                    AuthorId = c.Author.AuthorId,
+                    Name = c.Author.Name,
+                    Email = c.Author.Email
                 },
             })
             .ToListAsync();
@@ -44,15 +40,16 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             .OrderByDescending(c => c.TimeStamp)
             .Select(c => new CheepDTO
             {
-                text = c.Text,
-                timeStamp = c.TimeStamp,
-                author = new AuthorDTO
+                Text = c.Text,
+                TimeStamp = c.TimeStamp,
+                Author = new AuthorDTO
                 {
-                    authorID = c.Author.AuthorId,
-                    name = c.Author.Name,
+                    AuthorId = c.Author.AuthorId,
+                    Name = c.Author.Name,
+                    Email = c.Author.Email
                 },
             })
-        .Where(c => c.author.name == authorName)
+        .Where(c => c.Author.Name == authorName)
         .Skip(offset)
         .Take(32)
         .ToListAsync();
@@ -61,14 +58,15 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
     }
 
 
-    public async Task<AuthorDTO> FindAuthorByName(string name) 
+    public async Task<AuthorDTO> FindAuthorByName(string name)
     {
         var author = await context.Authors
             .Where(a => a.Name == name)
             .Select(a => new AuthorDTO
             {
-                authorID = a.AuthorId,
-                name = a.Name,
+                AuthorId = a.AuthorId,
+                Name = a.Name,
+                Email = a.Email
             })
             .FirstOrDefaultAsync(); //Maybe delete this line
 
@@ -82,41 +80,61 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             .Where(a => a.Email == email)
             .Select(a => new AuthorDTO
             {
-                authorID = a.AuthorId,
-                name = a.Name,
+                AuthorId = a.AuthorId,
+                Name = a.Name,
+                Email = a.Email
             })
             .FirstOrDefaultAsync(); //Maybe delete this line
 
         return author;
     }
 
-    public AuthorDTO CreateAuthor(int authorID, string name)
+    private Author FindAuthorByAuthorDTO(AuthorDTO authorDTO)
     {
-        var author = new AuthorDTO
-        {
-            authorID = authorID,
-            name = name,     
-            };
+        var author = context.Authors
+            .Where(a => a.AuthorId == authorDTO.AuthorId)
+            .FirstOrDefault();
 
         return author;
     }
 
-    public CheepDTO CreateCheep(string text, DateTime timeStamp, AuthorDTO author)
+    public AuthorDTO CreateAuthor(string name, string email)
     {
-        AuthorDTO checkAuthor = FindAuthorByName(author.name).Result;
-        if (FindAuthorByName(author.name) == null)
+        var author = new Author
         {
-            checkAuthor = CreateAuthor(author.authorID, author.name); 
-        }
-
-        var cheep = new CheepDTO
-        {
-            text = text,
-            timeStamp = timeStamp,
-            author = checkAuthor
+            AuthorId = Guid.NewGuid(),
+            Name = name,
+            Email = email,
+            Cheeps = new List<Cheep>()
         };
 
-        return cheep;
+        context.Authors.Add(author);
+        context.SaveChanges();
+
+        return new AuthorDTO { AuthorId = author.AuthorId, Name = author.Name, Email = author.Email };
+    }
+
+    public void CreateCheep(string text, DateTime timeStamp, AuthorDTO author)
+    {
+        AuthorDTO checkAuthor = FindAuthorByName(author.Name).Result;
+        if (checkAuthor == null)
+        {
+            checkAuthor = CreateAuthor(author.Name, author.Email);
+        }
+
+        var cheepAuthor = FindAuthorByAuthorDTO(checkAuthor);
+
+        var cheep = new Cheep
+        {
+            Text = text,
+            TimeStamp = timeStamp,
+            Author = cheepAuthor,
+            CheepId = Guid.NewGuid(),
+            AuthorId = cheepAuthor.AuthorId
+        };
+
+        context.Cheeps.Add(cheep);
+        context.SaveChanges();
     }
 
 

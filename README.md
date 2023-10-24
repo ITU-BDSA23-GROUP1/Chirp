@@ -28,6 +28,11 @@ Navigate to src/Chirp.Web and run the command: dotnet run
 Test program:
 In Chirp folder run the command: dotnet test
 
+Making a release/tag:
+Step 1: From whatever folder use git tag to see all current tags.
+Step 2: Then in the terminal use "git tag <vx.y.z>" and change x, y and z to be a number
+Step 3: Push tag by writing in the terminal "git push origin <vx.y.z>" where vx.y.z is what you made in step 2
+
 The program runs on http://localhost:5000 
 (The public timeline, page 1 with the latest 32 cheeps are shown as default)
 To change to page number 2, add ?page=2 in URL

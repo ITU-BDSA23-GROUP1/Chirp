@@ -57,77 +57,23 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         return cheeps;
     }
 
-
-    public async Task<AuthorDTO> FindAuthorByName(string name)
+    public void CreateCheep(CheepDTO cheepDTO)
     {
-        var author = await context.Authors
-            .Where(a => a.Name == name)
-            .Select(a => new AuthorDTO
-            {
-                AuthorId = a.AuthorId,
-                Name = a.Name,
-                Email = a.Email
-            })
-            .FirstOrDefaultAsync(); //Maybe delete this line
 
-        return author;
-    }
+        AuthorRepository authorRepository = new AuthorRepository(context);
 
-
-    public async Task<AuthorDTO> FindAuthorByEmail(string email)
-    {
-        var author = await context.Authors
-            .Where(a => a.Email == email)
-            .Select(a => new AuthorDTO
-            {
-                AuthorId = a.AuthorId,
-                Name = a.Name,
-                Email = a.Email
-            })
-            .FirstOrDefaultAsync(); //Maybe delete this line
-
-        return author;
-    }
-
-    private Author FindAuthorByAuthorDTO(AuthorDTO authorDTO)
-    {
-        var author = context.Authors
-            .Where(a => a.AuthorId == authorDTO.AuthorId)
-            .FirstOrDefault();
-
-        return author;
-    }
-
-    public AuthorDTO CreateAuthor(string name, string email)
-    {
-        var author = new Author
+        AuthorDTO checkAuthor = cheepDTO.Author;
+        if (authorRepository.FindAuthorByName(checkAuthor.Name).Result == null)
         {
-            AuthorId = Guid.NewGuid(),
-            Name = name,
-            Email = email,
-            Cheeps = new List<Cheep>()
-        };
-
-        context.Authors.Add(author);
-        context.SaveChanges();
-
-        return new AuthorDTO { AuthorId = author.AuthorId, Name = author.Name, Email = author.Email };
-    }
-
-    public void CreateCheep(string text, DateTime timeStamp, AuthorDTO author)
-    {
-        AuthorDTO checkAuthor = FindAuthorByName(author.Name).Result;
-        if (checkAuthor == null)
-        {
-            checkAuthor = CreateAuthor(author.Name, author.Email);
+            authorRepository.CreateAuthor(checkAuthor);
         }
 
-        var cheepAuthor = FindAuthorByAuthorDTO(checkAuthor);
+        Author cheepAuthor = authorRepository.FindAuthorByAuthorDTO(checkAuthor);
 
-        var cheep = new Cheep
+        Cheep cheep = new Cheep
         {
-            Text = text,
-            TimeStamp = timeStamp,
+            Text = cheepDTO.Text,
+            TimeStamp = cheepDTO.TimeStamp,
             Author = cheepAuthor,
             CheepId = Guid.NewGuid(),
             AuthorId = cheepAuthor.AuthorId

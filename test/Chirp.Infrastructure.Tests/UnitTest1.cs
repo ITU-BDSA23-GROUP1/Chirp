@@ -161,7 +161,7 @@ public class UnitTestsInfrastructure
         var builder = new DbContextOptionsBuilder<ChirpDBContext>().UseSqlite(connection);
         using var context = new ChirpDBContext(builder.Options);
         await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
-        var repository = new CheepRepository(context);
+        var repository = new AuthorRepository(context);
 
         Author author1 = new Author
         {
@@ -201,7 +201,7 @@ public class UnitTestsInfrastructure
         var builder = new DbContextOptionsBuilder<ChirpDBContext>().UseSqlite(connection);
         using var context = new ChirpDBContext(builder.Options);
         await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
-        var repository = new CheepRepository(context);
+        var repository = new AuthorRepository(context);
 
         //Act
         var authorResult = await repository.FindAuthorByName("John Boe");
@@ -220,7 +220,7 @@ public class UnitTestsInfrastructure
         var builder = new DbContextOptionsBuilder<ChirpDBContext>().UseSqlite(connection);
         using var context = new ChirpDBContext(builder.Options);
         await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
-        var repository = new CheepRepository(context);
+        var repository = new AuthorRepository(context);
 
         Author author1 = new Author
         {
@@ -260,10 +260,16 @@ public class UnitTestsInfrastructure
         var builder = new DbContextOptionsBuilder<ChirpDBContext>().UseSqlite(connection);
         using var context = new ChirpDBContext(builder.Options);
         await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
-        var repository = new CheepRepository(context);
+        var repository = new AuthorRepository(context);
 
         //Act
-        repository.CreateAuthor("John Doe", "john@john.dk");
+        AuthorDTO authorDTO = new AuthorDTO
+        {
+            AuthorId = Guid.NewGuid(),
+            Name = "John Doe",
+            Email = "john@john.dk"
+            };
+        repository.CreateAuthor(authorDTO);
 
         //Assert
         Assert.Equal(1, context.Authors.Where(a => a.Name == "John Doe").Count());
@@ -290,7 +296,13 @@ public class UnitTestsInfrastructure
         };
 
         //Act
-        repository.CreateCheep("Hello World", timeStamp, authorDTO);
+        CheepDTO cheepDTO = new CheepDTO
+        {
+            Text = "Hello World",
+            TimeStamp = timeStamp,
+            Author = authorDTO
+        };
+        repository.CreateCheep(cheepDTO);
 
         //Assert
         Assert.Equal(1, context.Cheeps.Where(c => c.Author.Name == "John Doe").Count());

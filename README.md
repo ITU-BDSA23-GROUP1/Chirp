@@ -17,7 +17,7 @@ Co-authored-by: Alex <alebj@itu.dk>
 Changing migrations:
 Step 1: Delete current migrations
 Step 2: Navigate to src/Chirp.Infrastructure
-Step 3: Write in terminal "dotnet-ef migrations add InitialCreate --startup-project ../Chirp.Web/Chirp.Web.csproj"
+Step 3: Write in terminal "dotnet ef migrations add InitialCreate --startup-project ../Chirp.Web/Chirp.Web.csproj"
 
 Build:
 In Chirp folder run the command: dotnet build

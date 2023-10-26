@@ -10,6 +10,11 @@ if (!Directory.Exists(dbFolder))
 builder.Services.AddDbContext<ChirpDBContext>(options =>
     options.UseSqlite($"Data Source={Path.Combine(dbFolder, "Chirp.db")}"));
 
+// The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
+builder.Services.AddDefaultIdentity<Author>(options =>
+        options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ChirpDBContext>();
+
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
@@ -20,7 +25,7 @@ var app = builder.Build();
 using (var sp = app.Services.CreateScope())
 using (var context = sp.ServiceProvider.GetRequiredService<ChirpDBContext>())
 {
-    if (context.Database.IsRelational()) 
+    if (context.Database.IsRelational())
     {
         context.Database.Migrate();
     }
@@ -39,6 +44,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Middleware for authentication and authorization:
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 

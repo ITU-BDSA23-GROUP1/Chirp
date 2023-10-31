@@ -5,7 +5,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <div>
-            <a href="/@(User.Identity.Name)">my timeline</a> |
+            <a href="/Author/@(User.Identity.Name)">my timeline</a> |
             <a href="/">public timeline</a> |
             <!--<a  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Hello snabelaUser.Identity.Name!</a> -->
@@ -19,7 +19,7 @@
     {
         <div>
             <a href="/">public timeline</a> |
-            <a asp-area="Identity" asp-page="../../Areas/Identity/Pages/Account/Register">Register</a> |
+            <a href="/Register">Register</a> |
             <a asp-area="Identity" asp-page="/Account/Login"> Login </a>
         </div>
     }

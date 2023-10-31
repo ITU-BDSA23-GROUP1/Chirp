@@ -1,4 +1,4 @@
-﻿@page "/{AuthorName}"
+﻿@page "/{AuthorName:regex(^(?!Register$).*$)}"
 @model Chirp.Razor.Pages.UserTimelineModel
 @{
 

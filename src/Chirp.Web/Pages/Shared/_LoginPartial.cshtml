@@ -8,7 +8,7 @@
             <a href="/@(User.Identity.Name)">my timeline</a> |
             <a href="/">public timeline</a> |
             <!--<a  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                Hello snabelaUser.Identity.Name!</a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Hello snabelaUser.Identity.Name!</a> -->
             <form class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })"
                 asp-area="Identity" method="post">
                 <button class="nav-link btn btn-link text-dark" type="submit">Logout</button>
@@ -17,10 +17,10 @@
     }
     else
     {
-         <div>
+        <div>
             <a href="/">public timeline</a> |
-            <a asp-area="Identity" asp-page="/Account/Register">Register</a> |
-            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
-         </div>
+            <a asp-area="Identity" asp-page="../../Areas/Identity/Pages/Account/Register">Register</a> |
+            <a asp-area="Identity" asp-page="/Account/Login"> Login </a>
+        </div>
     }
 </div>

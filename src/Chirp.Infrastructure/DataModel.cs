@@ -1,12 +1,11 @@
 ﻿namespace Chirp.Infrastructure;
 
-public class ChirpDBContext : DbContext
+public class ChirpDBContext : IdentityDbContext<Author>
 {
     public DbSet<Cheep> Cheeps { get; set; }
     public DbSet<Author> Authors { get; set; }
 
     public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) { }
-
 }
 
 public class Cheep
@@ -19,7 +18,7 @@ public class Cheep
 
 }
 
-public class Author
+public class Author : IdentityUser
 {
     public Guid AuthorId { get; set; }
     public required string Name { get; set; }

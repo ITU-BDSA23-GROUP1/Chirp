@@ -1,4 +1,4 @@
-﻿@page "/{AuthorName}"
+﻿@page "/Author/{AuthorName}"
 @model Chirp.Razor.Pages.UserTimelineModel
 @{
 
@@ -28,7 +28,7 @@
                 <li>
                     <p>
                         <strong>
-                            <a href="/@cheep.Author.Name">@cheep.Author.Name</a>
+                            <a href="/Author/@cheep.Author.Name">@cheep.Author.Name</a>
                         </strong>
                         @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>

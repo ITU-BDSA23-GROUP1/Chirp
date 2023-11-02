@@ -13,7 +13,7 @@ a:hover {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"]{
   background: white;
   border: 1px solid #e6c0bf;
   padding: 2px;
@@ -25,7 +25,19 @@ input[type="password"] {
   color: #571010;
 }
 
-input[type="submit"] {
+input[type="email"] {
+  background: white;
+  border: 1px solid #e6c0bf;
+  padding: 2px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 14px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  color: #571010;
+}
+
+button[type="submit"] {
   background: #571010;
   border: 1px solid #3b0707;
   padding: 1px 3px;

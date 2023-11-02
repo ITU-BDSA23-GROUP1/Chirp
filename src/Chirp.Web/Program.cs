@@ -8,7 +8,7 @@ if (!Directory.Exists(dbFolder))
     Directory.CreateDirectory(dbFolder);
 }
 builder.Services.AddDbContext<ChirpDBContext>(options =>
-    options.UseSqlite($"Data Source={Path.Combine(dbFolder, "Chirp.db")}"));
+    options.UseSqlServer($"Data Source={Path.Combine(dbFolder, "Chirp.db")}"));
 
 // The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
 builder.Services.AddDefaultIdentity<Author>(options =>

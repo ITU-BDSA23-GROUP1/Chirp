@@ -27,23 +27,23 @@ builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>(
 // https://stackoverflow.com/questions/31886779/asp-net-mvc-6-aspnet-session-errors-unable-to-resolve-service-for-type
 builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddSession(options =>
+/*builder.Services.AddSession(options =>
 {
     options.Cookie.Name = ".Chirp.Session";
     options.IdleTimeout = TimeSpan.FromMinutes(10);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
-});
+});*/
 
 
 
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication(/*options =>
     {
         options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = "GitHub";
     })
-    .AddCookie()
+    .AddCookie(*/)
     .AddGitHub(o =>
     {
         o.ClientId = builder.Configuration["authentication_github_clientId"];

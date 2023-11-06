@@ -8,7 +8,7 @@ if (!Directory.Exists(dbFolder))
     Directory.CreateDirectory(dbFolder);
 }
 builder.Services.AddDbContext<ChirpDBContext>(options =>
-    options.UseSqlServer($"Data Source={Path.Combine(dbFolder, "Chirp.db")}"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
 builder.Services.AddDefaultIdentity<Author>(options =>
@@ -20,7 +20,19 @@ builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 
+var connection = String.Empty;
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.json");
+    connection = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+else
+{
+    connection = Environment.GetEnvironmentVariable("DefaultConnection");
+}
 
+builder.Services.AddDbContext<ChirpDBContext>(options =>
+    options.UseSqlServer(connection));
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())

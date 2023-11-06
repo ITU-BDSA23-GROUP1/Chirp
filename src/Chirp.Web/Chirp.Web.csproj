@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="7.0.4" />
-    <PackageReference Include="Microsoft.AspNet.Authentication.OAuth" Version="1.0.0-rc1-final" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />

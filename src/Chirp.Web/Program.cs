@@ -1,5 +1,6 @@
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.
 var dbFolder = Path.Join(Path.GetTempPath(), "Chirp");
@@ -7,8 +8,11 @@ if (!Directory.Exists(dbFolder))
 {
     Directory.CreateDirectory(dbFolder);
 }
+
+var chirpKey = builder.Configuration["Chirp:ConnectionStrings"];
+
 builder.Services.AddDbContext<ChirpDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(chirpKey));
 
 // The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
 builder.Services.AddDefaultIdentity<Author>(options =>
@@ -20,19 +24,21 @@ builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 
+// The next 12 lines are inspired by: https://learn.microsoft.com/en-us/azure/azure-sql/database/azure-sql-dotnet-entity-framework-core-quickstart?view=azuresql&tabs=visual-studio%2Cservice-connector%2Cportal&fbclid=IwAR1UmiT-RqvUkmO1tqM63daK2ebC2ybQh3OlBctblqLg70R5VytRMoeqrWw
 var connection = String.Empty;
 if (builder.Environment.IsDevelopment())
 {
-    builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.json");
-    connection = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Configuration.AddEnvironmentVariables().AddJsonFile("secrets.json");
+    connection = builder.Configuration.GetConnectionString(chirpKey);
 }
 else
 {
-    connection = Environment.GetEnvironmentVariable("DefaultConnection");
+    connection = Environment.GetEnvironmentVariable(chirpKey);
 }
 
 builder.Services.AddDbContext<ChirpDBContext>(options =>
     options.UseSqlServer(connection));
+
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())

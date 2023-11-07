@@ -11,7 +11,7 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Hello snabelaUser.Identity.Name!</a> -->
             <form class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })"
                 asp-area="Identity" method="post">
-                <button class="nav-link btn btn-link text-dark" type="submit">Logout</button>
+                <a href="/Logout">Logout</a>
             </form>
         </div>
     }
@@ -20,7 +20,7 @@
         <div>
             <a href="/">public timeline</a> |
             <a href="/Register">Register</a> |
-            <a asp-area="Identity" asp-page="/Account/Login"> Login </a>
+            <a href="/Login"> Login </a>
         </div>
     }
 </div>

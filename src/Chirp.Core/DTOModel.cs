@@ -6,6 +6,7 @@ public class CheepDTO
     public required DateTime TimeStamp { get; set; }
     public required AuthorDTO Author { get; set; }
 
+
 }
 
 public class AuthorDTO

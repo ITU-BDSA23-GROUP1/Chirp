@@ -40,7 +40,14 @@
                 <a href="/?page=@PrevPage">Previous Page</a>
                 <span>|</span>
             }
-            <a href="/?page=@NextPage">Next Page</a>
+            @if (Model.Cheeps.Any()) {
+                <a href="/?page=@NextPage">Next Page</a>
+            }
+            else
+            {
+                <em>There are no more cheeps.</em>
+            }
+            
         </td>
     }
     else

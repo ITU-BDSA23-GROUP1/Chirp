@@ -1,4 +1,6 @@
 
+using Microsoft.Data.SqlClient;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 
@@ -11,6 +13,12 @@ if (!Directory.Exists(dbFolder))
 
 var chirpKey = builder.Configuration["Chirp:ConnectionStrings"];
 
+if (string.IsNullOrEmpty(chirpKey))
+{
+    throw new InvalidOperationException("The 'Chirp:ConnectionStrings' configuration is missing.");
+}
+
+var connection = new SqlConnection(chirpKey);
 builder.Services.AddDbContext<ChirpDBContext>(options =>
     options.UseSqlServer(chirpKey));
 
@@ -23,22 +31,6 @@ builder.Services.AddDefaultIdentity<Author>(options =>
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
-
-// The next 12 lines are inspired by: https://learn.microsoft.com/en-us/azure/azure-sql/database/azure-sql-dotnet-entity-framework-core-quickstart?view=azuresql&tabs=visual-studio%2Cservice-connector%2Cportal&fbclid=IwAR1UmiT-RqvUkmO1tqM63daK2ebC2ybQh3OlBctblqLg70R5VytRMoeqrWw
-var connection = String.Empty;
-if (builder.Environment.IsDevelopment())
-{
-    builder.Configuration.AddEnvironmentVariables().AddJsonFile("secrets.json");
-    connection = builder.Configuration.GetConnectionString(chirpKey);
-}
-else
-{
-    connection = Environment.GetEnvironmentVariable(chirpKey);
-}
-
-builder.Services.AddDbContext<ChirpDBContext>(options =>
-    options.UseSqlServer(connection));
-
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())

@@ -20,7 +20,6 @@ builder.Services.AddDefaultIdentity<Author>(options =>
     .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
-//builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 
 

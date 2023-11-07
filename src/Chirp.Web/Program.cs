@@ -12,11 +12,11 @@ if (!Directory.Exists(dbFolder))
     Directory.CreateDirectory(dbFolder);
 }
 
-var chirpKey = builder.Configuration["Chirp:ConnectionStrings"];
+var chirpKey = builder.Configuration["Chirp_ConnectionStrings"];
 
 if (string.IsNullOrEmpty(chirpKey))
 {
-    throw new InvalidOperationException("The 'Chirp:ConnectionStrings' configuration is missing.");
+    throw new InvalidOperationException("The 'Chirp_ConnectionStrings' configuration is missing.");
 }
 
 builder.Services.AddDbContext<ChirpDBContext>(options =>

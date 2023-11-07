@@ -34,8 +34,8 @@ builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>(
 
 // Next two lines inspired by:
 // https://stackoverflow.com/questions/31886779/asp-net-mvc-6-aspnet-session-errors-unable-to-resolve-service-for-type
-builder.Services.AddMvc().AddSessionStateTempDataProvider();
-builder.Services.AddSession();
+// builder.Services.AddMvc().AddSessionStateTempDataProvider();
+// builder.Services.AddSession();
 
 /*builder.Services.AddDistributedMemoryCache();
 
@@ -93,7 +93,7 @@ app.UseRouting();
 // Middleware for authentication and authorization:
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
+// app.UseSession();
 
 app.MapRazorPages();
 

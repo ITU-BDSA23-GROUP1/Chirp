@@ -12,6 +12,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
 
     public async Task<IEnumerable<CheepDTO>> Get(int offset)
     {
+        if (offset < 0) { offset = 0;}
         var cheeps = await context.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Skip(offset)
@@ -36,6 +37,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
 
     public async Task<IEnumerable<CheepDTO>> GetByFilter(string authorName, int offset)
     {
+        if (offset < 0) { offset = 0;}
         var cheeps = await context.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Select(c => new CheepDTO

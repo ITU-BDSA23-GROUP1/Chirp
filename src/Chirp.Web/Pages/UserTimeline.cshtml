@@ -39,10 +39,16 @@
         <td>
             @if (Model.PageNo >= 2)
             {
-                <a href="/@routeName/?page=@PrevPage">Previous Page</a>
+                <a href="/Author/@routeName/?page=@PrevPage">Previous Page</a>
                 <span>|</span>
             }
-            <a href="/@routeName/?page=@NextPage">Next Page</a>
+            @if (Model.Cheeps.Count() < 32 || Model.Cheeps.Count() == 0) {
+                <em>There are no more cheeps.</em>
+            }
+            else
+            {
+                <a href="/Author/@routeName/?page=@NextPage">Next Page</a>
+            }
         </td>
     }
     else

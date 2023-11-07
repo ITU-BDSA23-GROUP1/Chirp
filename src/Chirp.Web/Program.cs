@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.
 var dbFolder = Path.Join(Path.GetTempPath(), "Chirp");
@@ -10,8 +11,16 @@ if (!Directory.Exists(dbFolder))
 {
     Directory.CreateDirectory(dbFolder);
 }
+
+var chirpKey = builder.Configuration["Chirp:ConnectionStrings"];
+
+if (string.IsNullOrEmpty(chirpKey))
+{
+    throw new InvalidOperationException("The 'Chirp:ConnectionStrings' configuration is missing.");
+}
+
 builder.Services.AddDbContext<ChirpDBContext>(options =>
-    options.UseSqlite($"Data Source={Path.Combine(dbFolder, "Chirp.db")}"));
+    options.UseSqlServer(chirpKey));
 
 // The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
 builder.Services.AddDefaultIdentity<Author>(options =>
@@ -54,6 +63,7 @@ builder.Services.AddAuthentication(/*options =>
         o.ClientSecret = builder.Configuration["GITHUB_PROVIDER_AUTHENTICATION_SECRET"];
         o.CallbackPath = "/.auth/login/github/callback";
     });
+
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())

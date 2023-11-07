@@ -86,7 +86,6 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            Console.WriteLine("GET was called");
 
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -100,14 +99,11 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
            
-            Console.WriteLine("GET returnUrl: " + returnUrl);
-
             ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            Console.WriteLine("POST was called");
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -120,7 +116,6 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    Console.WriteLine("User logged in.   returnUrl is: " + returnUrl + " aaaaand LocalRedirect(returnUrl) is: " + LocalRedirect(returnUrl));
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -129,7 +124,6 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    Console.WriteLine("User account locked out. User email: " + Input.Email);
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
@@ -139,16 +133,6 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Something failed...");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
 
             // If we got this far, something failed, redisplay form
             return Page();

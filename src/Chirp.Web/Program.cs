@@ -19,7 +19,6 @@ if (string.IsNullOrEmpty(chirpKey))
     throw new InvalidOperationException("The 'Chirp:ConnectionStrings' configuration is missing.");
 }
 
-var connection = new SqlConnection(chirpKey);
 builder.Services.AddDbContext<ChirpDBContext>(options =>
     options.UseSqlServer(chirpKey));
 

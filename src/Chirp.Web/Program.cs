@@ -23,12 +23,13 @@ builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 
+
 // Next two lines inspired by:
 // https://stackoverflow.com/questions/31886779/asp-net-mvc-6-aspnet-session-errors-unable-to-resolve-service-for-type
 builder.Services.AddMvc().AddSessionStateTempDataProvider();
 builder.Services.AddSession();
-/*
-builder.Services.AddDistributedMemoryCache();
+
+/*builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
@@ -53,7 +54,6 @@ builder.Services.AddAuthentication(/*options =>
         o.ClientSecret = builder.Configuration["GITHUB_PROVIDER_AUTHENTICATION_SECRET"];
         o.CallbackPath = "/.auth/login/github/callback";
     });
-
 
 var app = builder.Build();
 using (var sp = app.Services.CreateScope())

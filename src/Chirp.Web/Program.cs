@@ -29,6 +29,15 @@ builder.Services.AddDefaultIdentity<Author>(options =>
     .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
+
+// The next lines are inspired by: 
+// https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-7.0
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
+
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 
 
@@ -66,6 +75,11 @@ builder.Services.AddAuthentication(/*options =>
 
 
 var app = builder.Build();
+
+// The next line is inspired by: 
+// https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-7.0
+app.UseForwardedHeaders();
+
 using (var sp = app.Services.CreateScope())
 using (var context = sp.ServiceProvider.GetRequiredService<ChirpDBContext>())
 {

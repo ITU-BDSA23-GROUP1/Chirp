@@ -43,9 +43,10 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddAuthentication(/*options =>
     {
-        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = "GitHub";
+        // options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        // options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        // options.DefaultChallengeScheme = "GitHub";
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     })
     .AddCookie(*/)
     .AddGitHub(o =>

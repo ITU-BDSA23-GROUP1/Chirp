@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
@@ -30,14 +31,23 @@ builder.Services.AddDefaultIdentity<Author>(options =>
     .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
+
+// The next lines are inspired by: 
+// https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-7.0
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
+
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 builder.Services.AddScoped<IAuthorRepository<AuthorDTO, string>, AuthorRepository>();
 
 
 // Next two lines inspired by:
 // https://stackoverflow.com/questions/31886779/asp-net-mvc-6-aspnet-session-errors-unable-to-resolve-service-for-type
-builder.Services.AddMvc().AddSessionStateTempDataProvider();
-builder.Services.AddSession();
+// builder.Services.AddMvc().AddSessionStateTempDataProvider();
+// builder.Services.AddSession();
 
 /*builder.Services.AddDistributedMemoryCache();
 
@@ -63,11 +73,16 @@ builder.Services.AddAuthentication(/*options =>
     {
         o.ClientId = builder.Configuration["authentication_github_clientId"];
         o.ClientSecret = builder.Configuration["GITHUB_PROVIDER_AUTHENTICATION_SECRET"];
-        o.CallbackPath = "/.auth/login/github/callback";
+        o.CallbackPath = "/signin-github"; //"/.auth/login/github/callback";
     });
 
 
 var app = builder.Build();
+
+// The next line is inspired by: 
+// https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-7.0
+app.UseForwardedHeaders();
+
 using (var sp = app.Services.CreateScope())
 using (var context = sp.ServiceProvider.GetRequiredService<ChirpDBContext>())
 {
@@ -95,7 +110,7 @@ app.UseRouting();
 // Middleware for authentication and authorization:
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
+// app.UseSession();
 
 app.MapRazorPages();
 

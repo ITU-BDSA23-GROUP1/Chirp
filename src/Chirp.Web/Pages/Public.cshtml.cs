@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Infrastructure;
 using Chirp.Core;
+using NuGet.Protocol;
 
 namespace Chirp.Razor.Pages;
 
@@ -15,9 +16,10 @@ public class PublicModel : PageModel
     [BindProperty]
     public CheepDTO CheepDTO { get; set; }
 
-    public PublicModel(ICheepRepository<CheepDTO, string> service)
+    public PublicModel(ICheepRepository<CheepDTO, string> service, IAuthorRepository<AuthorDTO, string> authorService)
     {
         _service = service;
+        _authorService = authorService;
     }
 
     [FromQuery(Name = "page")]
@@ -40,7 +42,9 @@ public class PublicModel : PageModel
     // Existing logic to create a Cheep instance
     if (CheepDTO != null && CheepDTO.Text != null)
     {
+        Console.WriteLine("Identity: " + User.Identity.Name);
         var author = await _authorService.FindAuthorByName(User.Identity.Name);
+        Console.WriteLine("test");
         var cheepDTO = new CheepDTO
         {
             Text = CheepDTO.Text,

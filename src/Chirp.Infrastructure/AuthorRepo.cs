@@ -12,6 +12,7 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
 
     public async Task<AuthorDTO> FindAuthorByName(string name)
     {
+        Console.WriteLine("Name: " + name);
         var author = await context.Authors
             .Where(a => a.Name == name)
             .Select(a => new AuthorDTO

@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
@@ -30,6 +31,7 @@ builder.Services.AddDefaultIdentity<Author>(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
+builder.Services.AddScoped<IAuthorRepository<AuthorDTO, string>, AuthorRepository>();
 
 
 // Next two lines inspired by:

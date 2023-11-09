@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.HttpOverrides;
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 
+//Client secret is:
+//"Test:Secret": "This is the secret"
+
 // Add services to the container.
 var dbFolder = Path.Join(Path.GetTempPath(), "Chirp");
 if (!Directory.Exists(dbFolder))

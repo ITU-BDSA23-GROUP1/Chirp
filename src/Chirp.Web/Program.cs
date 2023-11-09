@@ -27,7 +27,6 @@ builder.Services.AddDbContext<ChirpDBContext>(options =>
 // The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
 builder.Services.AddDefaultIdentity<Author>(options =>
         options.SignIn.RequireConfirmedAccount = true)
-    //.AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
@@ -43,32 +42,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 builder.Services.AddScoped<IAuthorRepository<AuthorDTO, string>, AuthorRepository>();
 
-
-// Next two lines inspired by:
-// https://stackoverflow.com/questions/31886779/asp-net-mvc-6-aspnet-session-errors-unable-to-resolve-service-for-type
-// builder.Services.AddMvc().AddSessionStateTempDataProvider();
-// builder.Services.AddSession();
-
-/*builder.Services.AddDistributedMemoryCache();
-
-builder.Services.AddSession(options =>
-{
-    options.Cookie.Name = ".Chirp.Session";
-    options.IdleTimeout = TimeSpan.FromMinutes(10);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});*/
-
-
-
-builder.Services.AddAuthentication(/*options =>
-    {
-        // options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        // options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        // options.DefaultChallengeScheme = "GitHub";
-        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    })
-    .AddCookie(*/)
+builder.Services.AddAuthentication()
     .AddGitHub(o =>
     {
         o.ClientId = builder.Configuration["authentication_github_clientId"];
@@ -106,11 +80,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-
 // Middleware for authentication and authorization:
 app.UseAuthentication();
 app.UseAuthorization();
-// app.UseSession();
 
 app.MapRazorPages();
 

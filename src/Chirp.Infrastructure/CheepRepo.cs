@@ -59,7 +59,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         return cheeps;
     }
 
-    public void CreateCheep(CheepDTO cheepDTO)
+    public async Task CreateCheep(CheepDTO cheepDTO)
     {
 
         AuthorRepository authorRepository = new AuthorRepository(context);
@@ -67,6 +67,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         AuthorDTO checkAuthor = cheepDTO.Author;
         if (authorRepository.FindAuthorByName(checkAuthor.Name).Result == null)
         {
+            //throw new Exception("Author does not exist");
             authorRepository.CreateAuthor(checkAuthor);
         }
 
@@ -82,7 +83,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         };
 
         context.Cheeps.Add(cheep);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
     }
 
 

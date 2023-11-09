@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +41,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 });
 
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
+builder.Services.AddScoped<IAuthorRepository<AuthorDTO, string>, AuthorRepository>();
 
 
 // Next two lines inspired by:

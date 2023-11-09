@@ -20,6 +20,15 @@
 <div>
     <h2>@routeName's Timeline </h2>
 
+   @if (User.Identity.IsAuthenticated){
+        <h3>What's on your mind @(User.Identity.Name)?</h3>
+    
+        <form method="post">
+            <input style="float: left" type="text" asp-for="CheepDTO.Text" />
+            <input type="submit" value="Share">
+        </form>
+    }
+
     @if (Model.Cheeps.Any())
     {
         <ul id="messagelist" class="cheeps">

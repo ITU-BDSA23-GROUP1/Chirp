@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Infrastructure;
 using Chirp.Core;
 using NuGet.Protocol;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace Chirp.Razor.Pages;
 
@@ -16,10 +18,13 @@ public class PublicModel : PageModel
     [BindProperty]
     public CheepDTO CheepDTO { get; set; }
 
-    public PublicModel(ICheepRepository<CheepDTO, string> service, IAuthorRepository<AuthorDTO, string> authorService)
+    UserManager<Author> _userManager;
+
+    public PublicModel(ICheepRepository<CheepDTO, string> service, IAuthorRepository<AuthorDTO, string> authorService, UserManager<Author> userManager)
     {
         _service = service;
         _authorService = authorService;
+        _userManager = userManager;
     }
 
     [FromQuery(Name = "page")]
@@ -31,7 +36,7 @@ public class PublicModel : PageModel
     Cheeps = cheeps.ToList();
     return Page();
 }
-    public async void OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
 
         if (!ModelState.IsValid){
@@ -42,9 +47,16 @@ public class PublicModel : PageModel
     // Existing logic to create a Cheep instance
     if (CheepDTO != null && CheepDTO.Text != null)
     {
-        Console.WriteLine("Identity: " + User.Identity.Name);
-        var author = await _authorService.FindAuthorByName(User.Identity.Name);
-        Console.WriteLine("test");
+        //Console.WriteLine("Identity: " + User.Identity.Name);
+        //var author = await _authorService.FindAuthorByName(User.Identity.Name);
+        //var user = await _userManager.GetUserAsync(User);
+        var author = new AuthorDTO
+        {
+            AuthorId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
+            Name = "Ibrahim",
+            Email = "Ibrahim@ibrahim.dk"
+        };
+        //Console.WriteLine("id: " + user.UserName);
         var cheepDTO = new CheepDTO
         {
             Text = CheepDTO.Text,
@@ -52,12 +64,9 @@ public class PublicModel : PageModel
             Author = author
         };
              
-        _service.CreateCheep(cheepDTO);
+        await _service.CreateCheep(cheepDTO);
     }
-
-  
-    RedirectToPage("/Public"); 
-        
+    return RedirectToPage("/Public");
     }
 
 }

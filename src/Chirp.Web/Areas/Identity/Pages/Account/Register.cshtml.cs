@@ -113,7 +113,6 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var author = CreateUser();
-
                 await _userStore.SetUserNameAsync(author, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(author, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(author, Input.Password);
@@ -122,7 +121,7 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(author);
+                    var userId = Guid.NewGuid();//await _userManager.GetUserIdAsync(author);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(author);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

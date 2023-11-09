@@ -28,45 +28,46 @@ public class PublicModel : PageModel
     }
 
     [FromQuery(Name = "page")]
-    public int PageNo {get; set;}
-    
+    public int PageNo { get; set; }
+
     public async Task<IActionResult> OnGetAsync()
-{
-    var cheeps = await _service.Get((PageNo - 1) * 32);
-    Cheeps = cheeps.ToList();
-    return Page();
-}
+    {
+        var cheeps = await _service.Get((PageNo - 1) * 32);
+        Cheeps = cheeps.ToList();
+        return Page();
+    }
     public async Task<IActionResult> OnPostAsync()
     {
 
-        if (!ModelState.IsValid){
-        // Handle invalid model state if necessary
-         Page();
-         }
+        if (!ModelState.IsValid)
+        {
+            // Handle invalid model state if necessary
+            Page();
+        }
 
-    // Existing logic to create a Cheep instance
-    if (CheepDTO != null && CheepDTO.Text != null)
-    {
-        //Console.WriteLine("Identity: " + User.Identity.Name);
-        //var author = await _authorService.FindAuthorByName(User.Identity.Name);
-        //var user = await _userManager.GetUserAsync(User);
-        var author = new AuthorDTO
+        // Existing logic to create a Cheep instance
+        if (CheepDTO != null && CheepDTO.Text != null)
         {
-            AuthorId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
-            Name = "Ibrahim",
-            Email = "Ibrahim@ibrahim.dk"
-        };
-        //Console.WriteLine("id: " + user.UserName);
-        var cheepDTO = new CheepDTO
-        {
-            Text = CheepDTO.Text,
-            TimeStamp = DateTime.Now,
-            Author = author
-        };
-             
-        await _service.CreateCheep(cheepDTO);
-    }
-    return RedirectToPage("/Public");
+            //Console.WriteLine("Identity: " + User.Identity.Name);
+            //var author = await _authorService.FindAuthorByName(User.Identity.Name);
+            var user = await _userManager.GetUserAsync(User);
+            var author = new AuthorDTO
+            {
+                AuthorId = Guid.Parse(user.Id),
+                Name = user.UserName,
+                Email = user.Email
+            };
+            //Console.WriteLine("id: " + user.UserName);
+            var cheepDTO = new CheepDTO
+            {
+                Text = CheepDTO.Text,
+                TimeStamp = DateTime.Now,
+                Author = author
+            };
+
+            await _service.CreateCheep(cheepDTO);
+        }
+        return RedirectToPage("/Public");
     }
 
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 public class CheepDTO
 {
-    [StringLength(1, MinimumLength = 1, ErrorMessage = "*message must be between 1 character and 280")]
+    [StringLength(160, MinimumLength = 1, ErrorMessage = "*message must be between 1 character and 280")]
     public required string Text { get; set; }
     public required DateTime TimeStamp { get; set; }
     public required AuthorDTO Author { get; set; }

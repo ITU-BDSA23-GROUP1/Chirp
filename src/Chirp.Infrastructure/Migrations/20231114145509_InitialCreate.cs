@@ -161,7 +161,7 @@ namespace Chirp.Infrastructure.Migrations
                 columns: table => new
                 {
                     CheepId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Text = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: true),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },

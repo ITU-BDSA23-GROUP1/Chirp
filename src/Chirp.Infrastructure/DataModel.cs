@@ -1,4 +1,6 @@
-﻿namespace Chirp.Infrastructure;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Chirp.Infrastructure;
 
 public class ChirpDBContext : IdentityDbContext<Author>
 {
@@ -11,6 +13,8 @@ public class ChirpDBContext : IdentityDbContext<Author>
 public class Cheep
 {
     public required Guid CheepId { get; set; }
+
+    [StringLength(1, MinimumLength = 1, ErrorMessage = "*message must be between 1 character and 280")]
     public required string Text { get; set; }
     public required DateTime TimeStamp { get; set; }
     //public required Guid AuthorId { get; set; }

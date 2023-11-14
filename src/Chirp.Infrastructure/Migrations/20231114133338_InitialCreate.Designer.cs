@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Infrastructure.Migrations
 {
     [DbContext(typeof(ChirpDBContext))]
-    [Migration("20231106151431_InitialCreate")]
+    [Migration("20231114133338_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,9 +33,6 @@ namespace Chirp.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -52,9 +49,6 @@ namespace Chirp.Infrastructure.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -102,10 +96,7 @@ namespace Chirp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AuthorId1")
+                    b.Property<string>("AuthorId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Text")
@@ -116,7 +107,7 @@ namespace Chirp.Infrastructure.Migrations
 
                     b.HasKey("CheepId");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Cheeps");
                 });
@@ -262,7 +253,7 @@ namespace Chirp.Infrastructure.Migrations
                 {
                     b.HasOne("Chirp.Infrastructure.Author", "Author")
                         .WithMany("Cheeps")
-                        .HasForeignKey("AuthorId1");
+                        .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
                 });

@@ -30,10 +30,8 @@ namespace Chirp.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
@@ -165,15 +163,14 @@ namespace Chirp.Infrastructure.Migrations
                     CheepId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AuthorId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cheeps", x => x.CheepId);
                     table.ForeignKey(
-                        name: "FK_Cheeps_AspNetUsers_AuthorId1",
-                        column: x => x.AuthorId1,
+                        name: "FK_Cheeps_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -218,9 +215,9 @@ namespace Chirp.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cheeps_AuthorId1",
+                name: "IX_Cheeps_AuthorId",
                 table: "Cheeps",
-                column: "AuthorId1");
+                column: "AuthorId");
         }
 
         /// <inheritdoc />

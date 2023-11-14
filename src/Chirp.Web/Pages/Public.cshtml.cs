@@ -53,8 +53,8 @@ public class PublicModel : PageModel
             var user = await _userManager.GetUserAsync(User);
             var author = new AuthorDTO
             {
-                AuthorId = Guid.Parse(user.Id),
-                Name = user.UserName,
+                Id = user.Id,
+                UserName = user.UserName,
                 Email = user.Email
             };
             //Console.WriteLine("id: " + user.UserName);

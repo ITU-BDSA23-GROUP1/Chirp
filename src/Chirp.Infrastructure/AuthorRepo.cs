@@ -10,15 +10,15 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         this.context = context;
     }
 
-    public async Task<AuthorDTO> FindAuthorByName(string name)
+    public async Task<AuthorDTO> FindAuthorByName(string UserName)
     {
-        Console.WriteLine("Name: " + name);
+        Console.WriteLine("Name: " + UserName);
         var author = await context.Authors
-            .Where(a => a.Name == name)
+            .Where(a => a.UserName == UserName)
             .Select(a => new AuthorDTO
             {
-                AuthorId = a.AuthorId,
-                Name = a.Name,
+                Id = a.Id,
+                UserName = a.UserName,
                 Email = a.Email
             })
             .FirstOrDefaultAsync(); //Maybe delete this line
@@ -33,8 +33,8 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
             .Where(a => a.Email == email)
             .Select(a => new AuthorDTO
             {
-                AuthorId = a.AuthorId,
-                Name = a.Name,
+                Id = a.Id,
+                UserName = a.UserName,
                 Email = a.Email
             })
             .FirstOrDefaultAsync(); //Maybe delete this line
@@ -45,7 +45,7 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
     public Author FindAuthorByAuthorDTO(AuthorDTO authorDTO)
     {
         var author = context.Authors
-            .Where(a => a.AuthorId == authorDTO.AuthorId)
+            .Where(a => a.Id == authorDTO.Id)
             .FirstOrDefault();
 
         return author;
@@ -55,8 +55,8 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
     {
         var author = new Author
         {
-            AuthorId = authorDTO.AuthorId,
-            Name = authorDTO.Name,
+            Id = authorDTO.Id,
+            UserName = authorDTO.UserName,
             Email = authorDTO.Email,
             Cheeps = new List<Cheep>()
         };

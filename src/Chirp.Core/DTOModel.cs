@@ -11,8 +11,8 @@ public class CheepDTO
 
 public class AuthorDTO
 {
-    public required Guid AuthorId { get; set; }
-    public required string Name { get; set; }
+    public required string Id { get; set; }
+    public required string UserName { get; set; }
     public required string Email { get; set; }
     public List<CheepDTO> Cheeps { get; } = new();
 

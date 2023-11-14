@@ -46,13 +46,12 @@ public class UnitTestsInfrastructure : IDisposable
             TimeStamp = DateTime.Now,
             Author = new Author
             {
-                Name = "John Doe",
+                UserName = "John Doe",
                 Email = "john@email.dk",
                 Cheeps = new List<Cheep>(),
-                AuthorId = authorGuid
+                Id = authorGuid.ToString()
             },
-            CheepId = cheepGuid,
-            AuthorId = authorGuid
+            CheepId = cheepGuid
         };
 
         //Act
@@ -76,13 +75,12 @@ public class UnitTestsInfrastructure : IDisposable
             TimeStamp = DateTime.Now,
             Author = new Author
             {
-                Name = "John Doe",
+                UserName = "John Doe",
                 Email = "john@email.dk",
                 Cheeps = new List<Cheep>(),
-                AuthorId = authorGuid
+                Id = authorGuid.ToString()
             },
             CheepId = cheepGuid,
-            AuthorId = authorGuid
         };
 
         //Act
@@ -102,17 +100,15 @@ public class UnitTestsInfrastructure : IDisposable
 
         Author author1 = new Author
         {
-            Name = "John Doe",
+            UserName = "John Doe",
             Email = "john@email.dk",
             Cheeps = new List<Cheep>(),
-            AuthorId = authorGuid1
         };
         Author author2 = new Author
         {
-            Name = "Janet Doe",
+            UserName = "Janet Doe",
             Email = "janet@email.dk",
             Cheeps = new List<Cheep>(),
-            AuthorId = authorGuid2
         };
 
         Guid cheepGuid1 = Guid.NewGuid();
@@ -125,7 +121,6 @@ public class UnitTestsInfrastructure : IDisposable
             TimeStamp = DateTime.Now,
             Author = author1,
             CheepId = cheepGuid1,
-            AuthorId = author1.AuthorId
         };
 
         Cheep cheep2 = new Cheep
@@ -134,7 +129,6 @@ public class UnitTestsInfrastructure : IDisposable
             TimeStamp = DateTime.Now,
             Author = author1,
             CheepId = cheepGuid2,
-            AuthorId = author1.AuthorId
         };
 
         Cheep cheep3 = new Cheep
@@ -143,7 +137,6 @@ public class UnitTestsInfrastructure : IDisposable
             TimeStamp = DateTime.Now,
             Author = author2,
             CheepId = cheepGuid3,
-            AuthorId = author2.AuthorId
         };
 
         //Act
@@ -153,7 +146,7 @@ public class UnitTestsInfrastructure : IDisposable
         _context.SaveChanges();
 
         //Assert
-        Assert.Equal(2, _context.Cheeps.Where(c => c.Author.Name == "John Doe").Count());
+        Assert.Equal(2, _context.Cheeps.Where(c => c.Author.UserName == "John Doe").Count());
     }
 
     [Fact]
@@ -162,18 +155,18 @@ public class UnitTestsInfrastructure : IDisposable
         //Arrange
         Author author1 = new Author
         {
-            Name = "John Doe",
+            UserName = "John Doe",
             Email = "john@john.dk",
             Cheeps = new List<Cheep>(),
-            AuthorId = Guid.NewGuid()
+            Id = Guid.NewGuid().ToString()
         };
 
         Author author2 = new Author
         {
-            Name = "Janet Doe",
+            UserName = "Janet Doe",
             Email = "janet@janet.dk",
             Cheeps = new List<Cheep>(),
-            AuthorId = Guid.NewGuid()
+            Id = Guid.NewGuid().ToString()
         };
 
         //Act
@@ -184,8 +177,8 @@ public class UnitTestsInfrastructure : IDisposable
         var authorResult = await _authorRepo.FindAuthorByName("John Doe");
 
         //Assert
-        Assert.Equal(author1.Name, authorResult.Name);
-        Assert.Equal(author1.AuthorId, authorResult.AuthorId);
+        Assert.Equal(author1.UserName, authorResult.UserName);
+        Assert.Equal(author1.Id, authorResult.Id);
     }
 
     [Fact]
@@ -208,18 +201,18 @@ public class UnitTestsInfrastructure : IDisposable
         //Arrange
         Author author1 = new Author
         {
-            Name = "John Doe",
+            UserName = "John Doe",
             Email = "john@john.dk",
             Cheeps = new List<Cheep>(),
-            AuthorId = Guid.NewGuid()
+            Id = Guid.NewGuid().ToString()
         };
 
         Author author2 = new Author
         {
-            Name = "Janet Doe",
+            UserName = "Janet Doe",
             Email = "janet@janet.dk",
             Cheeps = new List<Cheep>(),
-            AuthorId = Guid.NewGuid()
+            Id = Guid.NewGuid().ToString()
         };
 
         //Act
@@ -230,8 +223,8 @@ public class UnitTestsInfrastructure : IDisposable
         var authorResult = await _authorRepo.FindAuthorByEmail("john@john.dk");
 
         //Assert
-        Assert.Equal(author1.Name, authorResult.Name);
-        Assert.Equal(author1.AuthorId, authorResult.AuthorId);
+        Assert.Equal(author1.UserName, authorResult.UserName);
+        Assert.Equal(author1.Id, authorResult.Id);
     }
 
     [Fact]
@@ -240,8 +233,8 @@ public class UnitTestsInfrastructure : IDisposable
         //Arrange
         AuthorDTO authorDTO = new AuthorDTO
         {
-            AuthorId = Guid.NewGuid(),
-            Name = "John Doe",
+            Id = Guid.NewGuid().ToString(),
+            UserName = "John Doe",
             Email = "john@john.dk"
         };
 
@@ -249,19 +242,19 @@ public class UnitTestsInfrastructure : IDisposable
         _authorRepo.CreateAuthor(authorDTO);
 
         //Assert
-        Assert.Equal(1, _context.Authors.Where(a => a.Name == "John Doe").Count());
+        Assert.Equal(1, _context.Authors.Where(a => a.UserName == "John Doe").Count());
 
     }
 
     [Fact]
-    public void CreateCheep_CheckIfCheepCreateCorrectly()
+    public async void CreateCheep_CheckIfCheepCreateCorrectly()
     {
         //Arrange
         DateTime timeStamp = DateTime.Now;
         AuthorDTO authorDTO = new AuthorDTO
         {
-            AuthorId = Guid.NewGuid(),
-            Name = "John Doe",
+            Id = Guid.NewGuid().ToString(),
+            UserName = "John Doe",
             Email = "john@john.dk"
         };
         CheepDTO cheepDTO = new CheepDTO
@@ -272,10 +265,10 @@ public class UnitTestsInfrastructure : IDisposable
         };
 
         //Act
-        _cheepRepo.CreateCheep(cheepDTO);
+        await _cheepRepo.CreateCheep(cheepDTO);
 
         //Assert
-        Assert.Equal(1, _context.Cheeps.Where(c => c.Author.Name == "John Doe").Count());
+        Assert.Equal(1, _context.Cheeps.Where(c => c.Author.UserName == "John Doe").Count());
         Assert.Equal(1, _context.Cheeps.Where(c => c.Text == "Hello World").Count());
         Assert.Equal(1, _context.Cheeps.Where(c => c.TimeStamp == timeStamp).Count());
     }

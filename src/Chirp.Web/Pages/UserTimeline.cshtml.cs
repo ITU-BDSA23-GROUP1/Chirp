@@ -12,7 +12,7 @@ public class UserTimelineModel : PageModel
     [BindProperty]
     public CheepDTO CheepDTO { get; set; }
 
-    UserManager<Author> _userManager;
+    readonly UserManager<Author> _userManager;
 
     public UserTimelineModel(ICheepRepository<CheepDTO, string> service, UserManager<Author> userManager)
     {
@@ -48,8 +48,8 @@ public class UserTimelineModel : PageModel
             var user = await _userManager.GetUserAsync(User);
             var author = new AuthorDTO
             {
-                AuthorId = Guid.Parse(user.Id),
-                Name = user.UserName,
+                Id = user.Id,
+                UserName = user.UserName,
                 Email = user.Email
             };
             //Console.WriteLine("id: " + user.UserName);

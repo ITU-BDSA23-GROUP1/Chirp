@@ -23,8 +23,8 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
                 TimeStamp = c.TimeStamp,
                 Author = new AuthorDTO
                 {
-                    AuthorId = c.Author.AuthorId,
-                    Name = c.Author.Name,
+                    Id = c.Author.Id,
+                    UserName = c.Author.UserName,
                     Email = c.Author.Email
                 },
             })
@@ -46,12 +46,12 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
                 TimeStamp = c.TimeStamp,
                 Author = new AuthorDTO
                 {
-                    AuthorId = c.Author.AuthorId,
-                    Name = c.Author.Name,
+                    Id = c.Author.Id,
+                    UserName = c.Author.UserName,
                     Email = c.Author.Email
                 },
             })
-        .Where(c => c.Author.Name == authorName)
+        .Where(c => c.Author.UserName == authorName)
         .Skip(offset)
         .Take(32)
         .ToListAsync();
@@ -65,7 +65,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
         AuthorRepository authorRepository = new AuthorRepository(context);
 
         AuthorDTO checkAuthor = cheepDTO.Author;
-        if (authorRepository.FindAuthorByName(checkAuthor.Name).Result == null)
+        if (authorRepository.FindAuthorByName(checkAuthor.UserName).Result == null)
         {
             //throw new Exception("Author does not exist");
             authorRepository.CreateAuthor(checkAuthor);
@@ -78,8 +78,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             Text = cheepDTO.Text,
             TimeStamp = cheepDTO.TimeStamp,
             Author = cheepAuthor,
-            CheepId = Guid.NewGuid(),
-            AuthorId = cheepAuthor.AuthorId
+            CheepId = Guid.NewGuid()
         };
 
         context.Cheeps.Add(cheep);

@@ -110,16 +110,23 @@ public class PublicModel : PageModel
         return RedirectToPage("/Public");
     }
 
-    public async Task<IActionResult> OnPostUnfollow(AuthorDTO authorToUnfollowDTO)
+    public async Task<IActionResult> OnPostUnfollow()
     {
-        var user = _userManager.GetUserAsync(User).Result;
-        var authorDTO = new AuthorDTO
+       if (AuthorDTO != null)
         {
-            Id = user.Id,
-            UserName = user.UserName,
-            Email = user.Email
-        };
-        await _authorService.UnfollowAuthor(authorDTO, authorToUnfollowDTO);
+            Console.WriteLine("*************************  Unfollow: (" + AuthorDTO.Id + ") Name:" + AuthorDTO.UserName + " *************************");
+            
+            var user = await _userManager.GetUserAsync(User);
+            Console.WriteLine("*************************  user: (" + user.Id + ") Name:" + user.UserName + " *************************");
+            var author = new AuthorDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            await _authorService.UnfollowAuthor(author, AuthorDTO);
+        }
+
         return RedirectToPage("/Public");
     }
 

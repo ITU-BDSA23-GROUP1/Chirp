@@ -13,10 +13,13 @@ public class PublicModel : PageModel
     private readonly ICheepRepository<CheepDTO, string> _service;
     private readonly IAuthorRepository<AuthorDTO, string> _authorService;
     public List<CheepDTO> Cheeps { get; set; }
+    public List<string> Following { get; set; }
 
     //Defines the CheepDTO property
     [BindProperty]
     public CheepDTO CheepDTO { get; set; }
+    [BindProperty]
+    public AuthorDTO AuthorDTO { get; set; }
 
     UserManager<Author> _userManager;
 
@@ -34,6 +37,21 @@ public class PublicModel : PageModel
     {
         var cheeps = await _service.Get((PageNo - 1) * 32);
         Cheeps = cheeps.ToList();
+        if (User.Identity.IsAuthenticated)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var author = new AuthorDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            var following = await _authorService.GetFollowing(author);
+            Following = following.ToList();
+            Console.WriteLine("*************************  following *************************");
+            Console.WriteLine("Count: " + Following.Count);
+        }
+
         return Page();
     }
     public async Task<IActionResult> OnPostAsync()
@@ -67,6 +85,48 @@ public class PublicModel : PageModel
 
             await _service.CreateCheep(cheepDTO);
         }
+        return RedirectToPage("/Public");
+    }
+
+    public async Task<IActionResult> OnPostFollow()
+    {
+            Console.WriteLine("*************************  before *************************");
+
+        if (AuthorDTO != null)
+        {
+            Console.WriteLine("*************************  Follow: (" + AuthorDTO.Id + ") Name:" + AuthorDTO.UserName + " *************************");
+            
+            var user = await _userManager.GetUserAsync(User);
+            Console.WriteLine("*************************  user: (" + user.Id + ") Name:" + user.UserName + " *************************");
+            var author = new AuthorDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            await _authorService.FollowAuthor(author, AuthorDTO);
+        }
+
+        return RedirectToPage("/Public");
+    }
+
+    public async Task<IActionResult> OnPostUnfollow()
+    {
+       if (AuthorDTO != null)
+        {
+            Console.WriteLine("*************************  Unfollow: (" + AuthorDTO.Id + ") Name:" + AuthorDTO.UserName + " *************************");
+            
+            var user = await _userManager.GetUserAsync(User);
+            Console.WriteLine("*************************  user: (" + user.Id + ") Name:" + user.UserName + " *************************");
+            var author = new AuthorDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            await _authorService.UnfollowAuthor(author, AuthorDTO);
+        }
+
         return RedirectToPage("/Public");
     }
 

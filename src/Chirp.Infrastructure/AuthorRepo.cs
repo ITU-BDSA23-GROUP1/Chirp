@@ -63,10 +63,40 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
 
         context.Authors.Add(author);
         context.SaveChanges();
-
     }
 
+    public void FollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToFollowDTO)
+    {
+        var author = FindAuthorByAuthorDTO(authorDTO);
+        var authorToFollow = FindAuthorByAuthorDTO(authorToFollowDTO);
 
+        author.Following.Add(authorToFollow);
+        context.SaveChanges();
+    }
 
+    public void UnfollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToUnfollowDTO)
+    {
+        var author = FindAuthorByAuthorDTO(authorDTO);
+        var authorToUnfollow = FindAuthorByAuthorDTO(authorToUnfollowDTO);
+
+        author.Following.Remove(authorToUnfollow);
+        context.SaveChanges();
+    }
+
+    public IEnumerable<AuthorDTO> GetFollowing(AuthorDTO authorDTO) {
+        var author = FindAuthorByAuthorDTO(authorDTO);
+        var following = new List<AuthorDTO>();
+
+        foreach(var authorToFollow in author.Following) {
+            var authorToFollowDTO = new AuthorDTO {
+                Id = authorToFollow.Id,
+                UserName = authorToFollow.UserName,
+                Email = authorToFollow.Email
+            };
+            following.Add(authorToFollowDTO);
+        }
+
+        return following;
+    }
 
 }

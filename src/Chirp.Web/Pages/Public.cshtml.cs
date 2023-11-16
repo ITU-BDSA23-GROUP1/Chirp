@@ -13,6 +13,7 @@ public class PublicModel : PageModel
     private readonly ICheepRepository<CheepDTO, string> _service;
     private readonly IAuthorRepository<AuthorDTO, string> _authorService;
     public List<CheepDTO> Cheeps { get; set; }
+    public List<AuthorDTO> Following { get; set; }
 
     //Defines the CheepDTO property
     [BindProperty]
@@ -34,6 +35,19 @@ public class PublicModel : PageModel
     {
         var cheeps = await _service.Get((PageNo - 1) * 32);
         Cheeps = cheeps.ToList();
+        if (User.Identity.IsAuthenticated)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var author = new AuthorDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            var following = _authorService.GetFollowing(author);
+            Following = following.ToList();
+        }
+
         return Page();
     }
     public async Task<IActionResult> OnPostAsync()

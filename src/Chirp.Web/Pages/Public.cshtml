@@ -1,5 +1,6 @@
 ﻿@page "/"
 @model Chirp.Razor.Pages.PublicModel
+
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
@@ -37,7 +38,19 @@
                         <strong>
                             <a href="/Author/@cheep.Author.UserName">@cheep.Author.UserName</a>
                         </strong>
-                        @cheep.Text
+                            @if (User.Identity.IsAuthenticated) {
+
+                            @if (Model.Following.Contains(cheep.Author) && cheep.Author.UserName != User.Identity.Name)
+                            {
+                                <button class="btn btn-link" on-click="">Unfollow</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-link" on-click="">Follow</button>
+                            }
+                        }
+                            <br />
+                            @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>
                     </p>
                 </li>

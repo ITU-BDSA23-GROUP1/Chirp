@@ -67,11 +67,19 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
 
     public async Task FollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToFollowDTO)
     {
-        var author = FindAuthorByAuthorDTO(authorDTO);
-        var authorToFollow = FindAuthorByAuthorDTO(authorToFollowDTO);
+        var author = await context.Authors.Include(u => u.Following).FirstOrDefaultAsync(u => u.Id == authorDTO.Id);
+       // var author = FindAuthorByAuthorDTO(authorDTO);
+        Console.WriteLine("Author: " + author.UserName);
+        //var authorToFollow = FindAuthorByAuthorDTO(authorToFollowDTO);
+        var authorToFollow = await context.Authors.Include(u => u.Followers).FirstOrDefaultAsync(u => u.Id == authorToFollowDTO.Id);
+        Console.WriteLine("AuthorToFollow: " + authorToFollow.UserName);
 
+
+        
         author.Following.Add(authorToFollow);
-        context.SaveChanges();
+        authorToFollow.Followers.Add(author);
+        //context.Authors.Update(author);
+        //context.SaveChanges();
         await context.SaveChangesAsync();
     }
 
@@ -85,17 +93,18 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         await context.SaveChangesAsync();
     }
 
-    public IEnumerable<AuthorDTO> GetFollowing(AuthorDTO authorDTO) {
-        var author = FindAuthorByAuthorDTO(authorDTO);
-        var following = new List<AuthorDTO>();
+    public async Task<IEnumerable<string>> GetFollowing(AuthorDTO authorDTO) {
+        var author = await context.Authors.Include(u => u.Following).FirstOrDefaultAsync(u => u.Id == authorDTO.Id);
+        var following = new List<string>();
 
         foreach(var authorToFollow in author.Following) {
-            var authorToFollowDTO = new AuthorDTO {
+            /*var authorToFollowDTO = new AuthorDTO {
                 Id = authorToFollow.Id,
                 UserName = authorToFollow.UserName,
                 Email = authorToFollow.Email
-            };
-            following.Add(authorToFollowDTO);
+            };*/
+            following.Add(authorToFollow.Id);
+            //Console.WriteLine("AuthorToFollow: " + authorToFollow.UserName);
         }
 
         return following;

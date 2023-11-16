@@ -40,11 +40,13 @@
                         </strong>
                             @if (User.Identity.IsAuthenticated && cheep.Author.UserName != User.Identity.Name) {
 
-                            @if (Model.Following.Contains(cheep.Author))
+                                
+                            @if (Model.Following.Contains(cheep.Author.Id))
                             {
                                 
                                 <form method="post" asp-page-handler="Unfollow">
-                                    <button type="submit" value="Unfollow" />
+                                    <input type="hidden" asp-for="AuthorDTO.Id" value="@cheep.Author.Id" />
+                                    <button class="btn btn-default" type ="submit">Unfollow</button>
                                 </form>
                             }
                             else

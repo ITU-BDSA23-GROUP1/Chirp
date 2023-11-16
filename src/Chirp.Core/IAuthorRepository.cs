@@ -7,6 +7,6 @@ public interface IAuthorRepository<T, in Tstring>
     public void CreateAuthor(AuthorDTO authorDTO);
     public Task FollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToFollowDTO);
     public Task UnfollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToUnfollowDTO);
-    public IEnumerable<AuthorDTO> GetFollowing(AuthorDTO authorDTO);
+    public Task<IEnumerable<string>> GetFollowing(AuthorDTO authorDTO);
 
 }

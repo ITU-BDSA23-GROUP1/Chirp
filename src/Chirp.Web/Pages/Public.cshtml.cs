@@ -13,7 +13,7 @@ public class PublicModel : PageModel
     private readonly ICheepRepository<CheepDTO, string> _service;
     private readonly IAuthorRepository<AuthorDTO, string> _authorService;
     public List<CheepDTO> Cheeps { get; set; }
-    public List<AuthorDTO> Following { get; set; }
+    public List<string> Following { get; set; }
 
     //Defines the CheepDTO property
     [BindProperty]
@@ -46,7 +46,7 @@ public class PublicModel : PageModel
                 UserName = user.UserName,
                 Email = user.Email
             };
-            var following = _authorService.GetFollowing(author);
+            var following = await _authorService.GetFollowing(author);
             Following = following.ToList();
             Console.WriteLine("*************************  following *************************");
             Console.WriteLine("Count: " + Following.Count);
@@ -97,6 +97,7 @@ public class PublicModel : PageModel
             Console.WriteLine("*************************  Follow: (" + AuthorDTO.Id + ") Name:" + AuthorDTO.UserName + " *************************");
             
             var user = await _userManager.GetUserAsync(User);
+            Console.WriteLine("*************************  user: (" + user.Id + ") Name:" + user.UserName + " *************************");
             var author = new AuthorDTO
             {
                 Id = user.Id,

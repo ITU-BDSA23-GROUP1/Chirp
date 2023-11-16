@@ -30,4 +30,5 @@ public class Author : IdentityUser
     public override string Email { get; set; }
     public required List<Cheep> Cheeps { get; set; }
     public List<Author> Following { get; } = new();
+    public List<Author> Followers { get; } = new();
 }

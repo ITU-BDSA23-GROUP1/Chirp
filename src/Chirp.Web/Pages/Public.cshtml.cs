@@ -18,6 +18,8 @@ public class PublicModel : PageModel
     //Defines the CheepDTO property
     [BindProperty]
     public CheepDTO CheepDTO { get; set; }
+    [BindProperty]
+    public AuthorDTO AuthorDTO { get; set; }
 
     UserManager<Author> _userManager;
 
@@ -46,6 +48,8 @@ public class PublicModel : PageModel
             };
             var following = _authorService.GetFollowing(author);
             Following = following.ToList();
+            Console.WriteLine("*************************  following *************************");
+            Console.WriteLine("Count: " + Following.Count);
         }
 
         return Page();
@@ -84,20 +88,28 @@ public class PublicModel : PageModel
         return RedirectToPage("/Public");
     }
 
-    public void OnPostFollow(AuthorDTO authorToFollowDTO)
+    public async Task<IActionResult> OnPostFollow()
     {
-        var user = _userManager.GetUserAsync(User).Result;
-        var authorDTO = new AuthorDTO
+            Console.WriteLine("*************************  before *************************");
+
+        if (AuthorDTO != null)
         {
-            Id = user.Id,
-            UserName = user.UserName,
-            Email = user.Email
-        };
-        _authorService.FollowAuthor(authorDTO, authorToFollowDTO);
-        RedirectToPage("/Public");
+            Console.WriteLine("*************************  Follow: (" + AuthorDTO.Id + ") Name:" + AuthorDTO.UserName + " *************************");
+            
+            var user = await _userManager.GetUserAsync(User);
+            var author = new AuthorDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            await _authorService.FollowAuthor(author, AuthorDTO);
+        }
+
+        return RedirectToPage("/Public");
     }
 
-    public void OnPostUnfollow(AuthorDTO authorToUnfollowDTO)
+    public async Task<IActionResult> OnPostUnfollow(AuthorDTO authorToUnfollowDTO)
     {
         var user = _userManager.GetUserAsync(User).Result;
         var authorDTO = new AuthorDTO
@@ -106,8 +118,8 @@ public class PublicModel : PageModel
             UserName = user.UserName,
             Email = user.Email
         };
-        _authorService.UnfollowAuthor(authorDTO, authorToUnfollowDTO);
-        RedirectToPage("/Public");
+        await _authorService.UnfollowAuthor(authorDTO, authorToUnfollowDTO);
+        return RedirectToPage("/Public");
     }
 
 }

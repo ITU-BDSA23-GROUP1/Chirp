@@ -49,7 +49,11 @@
                             }
                             else
                             {
-                                <button class="btn btn-link">Follow</button>
+                                 <form method="post" asp-page-handler="Follow">
+                                    <input type="hidden" asp-for="AuthorDTO.Id" value="@cheep.Author.Id" />
+                                    <button class="btn btn-default" type ="submit">Follow</button>
+                                    
+                                </form>
                             }
                         }
                             <br />

@@ -38,9 +38,9 @@
                         <strong>
                             <a href="/Author/@cheep.Author.UserName">@cheep.Author.UserName</a>
                         </strong>
-                            @if (User.Identity.IsAuthenticated) {
+                            @if (User.Identity.IsAuthenticated && cheep.Author.UserName != User.Identity.Name) {
 
-                            @if (Model.Following.Contains(cheep.Author) && cheep.Author.UserName != User.Identity.Name)
+                            @if (Model.Following.Contains(cheep.Author))
                             {
                                 <button class="btn btn-link" on-click="">Unfollow</button>
                             }

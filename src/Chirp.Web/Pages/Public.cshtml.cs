@@ -84,4 +84,30 @@ public class PublicModel : PageModel
         return RedirectToPage("/Public");
     }
 
+    public void OnPostFollow(AuthorDTO authorToFollowDTO)
+    {
+        var user = _userManager.GetUserAsync(User).Result;
+        var authorDTO = new AuthorDTO
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email
+        };
+        _authorService.FollowAuthor(authorDTO, authorToFollowDTO);
+        RedirectToPage("/Public");
+    }
+
+    public void OnPostUnfollow(AuthorDTO authorToUnfollowDTO)
+    {
+        var user = _userManager.GetUserAsync(User).Result;
+        var authorDTO = new AuthorDTO
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email
+        };
+        _authorService.UnfollowAuthor(authorDTO, authorToUnfollowDTO);
+        RedirectToPage("/Public");
+    }
+
 }

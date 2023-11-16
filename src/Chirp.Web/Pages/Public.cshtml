@@ -42,11 +42,14 @@
 
                             @if (Model.Following.Contains(cheep.Author) && cheep.Author.UserName != User.Identity.Name)
                             {
-                                <button class="btn btn-link" on-click="">Unfollow</button>
+                                
+                                <form method="post" asp-page-handler="Unfollow">
+                                    <button type="submit" value="Unfollow" />
+                                </form>
                             }
                             else
                             {
-                                <button class="btn btn-link" on-click="">Follow</button>
+                                <button class="btn btn-link">Follow</button>
                             }
                         }
                             <br />

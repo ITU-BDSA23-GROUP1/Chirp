@@ -48,8 +48,6 @@ public class PublicModel : PageModel
             };
             var following = await _authorService.GetFollowing(author);
             Following = following.ToList();
-            Console.WriteLine("*************************  following *************************");
-            Console.WriteLine("Count: " + Following.Count);
         }
 
         return Page();
@@ -66,8 +64,6 @@ public class PublicModel : PageModel
         // Existing logic to create a Cheep instance
         if (CheepDTO != null && CheepDTO.Text != null)
         {
-            //Console.WriteLine("Identity: " + User.Identity.Name);
-            //var author = await _authorService.FindAuthorByName(User.Identity.Name);
             var user = await _userManager.GetUserAsync(User);
             var author = new AuthorDTO
             {
@@ -75,7 +71,6 @@ public class PublicModel : PageModel
                 UserName = user.UserName,
                 Email = user.Email
             };
-            //Console.WriteLine("id: " + user.UserName);
             var cheepDTO = new CheepDTO
             {
                 Text = CheepDTO.Text,
@@ -90,14 +85,9 @@ public class PublicModel : PageModel
 
     public async Task<IActionResult> OnPostFollow()
     {
-            Console.WriteLine("*************************  before *************************");
-
         if (AuthorDTO != null)
         {
-            Console.WriteLine("*************************  Follow: (" + AuthorDTO.Id + ") Name:" + AuthorDTO.UserName + " *************************");
-            
             var user = await _userManager.GetUserAsync(User);
-            Console.WriteLine("*************************  user: (" + user.Id + ") Name:" + user.UserName + " *************************");
             var author = new AuthorDTO
             {
                 Id = user.Id,
@@ -112,12 +102,9 @@ public class PublicModel : PageModel
 
     public async Task<IActionResult> OnPostUnfollow()
     {
-       if (AuthorDTO != null)
+        if (AuthorDTO != null)
         {
-            Console.WriteLine("*************************  Unfollow: (" + AuthorDTO.Id + ") Name:" + AuthorDTO.UserName + " *************************");
-            
             var user = await _userManager.GetUserAsync(User);
-            Console.WriteLine("*************************  user: (" + user.Id + ") Name:" + user.UserName + " *************************");
             var author = new AuthorDTO
             {
                 Id = user.Id,

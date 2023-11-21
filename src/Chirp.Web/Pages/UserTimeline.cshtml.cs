@@ -44,8 +44,6 @@ public class UserTimelineModel : PageModel
         // Existing logic to create a Cheep instance
         if (CheepDTO != null && CheepDTO.Text != null)
         {
-            //Console.WriteLine("Identity: " + User.Identity.Name);
-            //var author = await _authorService.FindAuthorByName(User.Identity.Name);
             var user = await _userManager.GetUserAsync(User);
             var author = new AuthorDTO
             {
@@ -53,7 +51,6 @@ public class UserTimelineModel : PageModel
                 UserName = user.UserName,
                 Email = user.Email
             };
-            //Console.WriteLine("id: " + user.UserName);
             var cheepDTO = new CheepDTO
             {
                 Text = CheepDTO.Text,

@@ -9,17 +9,19 @@ namespace Chirp.Razor.Pages;
 public class UserTimelineModel : PageModel
 {
     private readonly ICheepRepository<CheepDTO, string> _service;
+    private readonly IAuthorRepository<AuthorDTO, string> _authorService;
     public List<CheepDTO> Cheeps { get; set; }
+
     [BindProperty]
     public CheepDTO CheepDTO { get; set; }
 
     readonly UserManager<Author> _userManager;
 
-    public UserTimelineModel(ICheepRepository<CheepDTO, string> service, UserManager<Author> userManager)
+    public UserTimelineModel(ICheepRepository<CheepDTO, string> service, IAuthorRepository<AuthorDTO, string> authorService, UserManager<Author> userManager)
     {
         _service = service;
+        _authorService = authorService;
         _userManager = userManager;
-
     }
 
 
@@ -27,7 +29,25 @@ public class UserTimelineModel : PageModel
     public int PageNo { get; set; }
     public async Task<IActionResult> OnGetAsync(string AuthorName)
     {
-        var cheeps = await _service.GetByFilter(AuthorName, (PageNo - 1) * 32);
+        IEnumerable<CheepDTO> cheeps;
+        if (User.Identity.IsAuthenticated && User.Identity.Name == AuthorName)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var author = new AuthorDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            var following = await _authorService.GetFollowing(author);
+            var authorIds = following.ToList();
+            authorIds.Add(user.Id);
+            cheeps = await _service.GetByFollowers(authorIds, (PageNo - 1) * 32);
+        }
+        else
+        {
+            cheeps = await _service.GetByFilter(AuthorName, (PageNo - 1) * 32);
+        }
         Cheeps = cheeps.ToList();
         return Page();
     }

@@ -12,7 +12,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
 
     public async Task<IEnumerable<CheepDTO>> Get(int offset)
     {
-        if (offset < 0) { offset = 0;}
+        if (offset < 0) { offset = 0; }
         var cheeps = await context.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Skip(offset)
@@ -37,7 +37,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
 
     public async Task<IEnumerable<CheepDTO>> GetByFilter(string authorName, int offset)
     {
-        if (offset < 0) { offset = 0;}
+        if (offset < 0) { offset = 0; }
         var cheeps = await context.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Select(c => new CheepDTO
@@ -52,6 +52,30 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
                 },
             })
         .Where(c => c.Author.UserName == authorName)
+        .Skip(offset)
+        .Take(32)
+        .ToListAsync();
+
+        return cheeps;
+    }
+
+    public async Task<IEnumerable<CheepDTO>> GetByFollowers(List<string> authorNames, int offset)
+    {
+        if (offset < 0) { offset = 0; }
+        var cheeps = await context.Cheeps
+            .OrderByDescending(c => c.TimeStamp)
+            .Select(c => new CheepDTO
+            {
+                Text = c.Text,
+                TimeStamp = c.TimeStamp,
+                Author = new AuthorDTO
+                {
+                    Id = c.Author.Id,
+                    UserName = c.Author.UserName,
+                    Email = c.Author.Email
+                },
+            })
+        .Where(c => authorNames.Contains(c.Author.Id))
         .Skip(offset)
         .Take(32)
         .ToListAsync();

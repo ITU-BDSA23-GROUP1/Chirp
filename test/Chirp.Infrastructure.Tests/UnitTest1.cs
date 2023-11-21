@@ -1,5 +1,6 @@
 namespace Chirp.Tests.Infrastructure;
 
+using System.Threading.Tasks;
 using Chirp.Core;
 using Chirp.Infrastructure;
 using Microsoft.Data.Sqlite;
@@ -92,12 +93,9 @@ public class UnitTestsInfrastructure : IDisposable
     }
 
     [Fact]
-    public void GetByFilter_OnlyFetchCheepsFromSpecificAuthor()
+    public async Task GetByFilter_OnlyFetchCheepsFromSpecificAuthorAsync()
     {
         //Arrange
-        Guid authorGuid1 = Guid.NewGuid();
-        Guid authorGuid2 = Guid.NewGuid();
-
         Author author1 = new Author
         {
             UserName = "John Doe",
@@ -145,9 +143,10 @@ public class UnitTestsInfrastructure : IDisposable
         _context.Add(cheep3);
         _context.SaveChanges();
 
+        var cheepResult = await _cheepRepo.GetByFilter("John Doe", 0);
+
         //Assert
-        Assert.Equal(2, _context.Cheeps.Where(c => c.Author.UserName == "John Doe").Count());
-      )
+        Assert.Equal(2, cheepResult.Count());
     }
 
     [Fact]
@@ -278,7 +277,7 @@ public class UnitTestsInfrastructure : IDisposable
     [Fact]
     public async void GetByFollowers_CheckIfCheepsFromFollowersAreReturned()
     {
-         //Arrange
+        //Arrange
         Author author1 = new Author
         {
             UserName = "John Doe",
@@ -328,7 +327,7 @@ public class UnitTestsInfrastructure : IDisposable
             CheepId = cheepGuid3,
         };
 
-          //Act
+        //Act
         _context.Add(cheep1);
         _context.Add(cheep2);
         _context.Add(cheep3);
@@ -337,7 +336,9 @@ public class UnitTestsInfrastructure : IDisposable
 
 
         //Assert
-        
+
+    }
+
 
 
 }

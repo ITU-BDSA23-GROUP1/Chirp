@@ -41,11 +41,11 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         return author;
     }
 
-    public Author FindAuthorByAuthorDTO(AuthorDTO authorDTO)
+    public async Task<Author> FindAuthorByAuthorDTO(AuthorDTO authorDTO)
     {
-        var author = context.Authors
-            .Where(a => a.Id == authorDTO.Id)
-            .FirstOrDefault();
+        var author = await context.Authors
+            .Include(a => a.Following)
+            .FirstOrDefaultAsync(a => a.Id == authorDTO.Id);
 
         return author;
     }
@@ -66,8 +66,8 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
 
     public async Task FollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToFollowDTO)
     {
-        var author = await context.Authors.Include(u => u.Following).FirstOrDefaultAsync(u => u.Id == authorDTO.Id);
-        var authorToFollow = await context.Authors.Include(u => u.Followers).FirstOrDefaultAsync(u => u.Id == authorToFollowDTO.Id);
+        var author = await FindAuthorByAuthorDTO(authorDTO);
+        var authorToFollow = await FindAuthorByAuthorDTO(authorToFollowDTO);
 
         author.Following.Add(authorToFollow);
         authorToFollow.Followers.Add(author);
@@ -76,8 +76,8 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
 
     public async Task UnfollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToUnfollowDTO)
     {
-        var author = await context.Authors.Include(u => u.Following).FirstOrDefaultAsync(u => u.Id == authorDTO.Id);
-        var authorToUnfollow = await context.Authors.Include(u => u.Followers).FirstOrDefaultAsync(u => u.Id == authorToUnfollowDTO.Id);
+        var author = await FindAuthorByAuthorDTO(authorDTO);
+        var authorToUnfollow = await FindAuthorByAuthorDTO(authorToUnfollowDTO);
 
         author.Following.Remove(authorToUnfollow);
         authorToUnfollow.Followers.Remove(author);
@@ -86,7 +86,7 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
 
     public async Task<IEnumerable<string>> GetFollowing(AuthorDTO authorDTO)
     {
-        var author = await context.Authors.Include(u => u.Following).FirstOrDefaultAsync(u => u.Id == authorDTO.Id);
+        var author = await FindAuthorByAuthorDTO(authorDTO);
         var following = new List<string>();
 
         foreach (var authorToFollow in author.Following)

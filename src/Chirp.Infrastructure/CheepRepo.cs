@@ -95,7 +95,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             authorRepository.CreateAuthor(checkAuthor);
         }
 
-        Author cheepAuthor = authorRepository.FindAuthorByAuthorDTO(checkAuthor);
+        Author cheepAuthor = await authorRepository.FindAuthorByAuthorDTO(checkAuthor);
 
         Cheep cheep = new Cheep
         {

@@ -147,6 +147,7 @@ public class UnitTestsInfrastructure : IDisposable
 
         //Assert
         Assert.Equal(2, _context.Cheeps.Where(c => c.Author.UserName == "John Doe").Count());
+      )
     }
 
     [Fact]
@@ -272,5 +273,71 @@ public class UnitTestsInfrastructure : IDisposable
         Assert.Equal(1, _context.Cheeps.Where(c => c.Text == "Hello World").Count());
         Assert.Equal(1, _context.Cheeps.Where(c => c.TimeStamp == timeStamp).Count());
     }
+
+
+    [Fact]
+    public async void GetByFollowers_CheckIfCheepsFromFollowersAreReturned()
+    {
+         //Arrange
+        Author author1 = new Author
+        {
+            UserName = "John Doe",
+            Email = "john@email.dk",
+            Cheeps = new List<Cheep>(),
+        };
+        Author author2 = new Author
+        {
+            UserName = "Janet Doe",
+            Email = "janet@email.dk",
+            Cheeps = new List<Cheep>(),
+        };
+
+        Author author3 = new Author
+        {
+            UserName = "Joe Smith",
+            Email = "joe@email.dk",
+            Cheeps = new List<Cheep>(),
+        };
+
+
+        Guid cheepGuid1 = Guid.NewGuid();
+        Guid cheepGuid2 = Guid.NewGuid();
+        Guid cheepGuid3 = Guid.NewGuid();
+
+        Cheep cheep1 = new Cheep
+        {
+            Text = "Hello World",
+            TimeStamp = DateTime.Now,
+            Author = author1,
+            CheepId = cheepGuid1,
+        };
+
+        Cheep cheep2 = new Cheep
+        {
+            Text = "Hello to you",
+            TimeStamp = DateTime.Now,
+            Author = author2,
+            CheepId = cheepGuid2,
+        };
+
+        Cheep cheep3 = new Cheep
+        {
+            Text = "Hello John",
+            TimeStamp = DateTime.Now,
+            Author = author3,
+            CheepId = cheepGuid3,
+        };
+
+          //Act
+        _context.Add(cheep1);
+        _context.Add(cheep2);
+        _context.Add(cheep3);
+        _context.SaveChanges();
+
+
+
+        //Assert
+        
+
 
 }

@@ -19,16 +19,17 @@
 
 <div>
     <h2>@routeName's Timeline </h2>
-    
-@if (User.Identity.IsAuthenticated && User.Identity.Name == (string)routeName){
-    <div class="cheepbox">
-        <h3>What's on your mind @(User.Identity.Name)?</h3>
-        
-        <form method="post">
-            <input style="float: left" type="text" asp-for="CheepDTO.Text" />
-            <input type="submit" value="Share">
-        </form>
-     </div>
+
+    @if (User.Identity.IsAuthenticated && User.Identity.Name == (string)routeName)
+    {
+        <div class="cheepbox">
+            <h3>What's on your mind @(User.Identity.Name)?</h3>
+
+            <form method="post">
+                <input style="float: left" type="text" asp-for="CheepDTO.Text" />
+                <input type="submit" value="Share">
+            </form>
+        </div>
     }
     @if (Model.Cheeps.Any())
     {
@@ -40,8 +41,29 @@
                         <strong>
                             <a href="/Author/@cheep.Author.UserName">@cheep.Author.UserName</a>
                         </strong>
+                        @if (User.Identity.IsAuthenticated && cheep.Author.UserName != User.Identity.Name)
+                        {
+
+
+                            @if (Model.Following.Contains(cheep.Author.Id))
+                            {
+
+                            <form method="post" asp-page-handler="Unfollow">
+                                <input type="hidden" asp-for="AuthorDTO.Id" value="@cheep.Author.Id" />
+                                <button class="btn btn-default" type="submit">Unfollow</button>
+                            </form>
+                            }
+                            else
+                            {
+                            <form method="post" asp-page-handler="Follow">
+                                <input type="hidden" asp-for="AuthorDTO.Id" value="@cheep.Author.Id" />
+                                <button class="btn btn-default" type="submit">Follow</button>
+
+                            </form>
+                            }
+                        }
                         @cheep.Text
-                        <small>&mdash; @cheep.TimeStamp</small>
+                    <small>&mdash; @cheep.TimeStamp</small>
                     </p>
                 </li>
             }
@@ -52,7 +74,8 @@
                 <a href="/Author/@routeName/?page=@PrevPage">Previous Page</a>
                 <span>|</span>
             }
-            @if (Model.Cheeps.Count() < 32 || Model.Cheeps.Count() == 0) {
+            @if (Model.Cheeps.Count() < 32 || Model.Cheeps.Count() == 0)
+            {
                 <em>There are no more cheeps.</em>
             }
             else

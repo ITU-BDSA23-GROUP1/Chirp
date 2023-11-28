@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
+using Chirp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ChirpDBContextConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDBContextConnection' not found.");
 builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.
@@ -27,7 +30,8 @@ builder.Services.AddDbContext<ChirpDBContext>(options =>
 // The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
 builder.Services.AddDefaultIdentity<Author>(options =>
         options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ChirpDBContext>();
+    .AddEntityFrameworkStores<ChirpDBContext>()
+    .AddSignInManager<SignInManager<Author>>();
 
 builder.Services.AddRazorPages();
 

@@ -1,3 +1,6 @@
+using System.Threading.Tasks.Dataflow;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 namespace Chirp.Infrastructure;
 
 public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
@@ -95,6 +98,28 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         }
 
         return following;
+    }
+
+    public async Task<bool> DeleteAuthor(String authorId)
+    {
+        var author = await context.Authors
+            .Include(a => a.Following)
+            .Include(a => a.Followers)
+            .Include(a => a.Cheeps)
+            .FirstOrDefaultAsync(a => a.Id == authorId);
+
+        if (author == null)
+        {
+            return false;
+        }
+
+        author.Following.Clear();
+        author.Followers.Clear();
+        //author.Cheeps.Clear();
+
+        context.Authors.Remove(author);
+        await context.SaveChangesAsync();
+        return true;
     }
 
 }

@@ -38,7 +38,7 @@
                         <strong>
                             <a href="/Author/@cheep.Author.UserName">@cheep.Author.UserName</a>
                         </strong>
-                            @if (User.Identity.IsAuthenticated && cheep.Author.UserName != User.Identity.Name) {
+                            @if (User.Identity.IsAuthenticated && cheep.Author.UserName != User.Identity.Name && cheep.Author.Id != null) {
 
                                 
                             @if (Model.Following.Contains(cheep.Author.Id))

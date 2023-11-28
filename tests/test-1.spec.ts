@@ -43,9 +43,9 @@ test('testFollowAndUnfollow', async ({ page }) => {
   await page.locator('li').filter({ hasText: 'Jacqualine Gilcoine Follow Seems to me of Darmonodes\'\' elephant that so caused' }).getByRole('link').click();
 
   //Testing if the URL matches the author's usertimeline
-  await await expect(page).toHaveURL('http://localhost:5000/Author/Jacqualine%20Gilcoine');
+  await expect(page).toHaveURL('http://localhost:5000/Author/Jacqualine%20Gilcoine');
 
-  await page.locator('li').filter({ hasText: 'Jacqualine Gilcoine Follow Starbuck now is what we hear the worst. — 01-08-2023 13:17:' }).getByRole('button').click();
+  await page.locator('li').filter({ hasText: 'Jacqualine Gilcoine Follow Starbuck' }).getByRole('button').click();
   await page.getByRole('link', { name: 'my timeline' }).click();
   await page.getByRole('link', { name: 'public timeline' }).click();
   await page.locator('li').filter({ hasText: 'Quintin Sitts Follow It\'\'s' }).getByRole('link').click();

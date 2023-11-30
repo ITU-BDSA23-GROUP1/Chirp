@@ -100,6 +100,19 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         return following;
     }
 
+    public async Task<IEnumerable<string>> GetFollowingNames(AuthorDTO authorDTO)
+    {
+        var author = await FindAuthorByAuthorDTO(authorDTO);
+        var following = new List<string>();
+
+        foreach (var authorToFollow in author.Following)
+        {
+            following.Add(authorToFollow.UserName);
+        }
+
+        return following;
+    }
+
     public async Task<bool> DeleteAuthor(String authorId)
     {
         var author = await context.Authors

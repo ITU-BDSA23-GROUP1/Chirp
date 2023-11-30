@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Chirp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ChirpDBContextConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDBContextConnection' not found.");
 builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.

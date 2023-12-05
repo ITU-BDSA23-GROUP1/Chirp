@@ -12,6 +12,8 @@ public class AboutMeModel : PageModel
     private readonly IAuthorRepository<AuthorDTO, string> _authorService;
     public List<CheepDTO> Cheeps { get; set; }
     public List<string> Following { get; set; }
+    [BindProperty]
+    public CheepDTO CheepDTO { get; set; }
 
     public AboutMeModel(ICheepRepository<CheepDTO, string> service, IAuthorRepository<AuthorDTO, string> authorService)
     {
@@ -34,5 +36,15 @@ public class AboutMeModel : PageModel
             Following = followingUserNames.ToList();
         }
         return Page();
+    }
+
+    public async Task<IActionResult> OnPostDeleteCheep()
+    {
+        if (CheepDTO != null)
+        {
+            await _service.DeleteCheep(CheepDTO.Id);
+        }
+
+        return RedirectToPage("/AboutMe");
     }
 }

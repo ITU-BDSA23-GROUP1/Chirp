@@ -78,6 +78,7 @@ public class UserTimelineModel : PageModel
             };
             var cheepDTO = new CheepDTO
             {
+                Id = CheepDTO.Id,
                 Text = CheepDTO.Text,
                 TimeStamp = DateTime.Now,
                 Author = author
@@ -117,6 +118,16 @@ public class UserTimelineModel : PageModel
                 Email = user.Email
             };
             await _authorService.UnfollowAuthor(author, AuthorDTO);
+        }
+
+        return RedirectToPage("/UserTimeline");
+    }
+
+    public async Task<IActionResult> OnPostDeleteCheep()
+    {
+        if (CheepDTO != null)
+        {
+            await _service.DeleteCheep(CheepDTO.Id);
         }
 
         return RedirectToPage("/UserTimeline");

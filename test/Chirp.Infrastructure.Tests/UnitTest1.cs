@@ -259,6 +259,7 @@ public class UnitTestsInfrastructure : IDisposable
         };
         CheepDTO cheepDTO = new CheepDTO
         {
+            Id = Guid.NewGuid().ToString(),
             Text = "Hello World",
             TimeStamp = timeStamp,
             Author = authorDTO

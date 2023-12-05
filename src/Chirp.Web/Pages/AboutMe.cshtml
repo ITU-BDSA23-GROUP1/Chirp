@@ -51,6 +51,13 @@
                             <strong>
                                 <a href="/Author/@cheep.Author.UserName">@cheep.Author.UserName</a>
                             </strong>
+                            @if (User.Identity.IsAuthenticated && cheep.Author.UserName == User.Identity.Name && cheep.Author.Id != null) 
+                            {
+                                <form method="post" asp-page-handler="DeleteCheep">
+                                    <input type="hidden" asp-for="CheepDTO.Id" value="@cheep.Id" />
+                                    <button class="btn btn-default" type ="submit">Delete Cheep</button>
+                                </form>   
+                            }
                             @cheep.Text
                             <small>&mdash; @cheep.TimeStamp</small>
                         </p>

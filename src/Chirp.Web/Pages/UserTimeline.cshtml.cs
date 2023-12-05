@@ -122,4 +122,14 @@ public class UserTimelineModel : PageModel
 
         return RedirectToPage("/UserTimeline");
     }
+
+    public async Task<IActionResult> OnPostDeleteCheep()
+    {
+        if (CheepDTO != null)
+        {
+            await _service.DeleteCheep(CheepDTO.Id);
+        }
+
+        return RedirectToPage("/UserTimeline");
+    }
 }

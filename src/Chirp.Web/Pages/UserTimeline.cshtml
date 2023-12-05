@@ -43,11 +43,8 @@
                         </strong>
                         @if (User.Identity.IsAuthenticated && cheep.Author.UserName != User.Identity.Name && cheep.Author.Id != null)
                         {
-
-
                             @if (Model.Following.Contains(cheep.Author.Id))
                             {
-
                             <form method="post" asp-page-handler="Unfollow">
                                 <input type="hidden" asp-for="AuthorDTO.Id" value="@cheep.Author.Id" />
                                 <button class="btn btn-default" type="submit">Unfollow</button>
@@ -58,9 +55,15 @@
                             <form method="post" asp-page-handler="Follow">
                                 <input type="hidden" asp-for="AuthorDTO.Id" value="@cheep.Author.Id" />
                                 <button class="btn btn-default" type="submit">Follow</button>
-
                             </form>
                             }
+                        }
+                        @if (User.Identity.IsAuthenticated && cheep.Author.UserName == User.Identity.Name && cheep.Author.Id != null) 
+                        {
+                            <form method="post" asp-page-handler="DeleteCheep">
+                                <input type="hidden" asp-for="CheepDTO.Id" value="@cheep.Id" />
+                                <button class="btn btn-default" type ="submit">Delete Cheep</button>
+                            </form>   
                         }
                         @cheep.Text
                     <small>&mdash; @cheep.TimeStamp</small>

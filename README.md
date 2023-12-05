@@ -6,6 +6,8 @@ Co-authored-by: Emilie <emru@itu.dk>
 Co-authored-by: Alex <alebj@itu.dk>
 
 
+**URL**
+https://bdsagroup1chirprazor.azurewebsites.net/
 
 // Husk at noter at test er navngivet og arrangeret ud fra microsoft anbefalinger
 // link: https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test

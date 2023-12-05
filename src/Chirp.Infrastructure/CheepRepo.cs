@@ -19,6 +19,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             .Take(32)
             .Select(c => new CheepDTO
             {
+                Id = c.CheepId.ToString(),
                 Text = c.Text,
                 TimeStamp = c.TimeStamp,
                 Author = new AuthorDTO
@@ -42,6 +43,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             .OrderByDescending(c => c.TimeStamp)
             .Select(c => new CheepDTO
             {
+                Id = c.CheepId.ToString(),
                 Text = c.Text,
                 TimeStamp = c.TimeStamp,
                 Author = new AuthorDTO
@@ -66,6 +68,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
             .OrderByDescending(c => c.TimeStamp)
             .Select(c => new CheepDTO
             {
+                Id = c.CheepId.ToString(),
                 Text = c.Text,
                 TimeStamp = c.TimeStamp,
                 Author = new AuthorDTO
@@ -107,6 +110,22 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
 
         context.Cheeps.Add(cheep);
         await context.SaveChangesAsync();
+    }
+
+
+    public async Task<bool> DeleteCheep(string cheepID)
+    {
+        var cheep = await context.Cheeps
+            .FirstOrDefaultAsync(c => c.CheepId.ToString() == cheepID);
+
+        if (cheep == null)
+        {
+            return false;
+        }
+
+        context.Cheeps.Remove(cheep);
+        await context.SaveChangesAsync();
+        return true;
     }
 
 }

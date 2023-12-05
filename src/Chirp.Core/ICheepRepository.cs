@@ -7,4 +7,6 @@ public interface ICheepRepository<T, in Tstring>
     public Task<IEnumerable<CheepDTO>> GetByFollowers(List<string> authorNames, int offset);
 
     public Task CreateCheep(CheepDTO cheepDTO);
+
+    public Task<bool> DeleteCheep(string cheepId);
 }

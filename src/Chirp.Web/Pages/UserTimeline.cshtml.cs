@@ -78,6 +78,7 @@ public class UserTimelineModel : PageModel
             };
             var cheepDTO = new CheepDTO
             {
+                Id = CheepDTO.Id,
                 Text = CheepDTO.Text,
                 TimeStamp = DateTime.Now,
                 Author = author

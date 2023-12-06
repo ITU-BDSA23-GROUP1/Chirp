@@ -22,7 +22,7 @@ Here comes a description of our domain model.
 
 Here comes a illustration of our applications onion architecture (just to test how images are added).
 
-![Illustration of the _Chirp!_ architecture in the small.](docs/images/onionArchitecture.jpg)
+![Illustration of the _Chirp!_ architecture in the small.](images/onionArchitecture.jpg)
 
 ## Architecture of deployed application
 

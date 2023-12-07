@@ -2,6 +2,11 @@
 
 namespace Chirp.Infrastructure;
 
+/// <summary>
+/// This class represents the database context for the Chirp-application.
+/// The database context inherits from IdentityDbContext, which is a class 
+/// from the Microsoft.AspNetCore.Identity.EntityFrameworkCore namespace.
+/// </summary>
 public class ChirpDBContext : IdentityDbContext<Author>
 {
     public DbSet<Cheep> Cheeps { get; set; }
@@ -10,6 +15,10 @@ public class ChirpDBContext : IdentityDbContext<Author>
     public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) { }
 }
 
+/// <summary>
+/// This class represents a Cheep.
+/// A Cheep is a message that is posted by an Author to the Chirp-application.
+/// </summary>
 public class Cheep
 {
     public required Guid CheepId { get; set; }
@@ -21,6 +30,13 @@ public class Cheep
 
 }
 
+/// <summary>
+/// This class represents an Author, which is an authenticated user of the Chirp-application.
+/// Author inherits from IdentityUser, which is a class from the Microsoft.AspNetCore.Identity.EntityFrameworkCore namespace.
+/// From IdentityUser, Author inherits the properties Id, UserName and Email.
+/// Author has a list of Cheeps that the Author has posted. 
+/// Author has a list of Authors that the Author is following, and a list of Authors that are following the Author.
+/// </summary>
 public class Author : IdentityUser
 {
     override public string UserName { get; set; }

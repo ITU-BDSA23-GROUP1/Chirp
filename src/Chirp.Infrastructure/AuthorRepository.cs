@@ -53,7 +53,7 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         return author;
     }
 
-    public void CreateAuthor(AuthorDTO authorDTO)
+    public async Task CreateAuthor(AuthorDTO authorDTO)
     {
         var author = new Author
         {
@@ -64,7 +64,7 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         };
 
         context.Authors.Add(author);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
     }
 
     public async Task FollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToFollowDTO)

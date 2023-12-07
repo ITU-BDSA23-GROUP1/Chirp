@@ -297,6 +297,10 @@ public class UnitTestsInfrastructure : IDisposable
             Email = "joe@email.dk",
             Cheeps = new List<Cheep>(),
         };
+        _context.Add(author1);
+        _context.Add(author2);
+        _context.Add(author3);
+        _context.SaveChanges();
 
 
         Guid cheepGuid1 = Guid.NewGuid();
@@ -336,7 +340,7 @@ public class UnitTestsInfrastructure : IDisposable
 
 
         //Assert
-
+        
     }
 
 

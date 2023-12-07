@@ -1,20 +1,7 @@
-
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.EntityFrameworkCore;
-using Chirp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
-
-// Add services to the container.
-var dbFolder = Path.Join(Path.GetTempPath(), "Chirp");
-if (!Directory.Exists(dbFolder))
-{
-    Directory.CreateDirectory(dbFolder);
-}
 
 var chirpKey = builder.Configuration["Chirp_ConnectionStrings"];
 
@@ -45,12 +32,14 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
 builder.Services.AddScoped<IAuthorRepository<AuthorDTO, string>, AuthorRepository>();
 
+// The next lines are inspired by the supplementary slides from lecture 8:
+// https://github.com/itu-bdsa/lecture_notes/blob/0531bc2647bff2be90ac254b18f6b74c22096788/sessions/session_08/Supplementary_Slides.md
 builder.Services.AddAuthentication()
     .AddGitHub(o =>
     {
         o.ClientId = builder.Configuration["authentication_github_clientId"];
         o.ClientSecret = builder.Configuration["GITHUB_PROVIDER_AUTHENTICATION_SECRET"];
-        o.CallbackPath = "/signin-github"; //"/.auth/login/github/callback";
+        o.CallbackPath = "/signin-github";
     });
 
 

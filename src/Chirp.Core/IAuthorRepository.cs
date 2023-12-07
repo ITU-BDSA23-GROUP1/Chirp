@@ -1,5 +1,11 @@
 namespace Chirp.Core;
 
+/// <summary>
+/// This interface represents a repository for Authors.
+/// It declares different methods for accessing Authors in the database.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <typeparam name="Tstring"></typeparam>
 public interface IAuthorRepository<T, in Tstring>
 {
     public Task<AuthorDTO> FindAuthorByName(string name);

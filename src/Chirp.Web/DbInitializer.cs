@@ -1,6 +1,8 @@
-
 public static class DbInitializer
 {
+    /// <summary>
+    /// This method is used to seed the database with Authors and Cheeps.
+    /// </summary>
     public static void SeedDatabase(ChirpDBContext chirpContext)
     {
         if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))

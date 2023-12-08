@@ -1,6 +1,9 @@
 namespace Chirp.Core;
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// This class represents a data transfer object for a Cheep.
+/// </summary>
 public class CheepDTO
 {
     public required string Id { get; set; }
@@ -12,6 +15,9 @@ public class CheepDTO
 
 }
 
+/// <summary>
+/// This class represents a data transfer object for an Author.
+/// </summary>
 public class AuthorDTO
 {
     public required string Id { get; set; }

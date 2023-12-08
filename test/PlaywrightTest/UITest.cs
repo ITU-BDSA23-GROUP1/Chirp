@@ -37,10 +37,12 @@ public class Tests : PageTest
     public async Task UITest1()
     {
         await Page.GotoAsync("http://localhost:5000/");
-        }/*
-        await Page.GetByRole('link', { name: 'Register' }).ClickAsync();
-        await Page.GetByPlaceholder('name@example.com').ClickAsync();
-
+        
+        //await Page.GetByRole("link", name: "Register" ).ClickAsync();
+       // correct the error above
+        await Page.GetByRole(AriaRole.Link, new() { Name = "Register" }).ClickAsync();
+        await Page.GetByPlaceholder("name@example.com").ClickAsync();
+}/*
         //create random username
         let username = Math.random().toString(36).substring(7);
 

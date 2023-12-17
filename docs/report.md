@@ -17,7 +17,7 @@ Vi skal huske det her: Store all sources of your diagrams, i.e., PlantUML diagra
 
 Here comes a description of our domain model.
 
-![Illustration of the _Chirp!_ data model as UML class diagram.](docs/images/domain_model.png)
+![Illustration of the _Chirp!_ data model as UML class diagram.](images/ClassDiagram.png)
 
 ## Architecture — In the small
 

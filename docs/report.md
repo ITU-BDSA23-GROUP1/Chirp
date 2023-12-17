@@ -15,16 +15,19 @@ Vi skal huske det her: Store all sources of your diagrams, i.e., PlantUML diagra
 
 ## Domain model
 ![Illustration of the _Chirp!_ data model as UML class diagram.](images/ClassDiagram.png)
+
 Above is a UML class diagram of the domain model for our _Chirp!_ application. Here you can see the fields the objects contain and how they associate with each other.
 
 ## Architecture — In the small
 
 ![Illustration of the _Chirp!_ architecture in the small.](images/OnionArchitecture.png)
+
 Above is an illustration of the organization of our _Chirp!_ application. We use the architectural pattern called Onion Architecture to structure our code base. For each layer represented by a different nuance of gray, we illustrate the classes, interfaces, and packages that are part of the layer. The arrows illustrate the dependencies between the layers. For simplicity's sake, we have not illustrated the dependencies between the classes and interfaces within each layer. The illustration shows how dependencies flow inward and never outward, meaning that the inner layers have no knowledge of the outer layers. Our architecture consists of three layers, each represented by a different project in our code base. 
 
 ## Architecture of deployed application
 
 ![Illustration of the architecture of the deployed _Chirp!_ application.](images/Deployment.png)
+
 Above is a deployment diagram that illustrates the architecture of our deployed _Chirp!_ application. It is a client-server application that is deployed to Azure, where the web app and the SQL database are hosted on different servers. Their means of communication are also illustrated. A legend is provided to the right of the diagram.
 
 ## User activities
@@ -48,6 +51,7 @@ Above is an activity diagram of an unauthenticated user's journey using the _Chi
 
 ## Sequence of functionality/calls through _Chirp!_
 ![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png)
+
 The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocal that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
 
 # Process
@@ -56,6 +60,7 @@ OBS remember to write about our 'logbog'
 ## Build, test, release, and deployment
 Below are three illustrations of our workflows 'Build and Deploy', 'Build and Test' and 'Release Chirp'. 
 ![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png)
+
 The illustration above show how the activities in our workflow 'Build and Test' are activated after eachother. This workflow runs on pushes and pull-request to Main. This is done to make sure that non of our new changes or merges have destroyed out ability to Build and Test the program. 
 In the work, first our github action version is checkout and chosen so out workflow can access it. Next .NET is setup with version 7 before restoring out dependencies by running the command 'dotnet restore'. This command ensured that the packages that out program de
 
@@ -65,6 +70,7 @@ Build
 
 
 ![Activity diagram of the workflow for release of the _Chirp!_ application.](images/ReleaseChirp.png)
+
 ![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png)
  
 

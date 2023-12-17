@@ -78,6 +78,26 @@ The above illustration shows how the release of our Chirp Application is run. Th
 
 
 ## How to make _Chirp!_ work locally
+In order to run the _Chirp!_ application locally, the repository from GitHub needs to be cloned, which can be done from the following address: https://github.com/ITU-BDSA23-GROUP1/Chirp. 
+
+Next, a container needs to be set up. This is done so that an SQL Server database can work locally. This can for example be done with the Docker platform. To install Docker, follow this guide: https://docs.docker.com/engine/install/.
+
+To run a SQL Server database, the following command needs to be run:
+
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>" \
+   -p 1433:1433 --name sql1 --hostname sql1 \
+   -d \
+   mcr.microsoft.com/mssql/server:2022-latest
+
+Here, you can replace <YourStrong@Passw0rd> with a password of your choice. The command will setup, configure and start up a database server.
+
+To connect the program and the database server, an appsettings.json file should be made inside the Chirp.Web folder. In this file, a connection string should be set up like so:
+
+{
+“your_ConnectionString”: "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=Huyt2546*;TrustServerCertificate=True"
+}
+
+This connection string should contain the same port and password as in the command to setup the database server. 
 
 ## How to run test suite locally
 To run the test suite locally it is first needed to run the program such that our playwright tests can run. First the docker container with the local database should be started. It is then needed to have two terminals running. One should be navigated to "Chirp.Web". After being navigated here the program should be run with the command: 'dotnet run' to which the program should start up and begin running locally.

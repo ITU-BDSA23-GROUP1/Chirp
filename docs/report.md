@@ -66,12 +66,17 @@ In the workflow, first our GitHub action version is checked out and chosen so th
 
 
 ![Activity diagram of the workflow for release of the _Chirp!_ application.](images/ReleaseChirp.png)
-The above illustration shows how the release of our Chirp Application is run. The workflow is activated on pushes to Main that contain a tag. The 'Checkout' and 'Setup dotnet' with version 7 commands are run followed by 'Restore Dependencies'. After these commands four builds are run after each other. A W
+The above illustration shows how the release of our Chirp Application is run. The workflow is activated when a push to Main happens that contains a tag. By using a tag when pushing to main we are able to mark a checkpoint in the project and give them a "name" or "title". These can be small or larger depending on the tag. 
 
+In the workflow first 'Checkout' and 'Setup dotnet' with version 7 commands are run followed by 'Restore Dependencies'. After these commands four builds are run after each other. A Windows, Linux, MacOS and MacOS Arm exeuteable are build. 
+
+After the builds have finished these are published. The executeable are created and released as zip-files that can be downladed to your computer and ran. 
 
 
 ![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png)
- 
+ The illustration above shows the Deployment of our Chirp Application. The workflow is activated on pushes to Main. In the workflow we first run 'Checkout' and 'Setup dotnet' with version 7 commands. These are follwed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' 
+
+
 
 ## Team work
 ![Activity diagram of the workflow for issues in the GitHub project.](images/Issues.png)

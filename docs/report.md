@@ -62,7 +62,7 @@ Below are three illustrations of our workflows 'Build and Deploy', 'Build and Te
 ![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png)
 
 The illustration above show how the activities in our workflow 'Build and Test' are activated after eachother. This workflow runs on pushes and pull-request to Main. This is done to make sure that non of our new changes or merges have destroyed out ability to Build and Test the program. 
-In the work, first our github action version is checkout and chosen so out workflow can access it. Next .NET is setup with version 7 before restoring out dependencies by running the command 'dotnet restore'. This command ensured that the packages that out program de
+In the work, first our github action version is checkout and chosen so out workflow can access it. Next .NET is setup with version 7 before restoring out dependencies by running the command 'dotnet restore'. This command ensured that the packages that out program depend on are downloaded and have no conflict between them. After this the program is ready to be build. The command 'dotnet build --no-restore' is run which build the project and its dependies into a set of binaries. 
 
  The program is build and then Tested. The build is done by running the command 'dotnet
 
@@ -75,6 +75,8 @@ Build
  
 
 ## Team work
+![Activity diagram of the workflow for issues in the GitHub project.](images/Issues.png)
+
 
 ## How to make _Chirp!_ work locally
 
@@ -82,6 +84,7 @@ Build
 To run the test suite locally it is first needed to run the program such that our playwright tests can run. First the docker container with the local database should be started. It is then needed to have two terminals running. One should be navigated to "Chirp.Web". After being navigated here the program should be run with the command: 'dotnet run' to which the program should start up and begin running locally.
 Another terminal should now be opened and navigated to the top folder "Chirp". Then the command 'dotnet test' should be run in this terminal which should run all our tests and give back their test results in the terminal.
 
+- Briefly describe what kinds of tests you have in your test suites and what they are testing.
 
 
 # Ethics

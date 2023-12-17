@@ -29,13 +29,21 @@ Above is a deployment diagram that illustrates the architecture of our deployed 
 
 ## User activities
 Below are illustrations that show four different user journeys, which are common in the _Chirp!_ application.
+
 ![Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.](images/Register.png)
+
 Above is an activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.
+
 ![Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.](images/Login.png)
+
 Above is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.
+
 ![Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.](images/SendingCheep.png) 
+
 Above is an activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.
+
 ![Activity diagram of an unauthenticated user's journey using the _Chirp!_ application.](images/unauthenticated_user_acitivity.png) 
+
 Above is an activity diagram of an unauthenticated user's journey using the _Chirp!_ application.
 
 ## Sequence of functionality/calls through _Chirp!_
@@ -47,7 +55,6 @@ OBS remember to write about our 'logbog'
 
 ## Build, test, release, and deployment
 Below are three illustrations of our workflows 'Build and Deploy', 'Build and Test' and 'Release Chirp'. 
-
 ![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png)
 The illustration above show how the activities in our workflow 'Build and Test' are activated after eachother. This workflow runs on pushes and pull-request to Main. This is done to make sure that non of our new changes or merges have destroyed out ability to Build and Test the program. 
 In the work, first our github action version is checkout and chosen so out workflow can access it. Next .NET is setup with version 7 before restoring out dependencies by running the command 'dotnet restore'. This command ensured that the packages that out program de

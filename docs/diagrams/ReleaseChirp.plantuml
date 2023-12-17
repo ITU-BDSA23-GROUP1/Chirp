@@ -1,4 +1,4 @@
-@startuml
+@startuml ReleaseChirp
 start
 :Checkout;
 :Setup .NET;

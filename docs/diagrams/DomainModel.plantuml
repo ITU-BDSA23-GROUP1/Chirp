@@ -1,4 +1,4 @@
-@startuml
+@startuml DomainModel
 IdentityUser <|.. Author 
 Cheep "Author 1" -- "Cheeps *" Author
 Author "Following *" <|-- Author

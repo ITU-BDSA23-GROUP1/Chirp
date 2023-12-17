@@ -1,4 +1,4 @@
-@startuml
+@startuml Register
 start
 #Beige:Public Timeline;
 #APPLICATION:Register;

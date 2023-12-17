@@ -1,0 +1,25 @@
+@startuml
+start
+#Beige:Public Timeline;
+#APPLICATION:Register;
+repeat
+    #Beige:Register Page;
+        if (Login with GitHub) then (yes)
+        #APPLICATION:GitHub;
+        #Beige:GitHub Authentication Page;
+        #APPLICATION:Login????;
+        #Beige:GitHub Confirmation Page;
+        break
+    endif
+    -> No;
+    #Beige:Register User;
+    note right: Email, Password;
+    #APPLICATION:Register;
+repeat while (Successfull) is (No) not (yes)
+    #Beige: Register Confirmation Page;
+    #APPLICATION:Confirm Account;
+    #Beige:Email Confirmed Page;
+    break
+#Beige:her slutter vi;
+stop
+@enduml

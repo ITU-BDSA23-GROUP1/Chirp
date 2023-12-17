@@ -1,0 +1,18 @@
+@startuml
+start
+group Build
+    :Checkout;
+    :Setup .NET Core;
+    note right: dotnet version 7.x
+    :Build with dotnet;
+    :Dotnet publish;
+    :Upload artifact for deployment job;
+end group
+if (successfull?) then (No)
+    stop
+else (yes)
+group deployment
+    :Download artifact from build job;
+    :Deploy to Azure Web App;
+stop
+@enduml

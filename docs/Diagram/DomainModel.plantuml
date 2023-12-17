@@ -1,0 +1,16 @@
+@startuml
+IdentityUser <|.. Author 
+Cheep "Author 1" -- "Cheeps *" Author
+Author "Following *" <|-- Author
+Author "Followers *" <|-- Author
+
+
+IdentityUser : + String Id
+IdentityUser : + String UserName
+IdentityUser : + String Email
+Cheep : + Guid CheepId
+Cheep : + String Text
+Cheep : + DateTime Date
+
+
+@enduml

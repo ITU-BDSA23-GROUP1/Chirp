@@ -28,12 +28,19 @@ Above is an illustration of the organization of our _Chirp!_ application. We use
 Above is a deployment diagram that illustrates the architecture of our deployed _Chirp!_ application. It is a client-server application that is deployed to Azure, where the web app and the SQL database are hosted on different servers. Their means of communication are also illustrated. A legend is provided to the right of the diagram.
 
 ## User activities
+Below are illustrations that show four different user journeys, which are common in the _Chirp!_ application.
 ![Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.](images/Register.png)
+Above is an activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.
 ![Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.](images/Login.png)
-![Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.](images/SendingCheep.png)
+Above is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.
+![Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.](images/SendingCheep.png) 
+Above is an activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.
+![Activity diagram of an unauthenticated user's journey using the _Chirp!_ application.](images/unauthenticated_user_acitivity.png) 
+Above is an activity diagram of an unauthenticated user's journey using the _Chirp!_ application.
 
 ## Sequence of functionality/calls through _Chirp!_
 ![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png)
+The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocal that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
 
 # Process
 OBS remember to write about our 'logbog'
@@ -67,7 +74,7 @@ Another terminal should now be opened and navigated to the top folder "Chirp". T
 # Ethics
 
 ## License
-In our software we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. We however don't provide any sort of warranty in the event that anything breaks and therefore are not liable for any damages or claims.
+In our software we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. However, we don't provide any sort of warranty in the event that anything breaks and therefore are not liable for any damages or claims.
 
 ## LLMs, ChatGPT, CoPilot, and others
 During the development of our project we used ChatGPT and CoPilot. We only used ChatGPT once in the beginning of our project, when we were trying to create a process for running a bash script. We had prompted ChatGPT with our issue and asked for its help with generating some code. The given code was then fitted such that it fulfilled our needs. This code has since been deleted.

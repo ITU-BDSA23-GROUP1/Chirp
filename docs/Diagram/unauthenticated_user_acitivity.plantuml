@@ -1,0 +1,10 @@
+@startuml
+start
+#beige:Public timeline;
+#APPLICATION:{Username};
+#beige:Next page;
+#APPLICATION:{Username}'s timeline;
+#beige:Public timeline;
+#APPLICATION:Public timeline;
+stop
+@enduml

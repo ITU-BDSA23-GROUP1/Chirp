@@ -54,3 +54,4 @@ Above is a deployment diagram that illustrates the architecture of our deployed 
 In our software we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. We however don't provide any sort of warranty in the event that anything breaks and therefore are not liable for any damages or claims.
 
 ## LLMs, ChatGPT, CoPilot, and others
+We have used ChatGPT once in our code for something that we have since deleted.

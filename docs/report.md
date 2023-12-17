@@ -28,9 +28,15 @@ Above is an illustration of the organization of our _Chirp!_ application. We use
 Above is a deployment diagram that illustrates the architecture of our deployed _Chirp!_ application. It is a client-server application that is deployed to Azure, where the web app and the SQL database are hosted on different servers. Their means of communication are also illustrated. A legend is provided to the right of the diagram.
 
 ## User activities
+Below are illustrations that show four different user journeys, which are common in the _Chirp!_ application.
 ![Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.](images/Register.png)
+Above is an activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.
 ![Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.](images/Login.png)
-![Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.](images/SendingCheep.png)
+Above is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.
+![Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.](images/SendingCheep.png) 
+Above is an activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.
+![Activity diagram of an unauthenticated user's journey using the _Chirp!_ application.](images/unauthenticated_user_acitivity.png) 
+Above is an activity diagram of an unauthenticated user's journey using the _Chirp!_ application.
 
 ## Sequence of functionality/calls through _Chirp!_
 ![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png)

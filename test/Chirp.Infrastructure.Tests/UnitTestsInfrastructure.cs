@@ -291,25 +291,6 @@ public class UnitTestsInfrastructure : IDisposable
     }
 
     [Fact]
-    public void CreateAuthor_CheckIfAuthorCreateCorrectly()
-    {
-        //Arrange
-        AuthorDTO authorDTO = new AuthorDTO
-        {
-            Id = Guid.NewGuid().ToString(),
-            UserName = "John Doe",
-            Email = "john@john.dk"
-        };
-
-        //Act
-        _authorRepo.CreateAuthor(authorDTO);
-
-        //Assert
-        Assert.Equal(1, _context.Authors.Where(a => a.UserName == "John Doe").Count());
-
-    }
-
-    [Fact]
     public async void CreateCheep_CheckIfCheepCreateCorrectly()
     {
         //Arrange
@@ -327,7 +308,6 @@ public class UnitTestsInfrastructure : IDisposable
             TimeStamp = timeStamp,
             Author = authorDTO
         };
-        await _authorRepo.CreateAuthor(authorDTO);
 
         //Act
         await _cheepRepo.CreateCheep(cheepDTO);

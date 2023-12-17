@@ -40,6 +40,7 @@ Above is an activity diagram of an unauthenticated user's journey using the _Chi
 
 ## Sequence of functionality/calls through _Chirp!_
 ![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png)
+The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocal that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
 
 # Process
 
@@ -57,7 +58,7 @@ Above is an activity diagram of an unauthenticated user's journey using the _Chi
 # Ethics
 
 ## License
-In our software we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. We however don't provide any sort of warranty in the event that anything breaks and therefore are not liable for any damages or claims.
+In our software we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. However, we don't provide any sort of warranty in the event that anything breaks and therefore are not liable for any damages or claims.
 
 ## LLMs, ChatGPT, CoPilot, and others
 We have used ChatGPT once in our code for something that we have since deleted.

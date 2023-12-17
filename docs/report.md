@@ -52,7 +52,7 @@ Above is an activity diagram of an unauthenticated user's journey using the _Chi
 ## Sequence of functionality/calls through _Chirp!_
 ![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png)
 
-The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocal that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
+The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocol that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
 
 # Process
 OBS remember to write about our 'logbog'
@@ -61,15 +61,14 @@ OBS remember to write about our 'logbog'
 Below are three illustrations of our workflows 'Build and Deploy', 'Build and Test' and 'Release Chirp'. 
 ![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png)
 
-The illustration above show how the activities in our workflow 'Build and Test' are activated after eachother. This workflow runs on pushes and pull-request to Main. This is done to make sure that non of our new changes or merges have destroyed out ability to Build and Test the program. 
-In the work, first our github action version is checkout and chosen so out workflow can access it. Next .NET is setup with version 7 before restoring out dependencies by running the command 'dotnet restore'. This command ensured that the packages that out program depend on are downloaded and have no conflict between them. After this the program is ready to be build. The command 'dotnet build --no-restore' is run which build the project and its dependies into a set of binaries. 
-
- The program is build and then Tested. The build is done by running the command 'dotnet
-
-Build
+The illustration above shows how the activities in our workflow 'Build and Test' are activated after each other. This workflow runs on pushes and pull-request to Main. This is done to make sure that none of our new changes or merges have destroyed our ability to build and test the program. 
+In the workflow, first our GitHub action version is checked out and chosen so that our workflow can access it. Next .NET is set up with version 7 before restoring our dependencies by running the command 'dotnet restore'. This command ensures that the packages that out program depend on are downloaded and have no conflict between them. After this the program is ready to be build. The command 'dotnet build --no-restore' is run which build the project and its dependencies into a set of binaries. After the build our testes are run with the command 'dotnet test --no-build --verbosity normal' which will run our test.
 
 
 ![Activity diagram of the workflow for release of the _Chirp!_ application.](images/ReleaseChirp.png)
+The above illustration shows how the release of our Chirp Application is run. The workflow is activated on pushes to Main that contain a tag. The 'Checkout' and 'Setup dotnet' with version 7 commands are run followed by 'Restore Dependencies'. After these commands four builds are run after each other. A W
+
+
 
 ![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png)
  
@@ -85,7 +84,7 @@ To run the test suite locally it is first needed to run the program such that ou
 Another terminal should now be opened and navigated to the top folder "Chirp". Then the command 'dotnet test' should be run in this terminal which should run all our tests and give back their test results in the terminal.
 
 - Briefly describe what kinds of tests you have in your test suites and what they are testing.
-
+In our test suite we have unit-tests and UI-tests. Our unit-tests test our methods in
 
 # Ethics
 
@@ -93,10 +92,10 @@ Another terminal should now be opened and navigated to the top folder "Chirp". T
 In our software we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. However, we don't provide any sort of warranty in the event that anything breaks and therefore are not liable for any damages or claims.
 
 ## LLMs, ChatGPT, CoPilot, and others
-During the development of our project we used ChatGPT and CoPilot. We only used ChatGPT once in the beginning of our project, when we were trying to create a process for running a bash script. We had prompted ChatGPT with our issue and asked for its help with generating some code. The given code was then fitted such that it fulfilled our needs. This code has since been deleted.
+During the development of our project we used ChatGPT and Copilot. We only used ChatGPT once in the beginning of our project, when we were trying to create a process for running a bash script. We had prompted ChatGPT with our issue and asked for its help with generating some code. The given code was then fitted such that it fulfilled our needs. This code has since been deleted.
 
-We used CoPilot more frequently during our development. This was activated for most of our development and therefore gave suggestions and helped autofill the code we were writing. We did also prompt CoPilot sometimes where it gave us suggestions on how to fix our current prompt. Or when having an error in our code asking it how to fix it. 
+We used Copilot more frequently during our development. This was activated for most of our development and therefore gave suggestions and helped autofill the code we were writing. We did also prompt Copilot sometimes where it gave us suggestions on how to fix our current prompt. Or when having an error in our code asking it how to fix it. 
 
-Often when we were coding and CoPilot gave suggestions they were helpful and for the most parts completely correct. Additionally, we needed to make some small fixes. When we prompted CoPilot to do something specific it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially when we asked about errors in our code it did not help at all.
+Often when we were coding and Copilot gave suggestions they were helpful and for the most parts completely correct. Additionally, we needed to make some small fixes. When we prompted Copilot to do something specific it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially when we asked about errors in our code it did not help at all.
 
-We do believe that using LLMs sped up our development. It made it much faster when writing, and it autofilled lines or even entire methods for us. Prompting the LLMs with questions did not always provide the answers we needed, but it did however provide some insights to how the LLM thought it could be done and in which direction we did not want to go.
+We do believe that using LLMs sped up our development. It made it much faster when writing, since it autocompleted lines or even entire methods for us. Prompting the LLMs with questions did not always provide the answers we needed, but it did however provide some insights to how the LLM thought it could be done and in which direction we did not want to go.

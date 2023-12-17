@@ -43,7 +43,7 @@ Below are three illustrations of our workflows 'Build and Deploy', 'Build and Te
 
 ![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png)
 The illustration above show how the activities in our workflow 'Build and Test' are activated after eachother. This workflow runs on pushes and pull-request to Main. This is done to make sure that non of our new changes or merges have destroyed out ability to Build and Test the program. 
-In the work, first our github action version is checkout and chosen so out workflow can access it. Next .NET is setup with version 7 before restoring out dependenci. The program is build and then Tested. The build is done by running the command 'dotnet
+In the work, first our github action version is checkout and chosen so out workflow can access it. Next .NET is setup with version 7 before restoring out dependencies by running the command 'dotnet restore'. This command  The program is build and then Tested. The build is done by running the command 'dotnet
 
 Build
 

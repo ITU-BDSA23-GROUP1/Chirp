@@ -94,7 +94,7 @@ Here, you can replace <YourStrong@Passw0rd> with a password of your choice. The 
 To connect the program and the database server, an appsettings.json file should be made inside the Chirp.Web folder. In this file, a connection string should be set up like so:
 
 {
-“your_ConnectionString”: "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=Huyt2546*;TrustServerCertificate=True"
+“your_ConnectionString”: "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True"
 }
 
 This connection string should contain the same port and password as in the command to setup the database server. 

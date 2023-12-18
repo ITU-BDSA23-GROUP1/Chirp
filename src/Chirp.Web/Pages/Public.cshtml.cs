@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Chirp.Infrastructure;
-using Chirp.Core;
-using NuGet.Protocol;
-using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-
-namespace Chirp.Razor.Pages;
+﻿namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
 {

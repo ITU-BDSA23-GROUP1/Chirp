@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Chirp.Infrastructure;
+﻿namespace Chirp.Infrastructure;
 
 /// <summary>
 /// This class represents the database context for the Chirp-application.

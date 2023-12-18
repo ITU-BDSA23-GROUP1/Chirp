@@ -1,5 +1,4 @@
 namespace Chirp.Core;
-using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// This class represents a data transfer object for a Cheep.

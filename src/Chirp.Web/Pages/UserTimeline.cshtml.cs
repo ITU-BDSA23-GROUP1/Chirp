@@ -1,10 +1,4 @@
-﻿using Chirp.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Chirp.Core;
-using System.ComponentModel.DataAnnotations;
-
-namespace Chirp.Razor.Pages;
+﻿namespace Chirp.Razor.Pages;
 
 public class UserTimelineModel : PageModel
 {

@@ -93,7 +93,7 @@ The activity diagram above shows how we have been working with the requirements 
 To further track the progress on the project, we kept an unformal logbook in Google Docs. This was merely done for our own sake. Above is a screenshot of some clipped-together content from the logbook. For each of our meetings, we wrote down what was done that day together with potential questions for our meetings with our TA. We also wrote down some of the agenda of the next meeting so it would be easy to get started. The logbook enabled us to attain more structure to our process as we were able to keep track of additional information that did not fit on the project board. Furthermore, it eased the process of catching up on the project if one of the group members did not attend a meeting.
 
 ## How to make _Chirp!_ work locally
-In order to run the _Chirp!_ application locally, the repository from GitHub needs to be cloned, which can be done from the following address: <https://github.com/ITU-BDSA23-GROUP1/Chirp>. 
+In order to run the _Chirp!_ application locally, the repository from GitHub needs to be cloned, which can be done from the following address: <https://github.com/ITU-BDSA23-GROUP1/Chirp>.
 
 Next, a container needs to be set up. This is done so that an SQL Server database can work locally. This can for example be done with the Docker platform. To install Docker, follow this guide: <https://docs.docker.com/engine/install/>.
 
@@ -110,12 +110,25 @@ Here, you can replace <YourStrong!Passw0rd> with a password of your choice. The 
 
 To connect the program and the database server, an appsettings.json file should be made inside the Chirp.Web folder. In this file, a connection string should be set up like so:
 
+```code
 {
-"Chirp_ConnectionStrings": "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong!Passw0rd>;TrustServerCertificate=True"
+"Chirp_ConnectionStrings": "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong!Passw0rd> TrustServerCertificate=True"
 }
+``````
 
 The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to setup the database server.
 
+Another necessary step is to set up a GitHub OAuth app. This can be done by following this guide: <https://docs.github.com/en/developers/apps/creating-an-oauth-app>. The homepage URL should be set to <http://localhost> The callback URL should be set to <http://localhost/signin-github>. The Client ID and Client Secret from your OAuth App should be added to the appsettings.json file above the database connection string like so:
+
+```code
+{
+   "authentication_github_clientId": "<YOUR_CLIENTID>",
+   "GITHUB_PROVIDER_AUTHENTICATION_SECRET": "<YOUR_CLIENTSECRET>",
+   "Chirp_ConnectionStrings": "..."
+}
+``````
+
+The app settings are now configured correctly for our application.
 Now, open up Docker Desktop and start the database server.
 After starting the database server, the program can be run. Start by opening a terminal in Chirp, and run the command:
 
@@ -128,6 +141,7 @@ Run the program by navigating to the Chirp.Web folder in the terminal and runnin
 ``` console
 dotnet run
 ```
+
 
 ## How to run test suite locally
 

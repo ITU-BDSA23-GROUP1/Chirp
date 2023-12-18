@@ -149,7 +149,8 @@ To run the test suite locally, it is first needed to run the program such that o
 Another terminal should now be opened and navigated to the top folder "Chirp". Then the command 'dotnet test' should be run in this terminal which should run all our tests and give back their test results in the terminal.
 
 - Briefly describe what kinds of tests you have in your test suites and what they are testing.
-In our test suite we have unit-tests and UI-tests. Our unit-tests test our methods in
+In our test suite we have some unit-tests an integration test and UI/E2E-tests. We have not made full code coverage and therefore only have unit-tests for some of our methods. These methods are _GetByFilter_, _GetByFollowers_, _FindAuthorByName_, _FindAuthorByEmail_, _CreateCheep_ and _DeleteCheep_.
+Our integration-test tests a few of our methods. These methods are _FindAuthorByName_, _FollowAuthor_, _CreateCheep_ and _GetByFollowers_.
 
 # Ethics
 

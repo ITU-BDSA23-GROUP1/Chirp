@@ -22,8 +22,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div>
-            <li>Username: @User.Identity.Name</li>
-            <li>Email: email here.... </li>
+            <li>Username/E-mail: @User.Identity.Name</li>
             <h3>Following:</h3>
             @if (Model.Following != null && Model.Following.Any())
             {

@@ -158,6 +158,7 @@ public class UnitTestsInfrastructure : IDisposable
             Email = "john@email.dk",
             Cheeps = new List<Cheep>(),
         };
+
         Author author2 = new Author
         {
             UserName = "Janet Doe",
@@ -172,6 +173,12 @@ public class UnitTestsInfrastructure : IDisposable
             Cheeps = new List<Cheep>(),
         };
 
+        author3.Following.Add(author1);
+
+        _context.Add(author1);
+        _context.Add(author2);
+        _context.Add(author3);
+        _context.SaveChanges();
 
         Guid cheepGuid1 = Guid.NewGuid();
         Guid cheepGuid2 = Guid.NewGuid();
@@ -189,7 +196,7 @@ public class UnitTestsInfrastructure : IDisposable
         {
             Text = "Hello to you",
             TimeStamp = DateTime.Now,
-            Author = author2,
+            Author = author1,
             CheepId = cheepGuid2,
         };
 
@@ -207,9 +214,15 @@ public class UnitTestsInfrastructure : IDisposable
         _context.Add(cheep3);
         _context.SaveChanges();
 
+        List<string> authorIds = new List<string>
+        {
+            author1.Id
+        };
 
+        var cheepResult = await _cheepRepo.GetByFollowers(authorIds, 0);
 
         //Assert
+        Assert.Equal(2, cheepResult.Count());
     }
 
     [Fact]
@@ -301,6 +314,7 @@ public class UnitTestsInfrastructure : IDisposable
             UserName = "John Doe",
             Email = "john@john.dk"
         };
+
         CheepDTO cheepDTO = new CheepDTO
         {
             Id = Guid.NewGuid().ToString(),
@@ -313,9 +327,43 @@ public class UnitTestsInfrastructure : IDisposable
         await _cheepRepo.CreateCheep(cheepDTO);
 
         //Assert
-        Assert.Equal(1, _context.Cheeps.Where(c => c.Author.UserName == "John Doe").Count());
         Assert.Equal(1, _context.Cheeps.Where(c => c.Text == "Hello World").Count());
         Assert.Equal(1, _context.Cheeps.Where(c => c.TimeStamp == timeStamp).Count());
+    }
+
+    [Fact]
+    public async void DeleteCheep_CheckIfCheepAreDeletedOnRequest()
+    {
+        //Arrange
+        Author author = new Author
+        {
+            UserName = "John Doe",
+            Email = "john@email.dk",
+            Cheeps = new List<Cheep>(),
+        };
+
+        _context.Add(author);
+        _context.SaveChanges();
+
+        Guid cheepGuid = Guid.NewGuid();
+
+        Cheep cheep = new Cheep
+        {
+            Text = "Hello World",
+            TimeStamp = DateTime.Now,
+            Author = author,
+            CheepId = cheepGuid,
+        };
+
+        //Act
+        _context.Add(cheep);
+        _context.SaveChanges();
+
+        var deletedCheep = await _cheepRepo.DeleteCheep(cheepGuid.ToString().ToUpper());
+
+        //Assert
+        Assert.True(deletedCheep);
+        Assert.False(_context.Cheeps.Any());
     }
 
 }

@@ -92,12 +92,9 @@ public class UnitTestsInfrastructure : IDisposable
     }
 
     [Fact]
-    public void GetByFilter_OnlyFetchCheepsFromSpecificAuthor()
+    public async Task GetByFilter_OnlyFetchCheepsFromSpecificAuthorAsync()
     {
         //Arrange
-        Guid authorGuid1 = Guid.NewGuid();
-        Guid authorGuid2 = Guid.NewGuid();
-
         Author author1 = new Author
         {
             UserName = "John Doe",
@@ -145,8 +142,74 @@ public class UnitTestsInfrastructure : IDisposable
         _context.Add(cheep3);
         _context.SaveChanges();
 
+        var cheepResult = await _cheepRepo.GetByFilter("John Doe", 0);
+
         //Assert
-        Assert.Equal(2, _context.Cheeps.Where(c => c.Author.UserName == "John Doe").Count());
+        Assert.Equal(2, cheepResult.Count());
+    }
+
+    [Fact]
+    public async void GetByFollowers_CheckIfCheepsFromFollowersAreReturned()
+    {
+        //Arrange
+        Author author1 = new Author
+        {
+            UserName = "John Doe",
+            Email = "john@email.dk",
+            Cheeps = new List<Cheep>(),
+        };
+        Author author2 = new Author
+        {
+            UserName = "Janet Doe",
+            Email = "janet@email.dk",
+            Cheeps = new List<Cheep>(),
+        };
+
+        Author author3 = new Author
+        {
+            UserName = "Joe Smith",
+            Email = "joe@email.dk",
+            Cheeps = new List<Cheep>(),
+        };
+
+
+        Guid cheepGuid1 = Guid.NewGuid();
+        Guid cheepGuid2 = Guid.NewGuid();
+        Guid cheepGuid3 = Guid.NewGuid();
+
+        Cheep cheep1 = new Cheep
+        {
+            Text = "Hello World",
+            TimeStamp = DateTime.Now,
+            Author = author1,
+            CheepId = cheepGuid1,
+        };
+
+        Cheep cheep2 = new Cheep
+        {
+            Text = "Hello to you",
+            TimeStamp = DateTime.Now,
+            Author = author2,
+            CheepId = cheepGuid2,
+        };
+
+        Cheep cheep3 = new Cheep
+        {
+            Text = "Hello John",
+            TimeStamp = DateTime.Now,
+            Author = author3,
+            CheepId = cheepGuid3,
+        };
+
+        //Act
+        _context.Add(cheep1);
+        _context.Add(cheep2);
+        _context.Add(cheep3);
+        _context.SaveChanges();
+
+
+
+        //Assert
     }
 
     [Fact]
@@ -264,6 +327,7 @@ public class UnitTestsInfrastructure : IDisposable
             TimeStamp = timeStamp,
             Author = authorDTO
         };
+        await _authorRepo.CreateAuthor(authorDTO);
 
         //Act
         await _cheepRepo.CreateCheep(cheepDTO);

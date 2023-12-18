@@ -80,25 +80,6 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
     }
 
     /// <summary>
-    /// THIS METHOD SHOULD BE DELETED, SINCE IT IS ONLY USED IN 
-    /// THE CREATECHEEP METHOD IN THE CHEEPREPOSITORY CLASS THAT SHOULD BE CHANGED AS WELL
-    /// </summary>
-    /// <param name="authorDTO"></param>
-    public void CreateAuthor(AuthorDTO authorDTO)
-    {
-        var author = new Author
-        {
-            Id = authorDTO.Id,
-            UserName = authorDTO.UserName,
-            Email = authorDTO.Email,
-            Cheeps = new List<Cheep>()
-        };
-
-        context.Authors.Add(author);
-        context.SaveChanges();
-    }
-
-    /// <summary>
     /// This method makes an Author follow another Author. 
     /// It takes two AuthorDTO's as parameters - the Author that wants to follow another Author 
     /// and the Author to be followed.

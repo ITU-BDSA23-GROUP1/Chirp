@@ -137,14 +137,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
 
         AuthorRepository authorRepository = new AuthorRepository(context);
 
-        AuthorDTO checkAuthor = cheepDTO.Author;
-        if (authorRepository.FindAuthorByName(checkAuthor.UserName).Result == null)
-        {
-            //throw new Exception("Author does not exist");
-            authorRepository.CreateAuthor(checkAuthor);
-        }
-
-        Author cheepAuthor = await authorRepository.FindAuthorByAuthorDTO(checkAuthor);
+        Author cheepAuthor = await authorRepository.FindAuthorByAuthorDTO(cheepDTO.Author);
 
         Cheep cheep = new Cheep
         {

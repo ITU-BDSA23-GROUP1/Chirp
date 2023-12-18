@@ -15,13 +15,13 @@ Vi skal huske det her: Store all sources of your diagrams, i.e., PlantUML diagra
 # Design and Architecture of _Chirp!_
 
 ## Domain model
-<img src="images/ClassDiagram.png" alt="Illustration of the _Chirp!_ data model as UML class diagram." style="width:450px;height:auto;display:block;margin-left:auto;margin-right: auto;">
+<img src="images/ClassDiagram.png" alt="Illustration of the _Chirp!_ data model as UML class diagram." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 
 Above is an UML class diagram of the domain model for our _Chirp!_ application. Here, you can see the fields the objects contain and how they associate with each other.
 
 ## Architecture — In the small
 
-<img src="images/OnionArchitecture.png" alt="Illustration of the _Chirp!_ architecture in the small." style="width:450px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+<img src="images/OnionArchitecture.png" alt="Illustration of the _Chirp!_ architecture in the small." style="width:600px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
 Above is an illustration of the organization of our _Chirp!_ application. We use the architectural pattern called Onion Architecture to structure our code base. For each layer represented by a different nuance of grey, we illustrate the classes, interfaces, and packages that are part of the layer. The arrows illustrate the dependencies between the layers. For simplicity's sake, we have not illustrated the dependencies between the classes and interfaces within each layer. The illustration shows how dependencies flow inward and never outward, meaning that the inner layers have no knowledge of the outer layers. Our architecture consists of three layers, each represented by a different project in our code base. 
 
@@ -34,21 +34,22 @@ Above is a deployment diagram that illustrates the architecture of our deployed 
 ## User activities
 Below are illustrations that show four different user journeys, which are common in the _Chirp!_ application.
 
+Below is an activity diagram of an unauthorized user's journey registering for the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
+
 <img src="images/Register.png" alt="Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Above is an activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.
+Below is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application. Here, it is also possible to login with either GitHub or with an email as well as password.
 
 <img src="images/Login.png" alt="Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Above is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.
+Below is an activity diagram of an authenticated user's journey in the _Chirp!_ application, sending and deleting a cheep.
 
 <img src="images/SendingCheep.png" alt="Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Above is an activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.
+Below is an activity diagram of an unauthenticated user's journey using the _Chirp!_ application. '{Username}' should be interpreted as an arbitrary user who has posted a cheep in the _Chirp!_ application.
 
-<img src="images/unauthenticated_user_acitivity.png" alt="Activity diagram of an unauthenticated user's journey using the _Chirp!_ application." style="width:100px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+<img src="images/unauthenticated_user_acitivity.png" alt="Activity diagram of an unauthenticated user's journey using the _Chirp!_ application." style="width:150px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Above is an activity diagram of an unauthenticated user's journey using the _Chirp!_ application.
 
 ## Sequence of functionality/calls through _Chirp!_
 <img src="images/SequenceCalls.png" alt="Sequence diagram of calls through the _Chirp!_ application." style="width:600px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>

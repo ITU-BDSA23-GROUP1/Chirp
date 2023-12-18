@@ -1,0 +1,16 @@
+@startuml
+start
+#beige:Public timeline;
+repeat
+#APPLICATION:Login;
+    #beige:Login page;
+    if (Choose login method) then
+        #APPLICATION: Login user;
+        note left: Email, password;
+    else
+        #APPLICATION:GitHub;
+    endif
+repeat while (Succesful) is (no) not (yes)
+#beige:Public timeline;
+stop
+@enduml

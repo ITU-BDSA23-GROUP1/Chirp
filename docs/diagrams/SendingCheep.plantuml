@@ -1,0 +1,12 @@
+@startuml SendingCheep
+start
+#Beige:Public Timeline;
+#APPLICATION:Text box, (limit: 160 char);
+note right: Cheep
+#APPLICATION: Share;
+#Beige: Public Timeline;
+#APPLICATION: Delete cheep;
+#Beige: Public Timeline;
+#APPLICATION: Logout;
+stop
+@enduml

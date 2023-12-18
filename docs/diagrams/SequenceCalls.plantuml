@@ -1,0 +1,34 @@
+@startuml SequenceCalls
+participant "Web Browser" as W
+participant "Chirp.Web" as C
+
+W -> C: GET
+activate W
+activate C
+C -> chirpdb: SQL: Select * From Cheeps;
+activate chirpdb
+chirpdb --> C: Resource
+deactivate chirpdb
+C --> W: HTML Redirect Status Code 200
+deactivate C
+
+W -> C: Authorize
+activate C
+C -> OAuth ** : Authorize Client
+activate OAuth
+OAuth --> C: Success
+deactivate OAuth
+C --> W: Status Code 200
+deactivate C
+
+W -> C: POST(cheep)
+activate C
+C -> chirpdb: SQL: Insert Into Cheeps Values(cheep);
+activate chirpdb
+chirpdb --> C: Resource
+deactivate chirpdb
+C --> W: HTML Redirect Status Code 200
+deactivate C
+deactivate W
+
+@enduml

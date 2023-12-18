@@ -1,0 +1,10 @@
+@startuml BuildAndTest
+start
+:Checkout;
+:Setup .NET;
+note right: dotnet version 7.0.x
+:Restore Dependencies;
+:Build;
+:Test;
+stop
+@enduml

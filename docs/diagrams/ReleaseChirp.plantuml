@@ -1,0 +1,17 @@
+@startuml ReleaseChirp
+start
+:Checkout;
+:Setup .NET;
+note right: dotnet version 7.0.x
+:Restore Dependencies;
+:Build Windows;
+:Build Linux;
+:Build MacOS;
+:Build MacOS Arm;
+:Publish;
+note right
+    files cheep*
+    env GITHUBTOKEN
+end note
+stop
+@enduml

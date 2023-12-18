@@ -66,6 +66,7 @@ In the workflow, first our GitHub action version is checked out and chosen so th
 
 
 ![Activity diagram of the workflow for release of the _Chirp!_ application.](images/ReleaseChirp.png)
+
 The above illustration shows how the release of our Chirp Application is run. The workflow is activated when a push to Main happens that contains a tag. By using a tag when pushing to main we are able to mark a checkpoint in the project and give them a "name" or "title". These can be small or larger depending on the tag. 
 
 In the workflow first 'Checkout' and 'Setup dotnet' with version 7 commands are run followed by 'Restore Dependencies'. After these commands four builds are run after each other. A Windows, Linux, MacOS and MacOS Arm exeuteable are build. 
@@ -74,6 +75,7 @@ After the builds have finished these are published. The executeable are created 
 
 
 ![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png)
+
  The illustration above shows the Deployment of our Chirp Application. The workflow is activated on pushes to Main. In the workflow we first run 'Checkout' and 'Setup dotnet' with version 7 commands. These are follwed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' 
 
 
@@ -81,6 +83,11 @@ After the builds have finished these are published. The executeable are created 
 ## Team work
 ![Activity diagram of the workflow for issues in the GitHub project.](images/Issues.png)
 
+The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritze all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically deleted. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
+
+<img src="images/logbook-clip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;">
+
+To further track the progress on the project, we kept an unformal logbook in Google Docs. This was merely done for our own sake. Above is a screenshot of some clipped-together content from the logbook. For each of our meetings, we wrote down what was done that day together with potential questions for our meetings with our TA. We also wrote down some of the agenda of the next meeting so it would be easy to get started. The logbook enabled us to attain more structure to our process as we were able to keep track of additional information that did not fit on the project board. Furthermore, it eased the process of catching up on the project if one of the group members did not attend a meeting.
 
 ## How to make _Chirp!_ work locally
 In order to run the _Chirp!_ application locally, the repository from GitHub needs to be cloned, which can be done from the following address: https://github.com/ITU-BDSA23-GROUP1/Chirp. 

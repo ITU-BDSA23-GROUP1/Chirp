@@ -125,4 +125,80 @@ public class Tests : PageTest
         await Page.GetByPlaceholder('password').FillAsync('Test123!');
         await Page.GetByRole('button', { name: 'Log in' }).ClickAsync();
     }*/
+
+    [Fact]
+    public static async Task UITest2()
+    {
+        using var playwright = await Playwright.CreateAsync();
+        await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+        {
+            Headless = false,
+        });
+        var context = await browser.NewContextAsync();
+
+        var page = await context.NewPageAsync();
+
+        await page.GotoAsync("http://localhost:5000/");
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "Register" }).ClickAsync();
+
+        await page.GetByPlaceholder("name@example.com").ClickAsync();
+
+        await page.GetByPlaceholder("name@example.com").FillAsync("Test@Example.com");
+
+        await page.GetByPlaceholder("name@example.com").PressAsync("Tab");
+
+        await page.GetByLabel("Password", new() { Exact = true }).FillAsync("Test!123");
+
+        await page.GetByLabel("Confirm Password").ClickAsync();
+
+        await page.GetByLabel("Confirm Password").FillAsync("Test!123");
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Register" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "Click here to confirm your" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "Login" }).ClickAsync();
+
+        await page.GetByPlaceholder("name@example.com").ClickAsync();
+
+        await page.GetByPlaceholder("name@example.com").FillAsync("Test@Example.com");
+
+        await page.GetByPlaceholder("password").ClickAsync();
+
+        await page.GetByPlaceholder("password").FillAsync("Test!123");
+
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
+
+        await page.Locator("#CheepDTO_Text").ClickAsync();
+
+        await page.Locator("#CheepDTO_Text").FillAsync("This is my first cheep!");
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
+
+        await page.Locator("li").Filter(new() { HasText = "Quintin Sitts Follow It''s" }).GetByRole(AriaRole.Button).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "my timeline" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "public timeline" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "Quintin Sitts" }).ClickAsync();
+
+        await page.Locator("li").Filter(new() { HasText = "Quintin Sitts Unfollow It''s" }).GetByRole(AriaRole.Button).ClickAsync();
+        
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "my timeline" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Delete Cheep" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "public timeline" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "about me" }).ClickAsync();
+
+        await page.GetByRole(AriaRole.Link, new() { Name = "logout" }).ClickAsync();
+
+        await page.Locator("div").Filter(new() { HasText = "Click here to Logout" }).Nth(1).ClickAsync();
+
+    }
 }

@@ -17,13 +17,13 @@ Vi skal huske det her: Store all sources of your diagrams, i.e., PlantUML diagra
 ## Domain model
 <img src="images/ClassDiagram.png" alt="Illustration of the _Chirp!_ data model as UML class diagram." style="width:450px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 
-Above is a UML class diagram of the domain model for our _Chirp!_ application. Here you can see the fields the objects contain and how they associate with each other.
+Above is an UML class diagram of the domain model for our _Chirp!_ application. Here, you can see the fields the objects contain and how they associate with each other.
 
 ## Architecture — In the small
 
 <img src="images/OnionArchitecture.png" alt="Illustration of the _Chirp!_ architecture in the small." style="width:450px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Above is an illustration of the organization of our _Chirp!_ application. We use the architectural pattern called Onion Architecture to structure our code base. For each layer represented by a different nuance of gray, we illustrate the classes, interfaces, and packages that are part of the layer. The arrows illustrate the dependencies between the layers. For simplicity's sake, we have not illustrated the dependencies between the classes and interfaces within each layer. The illustration shows how dependencies flow inward and never outward, meaning that the inner layers have no knowledge of the outer layers. Our architecture consists of three layers, each represented by a different project in our code base. 
+Above is an illustration of the organization of our _Chirp!_ application. We use the architectural pattern called Onion Architecture to structure our code base. For each layer represented by a different nuance of grey, we illustrate the classes, interfaces, and packages that are part of the layer. The arrows illustrate the dependencies between the layers. For simplicity's sake, we have not illustrated the dependencies between the classes and interfaces within each layer. The illustration shows how dependencies flow inward and never outward, meaning that the inner layers have no knowledge of the outer layers. Our architecture consists of three layers, each represented by a different project in our code base. 
 
 ## Architecture of deployed application
 
@@ -129,7 +129,7 @@ dotnet run
 
 ## How to run test suite locally
 
-To run the test suite locally it is first needed to run the program such that our playwright tests can run. First the docker container with the local database should be started. It is then needed to have two terminals running. One should be navigated to "Chirp.Web". After being navigated here the program should be run with the command: 'dotnet run' to which the program should start up and begin running locally.
+To run the test suite locally, it is first needed to run the program such that our playwright tests can run. First the docker container with the local database should be started. It is then needed to have two terminals running. One should be navigated to "Chirp.Web". After being navigated there, the program should be run with the command: 'dotnet run', to which the program should start up and begin running locally.
 Another terminal should now be opened and navigated to the top folder "Chirp". Then the command 'dotnet test' should be run in this terminal which should run all our tests and give back their test results in the terminal.
 
 - Briefly describe what kinds of tests you have in your test suites and what they are testing.
@@ -138,13 +138,13 @@ In our test suite we have unit-tests and UI-tests. Our unit-tests test our metho
 # Ethics
 
 ## License
-In our software we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. However, we don't provide any sort of warranty in the event that anything breaks and therefore are not liable for any damages or claims.
+In our software, we decided to use the MIT license. This was our decision as the MIT license is a permissive software license. This means that our software can be freely used and distributed by others. However, we don't provide any sort of warranty in the event that anything breaks, and therefore are not liable for any damages or claims.
 
 ## LLMs, ChatGPT, CoPilot, and others
-During the development of our project we used ChatGPT and Copilot. We only used ChatGPT once in the beginning of our project, when we were trying to create a process for running a bash script. We had prompted ChatGPT with our issue and asked for its help with generating some code. The given code was then fitted such that it fulfilled our needs. This code has since been deleted.
+During the development of our project, we used ChatGPT and Copilot. We only used ChatGPT once in the beginning of our project, when we were trying to create a process for running a bash script. We had prompted ChatGPT with our issue and asked for its help with generating some code. The given code was then fitted such that it fulfilled our needs. This code has since been deleted.
 
-We used Copilot more frequently during our development. This was activated for most of our development and therefore gave suggestions and helped autofill the code we were writing. We did also prompt Copilot sometimes where it gave us suggestions on how to fix our current prompt. Or when having an error in our code asking it how to fix it. 
+We used Copilot more frequently during our development. This was activated for most of our development, and therefore gave suggestions and helped autofill the code we were writing. Sometimes, we did also prompt Copilot where it gave us suggestions on how to fix our current prompt. Also when having an error in our code, we sometimes asked it how to fix it. 
 
-Often when we were coding and Copilot gave suggestions they were helpful and for the most parts completely correct. Additionally, we needed to make some small fixes. When we prompted Copilot to do something specific it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially when we asked about errors in our code it did not help at all.
+Often, when we were coding and Copilot gave suggestions, they were helpful and for the most parts completely correct. Additionally, we needed to make some small fixes. When we prompted Copilot to do something specific, it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially, when we asked about errors in our code it did not help at all.
 
-We do believe that using LLMs sped up our development. It made it much faster when writing, since it autocompleted lines or even entire methods for us. Prompting the LLMs with questions did not always provide the answers we needed, but it did however provide some insights to how the LLM thought it could be done and in which direction we did not want to go.
+We do believe that using LLMs sped up our development. It made it much faster when coding, since it autocompleted lines or even entire methods for us. Prompting the LLMs with questions did not always provide the answers we needed, but it did however provide some insights to how the LLM thought it could be done and in which direction we did not want to go.

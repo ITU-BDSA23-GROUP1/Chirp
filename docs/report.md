@@ -99,12 +99,16 @@ Here, you can replace <YourStrong@Passw0rd> with a password of your choice. The 
 To connect the program and the database server, an appsettings.json file should be made inside the Chirp.Web folder. In this file, a connection string should be set up like so:
 
 {
-“your_ConnectionString”: "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True"
+"Chirp_ConnectionStrings": "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True"
 }
 
-This connection string should contain the same port and password as in the command to setup the database server. 
+The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to setup the database server.
+
+Now, open up Docker Desktop and start the database server.
+After starting the database server, the program can be run. This can be done by navigating to the Chirp.Web folder in the terminal and running the command: dotnet run.
 
 ## How to run test suite locally
+
 To run the test suite locally it is first needed to run the program such that our playwright tests can run. First the docker container with the local database should be started. It is then needed to have two terminals running. One should be navigated to "Chirp.Web". After being navigated here the program should be run with the command: 'dotnet run' to which the program should start up and begin running locally.
 Another terminal should now be opened and navigated to the top folder "Chirp". Then the command 'dotnet test' should be run in this terminal which should run all our tests and give back their test results in the terminal.
 

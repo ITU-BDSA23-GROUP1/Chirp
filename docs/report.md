@@ -63,22 +63,21 @@ Below are three illustrations of our workflows 'Build and Deploy', 'Build and Te
 <img src="images/BuildAndTest.png" alt="Activity diagram of the workflow for build and test of the _Chirp!_ application" style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
 The illustration above shows how the activities in our workflow 'Build and Test' are activated after each other. This workflow runs on pushes and pull-request to Main. This is done to make sure that none of our new changes or merges have destroyed our ability to build and test the program. 
-In the workflow, first our GitHub action version is checked out and chosen so that our workflow can access it. Next .NET is set up with version 7 before restoring our dependencies by running the command 'dotnet restore'. This command ensures that the packages that out program depend on are downloaded and have no conflict between them. After this the program is ready to be build. The command 'dotnet build --no-restore' is run which build the project and its dependencies into a set of binaries. After the build our testes are run with the command 'dotnet test --no-build --verbosity normal' which will run our test.
+In the workflow, first our GitHub action version is checked out and chosen so that our workflow can access it. Next, .NET is set up with version 7 before restoring our dependencies by running the command 'dotnet restore'. This command ensures that the packages that the _Chirp!_ application depend on, are downloaded and have no conflict between them. After this, the program is ready to get built. The command 'dotnet build --no-restore' is run which builds the project and its dependencies into a set of binaries. After the build, our tests are run with the command 'dotnet test --no-build --verbosity normal' which will run our tests.
 
 
 <img src="images/ReleaseChirp.png" alt="Activity diagram of the workflow for release of the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-The above illustration shows how the release of our Chirp Application is run. The workflow is activated when a push to Main happens that contains a tag. By using a tag when pushing to main we are able to mark a checkpoint in the project and give them a "name" or "title". These can be small or larger depending on the tag. 
+The above illustration shows how the release of our _Chirp!_ Application is run. The workflow is activated when a push to Main that contains a tag happens. By using a tag when pushing to main, we are able to mark a checkpoint in the project and give them a "name" or "title". These can be small or larger depending on the tag. 
 
-In the workflow first 'Checkout' and 'Setup dotnet' with version 7 commands are run followed by 'Restore Dependencies'. After these commands four builds are run after each other. A Windows, Linux, MacOS and MacOS Arm exeuteable are build. 
+In the workflow, first 'Checkout' and 'Setup dotnet' with version 7 commands are run followed by 'Restore Dependencies'. After these commands, four builds are run sequentially. Windows, Linux, MacOS and MacOS Arm exeuteables are build. 
 
-After the builds have finished these are published. The executeable are created and released as zip-files that can be downladed to your computer and ran. 
+After the builds have finished, they get published. The executeable are created and released as zip-files that can be downladed and run on your computer. 
 
 
 <img src="images/BuildAndDeploy.png" alt="Activity diagram of the workflow for build and deploy of the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
- The illustration above shows the Deployment of our Chirp Application. The workflow is activated on pushes to Main. In the workflow we first run 'Checkout' and 'Setup dotnet' with version 7 commands. These are follwed by the building command 'dotnet build src/Chirp.Web/ --configuration Release'
-
+ The illustration above shows the Deployment of our _Chirp!_ Application. The workflow is activated on pushes to Main. In the workflow, we first run 'Checkout' and 'Setup dotnet' with version 7 commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release'
 
 
 ## Team work

@@ -141,8 +141,8 @@ public class Tests : PageTest
         await Page.GetByPlaceholder("password").FillAsync("Test!123");
         await Page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
 
-        //Slettes?
-        await Page.GetByText("Invalid login attempt.").ClickAsync();
+        //EXPECT invalid login attempt
+        await Expect(Page.GetByText("Invalid login attempt.")).ToContainTextAsync("Invalid login attempt.");
 
     }
 }

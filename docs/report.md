@@ -74,7 +74,7 @@ After the builds have finished these are published. The executeable are created 
 
 
 ![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png)
- The illustration above shows the Deployment of our Chirp Application. The workflow is activated on pushes to Main. In the workflow we first run 'Checkout' and 'Setup dotnet' with version 7 commands. These are follwed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' 
+ The illustration above shows the Deployment of our Chirp Application. The workflow is activated on pushes to Main. In the workflow we first run 'Checkout' and 'Setup dotnet' with version 7 commands. These are follwed by the building command 'dotnet build src/Chirp.Web/ --configuration Release'
 
 
 
@@ -83,29 +83,41 @@ After the builds have finished these are published. The executeable are created 
 
 
 ## How to make _Chirp!_ work locally
-In order to run the _Chirp!_ application locally, the repository from GitHub needs to be cloned, which can be done from the following address: https://github.com/ITU-BDSA23-GROUP1/Chirp. 
+In order to run the _Chirp!_ application locally, the repository from GitHub needs to be cloned, which can be done from the following address: <https://github.com/ITU-BDSA23-GROUP1/Chirp>. 
 
-Next, a container needs to be set up. This is done so that an SQL Server database can work locally. This can for example be done with the Docker platform. To install Docker, follow this guide: https://docs.docker.com/engine/install/.
+Next, a container needs to be set up. This is done so that an SQL Server database can work locally. This can for example be done with the Docker platform. To install Docker, follow this guide: <https://docs.docker.com/engine/install/>.
 
 To run a SQL Server database, the following command needs to be run:
 
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>" \
+```console
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<YourStrong!Passw0rd>" \
    -p 1433:1433 --name sql1 --hostname sql1 \
    -d \
    mcr.microsoft.com/mssql/server:2022-latest
+``````
 
-Here, you can replace <YourStrong@Passw0rd> with a password of your choice. The command will setup, configure and start up a database server.
+Here, you can replace <YourStrong!Passw0rd> with a password of your choice. The command will setup, configure and start up a database server.
 
 To connect the program and the database server, an appsettings.json file should be made inside the Chirp.Web folder. In this file, a connection string should be set up like so:
 
 {
-"Chirp_ConnectionStrings": "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True"
+"Chirp_ConnectionStrings": "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong!Passw0rd>;TrustServerCertificate=True"
 }
 
 The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to setup the database server.
 
 Now, open up Docker Desktop and start the database server.
-After starting the database server, the program can be run. This can be done by navigating to the Chirp.Web folder in the terminal and running the command: dotnet run.
+After starting the database server, the program can be run. Start by opening a terminal in Chirp, and run the command:
+
+```console
+dotnet build
+```
+
+Run the program by navigating to the Chirp.Web folder in the terminal and running the command:
+
+``` console
+dotnet run
+```
 
 ## How to run test suite locally
 

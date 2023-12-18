@@ -88,18 +88,18 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
 
     /// <summary>
     /// This method returns all Cheeps in the database written by specific Authors.
-    /// It takes a list of Author names as a parameter and returns all Cheeps written by
+    /// It takes a list of Author ids as a parameter and returns all Cheeps written by
     /// the Authors in the list. The Cheeps are returned within a specific range.
     /// The method is used for the private timeline of an authenticated user, where the user can see
     /// all Cheeps written by the Authors that the user is following.
     /// </summary>
-    /// <param name="authorNames">The names of the authors that the user is following</param>
+    /// <param name="authorIds">The ids of the authors that the user is following</param>
     /// <param name="offset">The offset for pagination</param>
     /// <returns>
     /// An IEnumerable of CheepDTOs written by the Authors specified by the 
-    /// <paramref name="authorNames"/> parameter and within the specified range. 
+    /// <paramref name="authorIds"/> parameter and within the specified range. 
     /// </returns>
-    public async Task<IEnumerable<CheepDTO>> GetByFollowers(List<string> authorNames, int offset)
+    public async Task<IEnumerable<CheepDTO>> GetByFollowers(List<string> authorIds, int offset)
     {
         if (offset < 0) { offset = 0; }
         var cheeps = await context.Cheeps
@@ -116,7 +116,7 @@ public class CheepRepository : ICheepRepository<CheepDTO, string>
                     Email = c.Author.Email
                 },
             })
-        .Where(c => authorNames.Contains(c.Author.Id))
+        .Where(c => authorIds.Contains(c.Author.Id))
         .Skip(offset)
         .Take(32)
         .ToListAsync();

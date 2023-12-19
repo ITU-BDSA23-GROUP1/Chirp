@@ -150,7 +150,7 @@ dotnet run
 ## How to run test suite locally
 The first thing needed is downloading the VSCode extension called 'Playwright Test for VSCode'. After this has downloaded, the command ">Test: Install Playwright Browsers" should be entered into the search box at the top of VSCode. During the installation of the Playwright browsers, it will at some point prompt for overwriting the 'playwright.config.ts' file in the terminal. This should not be done, and therefore you should answer 'n' to this prompt.
 
-Before our test suite can be run locally, it is first need to run our program. This is the case as the Playwright tests need the program to be able to perform our UI tests. We do this by starting the docker container with the local database. Then we start up two terminals. One terminal is navigated to the folder _src/Chirp.Web_. In this terminal, run the command:
+Before our test suite can be run locally, it firstly needs to run our program. This is the case as the Playwright tests need the program to be able to perform our UI tests. We do this by starting the docker container with the local database. Then we start up two terminals. One terminal is navigated to the folder _src/Chirp.Web_. In this terminal, run the command:
 
 ``` console
 dotnet build

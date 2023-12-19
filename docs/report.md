@@ -63,7 +63,7 @@ The illustration above shows a sequence diagram of calls through the _Chirp!_ ap
 # Process
 
 ## Build, test, release, and deployment
-Below are three illustrations of our workflows: 'Build and Test', 'Release Chirp' and 'Build and Deploy'. 
+Below are three illustrations of our workflows that build and test, release Chirp and lastly build and deploy. 
 
 ![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png){width=250px}
 
@@ -87,12 +87,12 @@ The workflow consists of two parts. A building process and a deployment process.
 
 ![Activity diagram of the workflow for issues in the GitHub project.](images/Issues.png){width=400px}
 
-The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritize all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically deleted. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
+The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritize all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically closed. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
 
 \newpage
 ![Status of our issues on GitHub](images/IssuesStatus.png){width=600px}
 
-Above is an image of the backlog of our issues after we stoped working on our project. As you can see we do not have any undone issues. We either finished the task or it was deleted. Our workflow 'Close_inactive_issues.yml' is set to stale an issue after 30 days of being inactive, and then lastly close the issues if it was inactive for additionally 14 days.
+Above is an image of the backlog of our issues after we stoped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' will stale an issue after 30 days of it being inactive, and then lastly close the issues if it was inactive for additionally 14 days. All closed issues are moved to the 'Done' folder. 
 
 \newpage
 ![Screenshot of some of the logbook.](images/LogbookClip.png){width=500px}

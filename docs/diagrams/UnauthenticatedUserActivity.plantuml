@@ -1,4 +1,4 @@
-@startuml unauthenticatedUserActivities
+@startuml UnauthenticatedUserActivities
 start
 #beige:Public timeline;
 #APPLICATION:{Username};

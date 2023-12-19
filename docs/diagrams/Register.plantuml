@@ -15,7 +15,7 @@ repeat
     #Beige:Register User;
     note right: Email, Password;
     #APPLICATION:Register;
-repeat while (Successfull) is (No) not (yes)
+repeat while (Successful) is (No) not (yes)
     #Beige: Register Confirmation Page;
     #APPLICATION:Confirm Account;
     #Beige:Email Confirmed Page;

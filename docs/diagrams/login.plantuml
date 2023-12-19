@@ -10,7 +10,7 @@ repeat
     else
         #APPLICATION:GitHub;
     endif
-repeat while (Succesful) is (no) not (yes)
+repeat while (Successful) is (no) not (yes)
 #beige:Public timeline;
 stop
 @enduml

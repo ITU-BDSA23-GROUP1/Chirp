@@ -14,7 +14,7 @@ deactivate C
 
 W -> C: Authorize
 activate C
-C -> OAuth ** : Authorize Client
+C -> OAuth: Authorize Client
 activate OAuth
 OAuth --> C: Success
 deactivate OAuth

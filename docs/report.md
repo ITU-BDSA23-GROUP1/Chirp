@@ -120,9 +120,12 @@ To connect the program and the database server, an appsettings.json file should 
 
 ```code
 {
-"Chirp_ConnectionStrings": "Data Source=localhost,1433;Initial Catalog=Chirp;User=sa;Password=<YourStrong!Passw0rd> TrustServerCertificate=True"
+"Chirp_ConnectionStrings": 
+"Data Source=localhost,1433;Initial Catalog=Chirp;
+User=sa;Password=<YourStrong!Passw0rd>;TrustServerCertificate=True"
 }
 ``````
+_Note that above three lines should be written as one single line in the appsettings file._
 
 The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to set up the database server.
 

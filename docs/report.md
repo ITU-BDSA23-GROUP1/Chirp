@@ -33,13 +33,13 @@ Above is a deployment diagram that illustrates the architecture of our deployed 
 ## User activities
 Below are illustrations that show four different user journeys, which are common in the _Chirp!_ application. The first image is a legend which can be used to gain a better understanding of the following diagrams.
 
-![Meaning of the boxes used in out activity diagrams](images/DiagramExplanation.png){width=200px}
+![Meaning of the boxes used in our activity diagrams](images/DiagramExplanation.png){width=200px}
 
-Below is an activity diagram of an unauthorized user's journey logging in on the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
+Below is an activity diagram of an unauthorized user's journey logging in to the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
 
 ![Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.](images/Register.png){width=230px}
 
-Below is an activity diagram of an unauthenticated user's journey logging on to the _Chirp!_ application. Here, it is also possible to log in with either GitHub or with an email as well as password.
+Below is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application. Here, it is also possible to log in with either GitHub or with an email as well as password.
 
 ![Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.](images/Login.png){width=375px}
 
@@ -57,31 +57,35 @@ Below is an activity diagram of an unauthenticated user's journey using the _Chi
 ## Sequence of functionality/calls through _Chirp!_
 ![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png){width=500px}
 
-The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocol that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
+The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web Browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The 'Web Browser' should be interpreted as the client, 'Chirp.Web' as the web application of the program, 'chirpdb' as the database and 'OAuth' as the web protocol that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
 
 \newpage
 # Process
 
 ## Build, test, release, and deployment
-Below are three illustrations of our workflows that build and test, release Chirp and lastly build and deploy. 
+Below are three illustrations of our workflows that build, test, release and deploys the _Chirp!_ application. 
 
-![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png){width=250px}
+![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png){width=240px}
 
-The illustration above shows how the activities in our workflow 'build_and_test.yml' are activated after each other. This workflow runs on pushes and pull-requests to the main branch. This is done to make sure that none of our new changes or merges have destroyed our ability to build and test the program. 
+The illustration above shows how the activities in our workflow 'build_and_test.yml' are activated after each other. This workflow runs on pushes and pull-requests to the main branch. This is done to make sure that none of our new changes or merges have destroyed our ability to build and test the program.
+
 In the workflow, first our GitHub action version is checked out and chosen so that our workflow can access it. Next, dotnet is set up with version 7 before restoring our dependencies by running the command 'dotnet restore'. This command ensures that the packages that the _Chirp!_ application depends on, are downloaded and have no conflict between them. After this, the program is ready to get built. The command 'dotnet build --no-restore' is run which builds the project and its dependencies into a set of binaries. We use --no-restore since we just ran restore. The reason for splitting the processes up is to be able to locate the reason in case of errors. After the build, our tests are run with the command 'dotnet test test/Chirp.Infrastructure.Tests --no-build --verbosity normal' which will run our tests in the folder Chirp.Infrastructure.Tests. The reason for specifying the folder is to make sure that the Playwright tests are not run. The Playwright tests will fail due to the need for the application to run for them to succeed.
 
 \newpage
 ![Activity diagram of the workflow for release of the _Chirp!_ application.](images/ReleaseChirp.png){width=250px}
 
-The above illustration shows how the release of our _Chirp!_ application is run in the workflow 'release_chirp.yml'. The workflow is activated when a push to the main branch with a tag happens. By using a tag when pushing to the main branch, we are able to mark a checkpoint in the project and give the commit a 'title'. These marks can be small or larger depending on the tag. 
-In the workflow, first a 'Checkout' and 'Setup dotnet', with version 7, command is run followed by 'Restore Dependencies'. After these commands, four builds are run sequentially. Windows, Linux, MacOS and MacOS Arm executables are build. 
+The above illustration shows how the release of our _Chirp!_ application is run in the workflow 'release_chirp.yml'. The workflow is activated when a push to the main branch with a tag happens. By using a tag when pushing to the main branch, we are able to mark a checkpoint in the project and give the commit a 'title'. These marks can be small or larger depending on the tag.
+
+In the workflow, first a 'Checkout' and 'Setup dotnet', with version 7, command is run followed by 'Restore Dependencies'. After these commands, four builds are run sequentially. Windows, Linux, MacOS and MacOS Arm executables are build.
+
 After the builds have finished, they get published. The executables are created and released as zip files that can be downloaded and run on your computer. The publishing includes all files that begin with 'cheep'. 
 
 \newpage
 ![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png){width=250px}
 
 The illustration above shows the deployment of our _Chirp!_ application in the workflow 'main_bdsagroup1chirprazor.yml'. The workflow is activated through pushes to the main branch. This is to keep our web app updated whenever completed changes have been made, so it does not fall behind.
-The workflow consists of two parts. A building process and a deployment process. The building process is important as it assures that we do not deploy a program that does not work. In this process we first run the 'Checkout' and 'Setup dotnet', with version 7, commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' and a publish. Lastly, we upload an artifact for the deployment job. When the building process is done, the deployment can start on the condition that the build was successful. This process downloads the artifact from the building job and then deploy to our Azure web app. 
+
+The workflow consists of two parts. A building process and a deployment process. The building process is important as it ensures that we do not deploy a program that does not work. In this process we first run the 'Checkout' and 'Setup dotnet', with version 7, commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' and a publish. Lastly, we upload an artifact for the deployment job. When the building process is done, the deployment can start on the condition that the build was successful. This process downloads the artifact from the building job and then deploy to our Azure web app. 
 
 ## Team work
 
@@ -92,7 +96,7 @@ The activity diagram above shows how we have been working with the requirements 
 \newpage
 ![Status of our issues on GitHub](images/IssuesStatus.png){width=600px}
 
-Above is an image of the backlog of our issues after we stoped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' will stale an issue after 30 days of it being inactive, and then lastly close the issues if it was inactive for additionally 14 days. All closed issues are moved to the 'Done' folder. 
+Above is an image of the backlog of our issues after we stopped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' will stale an issue after 30 days of it being inactive, and then lastly close the issues if it was inactive for additionally 14 days. All closed issues are moved to the 'Done' folder. 
 
 \newpage
 ![Screenshot of some of the logbook.](images/LogbookClip.png){width=500px}

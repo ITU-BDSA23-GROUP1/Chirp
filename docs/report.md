@@ -145,8 +145,33 @@ dotnet run
 ## How to run test suite locally
 The first thing needed is downloading the VSCode extension called 'Playwright Test for VSCode'. After this has downloaded, the command ">Test: Install Playwright Browsers" should be entered into the search box at the top of VSCode. During the installation of the Playwright browsers, it will at some point prompt for overwriting the 'playwright.config.ts' file in the terminal. This should not be done, and therefore you should answer 'n' to this prompt.
 
-Before our test suite can be run locally, it is first need to run our program. This is the case as the playwright-tests need the program to be able to perform our UI-tests. We do this by starting the docker container with the local database. Then we start up two terminals. One terminal is navigated to src/Chirp.Web. In this terminal, the command 'dotnet build' is run followed by the command 'dotnet run', which should start up our program.
-Afterwards, the other terminal should be navigated to our top folder, _Chirp_, and the commands 'dotnet build' and 'dotnet test' should be run. This should initialise all the tests being run and give back the test results in the terminal
+Before our test suite can be run locally, it is first need to run our program. This is the case as the playwright-tests need the program to be able to perform our UI-tests. We do this by starting the docker container with the local database. Then we start up two terminals. One terminal is navigated to the folder _src/Chirp.Web_. In this terminal, run the command:
+
+``` console
+dotnet build
+```
+
+Followed by the command:
+
+``` console
+dotnet run
+```
+
+This should start up our program.
+
+Afterwards, the other terminal should be navigated to our top folder, _Chirp_, and the following command should be run:
+
+```
+dotnet build
+```
+
+Followed by the command:
+
+```
+dotnet test
+```
+
+This should initialise all the tests being run and give back the test results in the terminal
 
 In our test suite, we have unit tests, UI/E2E-tests and an integration test. We have not made full code coverage, and therefore only have unit tests for some of our methods. These methods are _GetByFilter_, _GetByFollowers_, _FindAuthorByName_, _CreateCheep_, _FollowAuthor_ and _DeleteCheep_.
 Our integration test tests a few of our methods. These methods are _FindAuthorByName_, _FollowAuthor_, _CreateCheep_ and _GetByFollowers_.

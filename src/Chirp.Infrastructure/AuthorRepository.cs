@@ -4,7 +4,7 @@ namespace Chirp.Infrastructure;
 /// This class represents a repository for Authors.
 /// It implements the IAuthorRepository interface.
 /// </summary>
-public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
+public class AuthorRepository : IAuthorRepository
 {
 
     private readonly ChirpDBContext context;
@@ -36,28 +36,6 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
         return author;
     }
 
-    /// <summary>
-    /// This method finds an Author by the Author's email and returns the Author as an AuthorDTO.
-    /// </summary>
-    /// <param name="email">Email of the Author to be found</param>
-    /// <returns>
-    /// An AuthorDTO of the Author with the specified email.
-    /// </returns>
-    //Delete this? 
-    public async Task<AuthorDTO> FindAuthorByEmail(string email)
-    {
-        var author = await context.Authors
-            .Where(a => a.Email == email)
-            .Select(a => new AuthorDTO
-            {
-                Id = a.Id,
-                UserName = a.UserName,
-                Email = a.Email
-            })
-            .FirstOrDefaultAsync(); //Maybe delete this line
-
-        return author;
-    }
 
     /// <summary>
     /// This method finds an Author by using the Author's DTO.
@@ -187,7 +165,6 @@ public class AuthorRepository : IAuthorRepository<AuthorDTO, string>
 
         author.Following.Clear();
         author.Followers.Clear();
-        //author.Cheeps.Clear();
 
         context.Authors.Remove(author);
         await context.SaveChangesAsync();

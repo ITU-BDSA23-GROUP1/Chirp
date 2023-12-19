@@ -2,8 +2,8 @@
 
 public class PublicModel : PageModel
 {
-    private readonly ICheepRepository<CheepDTO, string> _service;
-    private readonly IAuthorRepository<AuthorDTO, string> _authorService;
+    private readonly ICheepRepository _service;
+    private readonly IAuthorRepository _authorService;
     public List<CheepDTO> Cheeps { get; set; }
     public List<string> Following { get; set; }
 
@@ -15,7 +15,7 @@ public class PublicModel : PageModel
 
     UserManager<Author> _userManager;
 
-    public PublicModel(ICheepRepository<CheepDTO, string> service, IAuthorRepository<AuthorDTO, string> authorService, UserManager<Author> userManager)
+    public PublicModel(ICheepRepository service, IAuthorRepository authorService, UserManager<Author> userManager)
     {
         _service = service;
         _authorService = authorService;

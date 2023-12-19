@@ -6,10 +6,10 @@ namespace Chirp.Core;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="Tstring"></typeparam>
-public interface ICheepRepository<T, in Tstring>
+public interface ICheepRepository
 {
-    public Task<IEnumerable<T>> Get(int offset);
-    public Task<IEnumerable<T>> GetByFilter(string attribute, int offset);
+    public Task<IEnumerable<CheepDTO>> Get(int offset);
+    public Task<IEnumerable<CheepDTO>> GetByFilter(string attribute, int offset);
     public Task<IEnumerable<CheepDTO>> GetByFollowers(List<string> authorNames, int offset);
     public Task CreateCheep(CheepDTO cheepDTO);
     public Task<bool> DeleteCheep(string cheepId);

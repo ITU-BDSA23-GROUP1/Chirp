@@ -1,10 +1,11 @@
-@startuml
+@startuml unauthenticatedUserActivities
 start
 #beige:Public timeline;
 #APPLICATION:{Username};
-#beige:Next page;
-#APPLICATION:{Username}'s timeline;
-#beige:Public timeline;
+#beige:{Username}'s timeline;
+#APPLICATION:Next page;
+#beige:{Username}'s timeline;
 #APPLICATION:Public timeline;
+#Beige:Public timeline;
 stop
 @enduml

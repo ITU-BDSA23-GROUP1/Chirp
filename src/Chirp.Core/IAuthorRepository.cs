@@ -6,10 +6,9 @@ namespace Chirp.Core;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="Tstring"></typeparam>
-public interface IAuthorRepository<T, in Tstring>
+public interface IAuthorRepository
 {
     public Task<AuthorDTO> FindAuthorByName(string name);
-    public Task<AuthorDTO> FindAuthorByEmail(string email);
     public Task FollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToFollowDTO);
     public Task UnfollowAuthor(AuthorDTO authorDTO, AuthorDTO authorToUnfollowDTO);
     public Task<IEnumerable<string>> GetFollowing(AuthorDTO authorDTO);

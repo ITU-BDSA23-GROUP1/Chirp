@@ -4,7 +4,7 @@ namespace Chirp.Infrastructure;
 /// This class represents a repository for Cheeps.
 /// It implements the ICheepRepository interface.
 /// </summary>
-public class CheepRepository : ICheepRepository<CheepDTO, string>
+public class CheepRepository : ICheepRepository
 {
 
     private readonly ChirpDBContext context;

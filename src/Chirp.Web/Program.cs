@@ -27,8 +27,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
         ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
-builder.Services.AddScoped<ICheepRepository<CheepDTO, string>, CheepRepository>();
-builder.Services.AddScoped<IAuthorRepository<AuthorDTO, string>, AuthorRepository>();
+builder.Services.AddScoped<ICheepRepository, CheepRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 // The next lines are inspired by the supplementary slides from lecture 8:
 // https://github.com/itu-bdsa/lecture_notes/blob/0531bc2647bff2be90ac254b18f6b74c22096788/sessions/session_08/Supplementary_Slides.md

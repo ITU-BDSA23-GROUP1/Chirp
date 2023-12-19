@@ -2,14 +2,14 @@ namespace Chirp.Razor.Pages;
 
 public class AboutMeModel : PageModel
 {
-    private readonly ICheepRepository<CheepDTO, string> _service;
-    private readonly IAuthorRepository<AuthorDTO, string> _authorService;
+    private readonly ICheepRepository _service;
+    private readonly IAuthorRepository _authorService;
     public List<CheepDTO> Cheeps { get; set; }
     public List<string> Following { get; set; }
     [BindProperty]
     public CheepDTO CheepDTO { get; set; }
 
-    public AboutMeModel(ICheepRepository<CheepDTO, string> service, IAuthorRepository<AuthorDTO, string> authorService)
+    public AboutMeModel(ICheepRepository service, IAuthorRepository authorService)
     {
         _service = service;
         _authorService = authorService;

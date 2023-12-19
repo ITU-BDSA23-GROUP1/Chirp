@@ -226,7 +226,7 @@ public class UnitTestsInfrastructure : IDisposable
     }
 
     [Fact]
-    public async void FindAuthorByName()
+    public async void FindAuthorByName_CheckIfIdAndNameIsCorrect()
     {
         //Arrange
         Author author1 = new Author
@@ -258,7 +258,7 @@ public class UnitTestsInfrastructure : IDisposable
     }
 
     [Fact]
-    public async void FindAuthorByName_NotFound()
+    public async void FindAuthorByName_CheckIfNullReturnedIfNoAuthorFound()
     {
         //Arrange
 

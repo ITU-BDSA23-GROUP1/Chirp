@@ -31,7 +31,7 @@ public class AuthorRepository : IAuthorRepository
                 UserName = a.UserName,
                 Email = a.Email
             })
-            .FirstOrDefaultAsync(); //Maybe delete this line
+            .FirstOrDefaultAsync();
 
         return author;
     }

@@ -20,7 +20,4 @@ public class AuthorDTO
     public required string Id { get; set; }
     public required string UserName { get; set; }
     public required string Email { get; set; }
-    public List<CheepDTO> Cheeps { get; } = new();
-    public List<AuthorDTO> Following { get; } = new();
-    public List<AuthorDTO> Followers { get; } = new();
 }

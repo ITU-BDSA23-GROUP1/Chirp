@@ -4,8 +4,6 @@ namespace Chirp.Core;
 /// This interface represents a repository for Cheeps.
 /// It declares different methods for accessing Cheeps in the database.
 /// </summary>
-/// <typeparam name="T"></typeparam>
-/// <typeparam name="Tstring"></typeparam>
 public interface ICheepRepository
 {
     public Task<IEnumerable<CheepDTO>> Get(int offset);

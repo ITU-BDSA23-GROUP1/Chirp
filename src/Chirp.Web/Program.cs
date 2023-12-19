@@ -1,6 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 
+//Gets is the connection string from the app settings file
 var chirpKey = builder.Configuration["Chirp_ConnectionStrings"];
 
 if (string.IsNullOrEmpty(chirpKey))
@@ -8,6 +9,9 @@ if (string.IsNullOrEmpty(chirpKey))
     throw new InvalidOperationException("The 'Chirp_ConnectionStrings' configuration is missing.");
 }
 
+//The following lines are inspired by: ASP.NET Core in action 3. edition by Andrew Lock
+//Registering ChirpDB Context with the dependency injection container and 
+//configure SQl Server as the database provider and sets the connection string
 builder.Services.AddDbContext<ChirpDBContext>(options =>
     options.UseSqlServer(chirpKey));
 
@@ -27,6 +31,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
         ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
+//Injecting the repositories into the dependency injection container
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 

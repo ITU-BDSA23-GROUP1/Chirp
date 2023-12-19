@@ -101,12 +101,12 @@ The workflow consists of two parts. A building process and a deployment process.
 <img src="images/Issues.png" alt="Activity diagram of the workflow for issues in the GitHub project." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 ![Activity diagram of the workflow for issues in the GitHub project.](images/Issues.png){width=400px}
 
-The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritize all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically deleted. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
+The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritize all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically closed. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
 
 <img src="images/IssuesStatus.png" alt="Status of our issues on GitHub" style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 ![Status of our issues on GitHub](images/IssuesStatus.png){width=400px}
 
-Above is an image of the backlog of our issues after we stoped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' is set to stale an issue after 30 days of being inactive, and then lastly close the issues if it was inactive for additionally 14 days.
+Above is an image of the backlog of our issues after we stoped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' will stale an issue after 30 days of it being inactive, and then lastly close the issues if it was inactive for additionally 14 days. All closed issues are moved to the 'Done' folder. 
 
 
 <img src="images/LogbookClip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>

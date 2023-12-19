@@ -15,18 +15,21 @@ numbersections: true
 
 ## Domain model
 <img src="images/ClassDiagram.png" alt="Illustration of the _Chirp!_ data model as UML class diagram." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
+![Illustration of the _Chirp!_ data model as UML class diagram.](images/ClassDiagram.png)
 
 Above is a UML class diagram of the domain model for our _Chirp!_ application. Here, you can see the fields the objects contain and how they associate with each other.
 
 ## Architecture — In the small
 
 <img src="images/OnionArchitecture.png" alt="Illustration of the _Chirp!_ architecture in the small." style="width:600px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Illustration of the _Chirp!_ architecture in the small.](images/OnionArchitecture.png)
 
 Above is an illustration of the organization of our _Chirp!_ application. We use the architectural pattern 'Onion Architecture' to structure our code base. For each layer represented by a different nuance of gray, we illustrate the classes, interfaces, and packages that are part of the layer. The arrows illustrate the dependencies between the layers. For simplicity's sake, we have not illustrated the dependencies between the classes and interfaces within each layer. The illustration shows how dependencies flow inward and never outward, meaning that the inner layers have no knowledge of the outer layers. Our architecture consists of three layers, each represented by a different project in our code base. 
 
 ## Architecture of deployed application
 
 <img src="images/Deployment.png" alt="Illustration of the architecture of the deployed _Chirp!_ application." style="width:600px;height:auto;display:block;margin-left:auto;margin-right: auto;">
+![Illustration of the architecture of the deployed _Chirp!_ application.](images/Deployment.png)
 
 Above is a deployment diagram that illustrates the architecture of our deployed _Chirp!_ application. It is a client-server application that is deployed to Azure, where the web app and the SQL database are hosted on different servers. Their means of communication are also illustrated. A legend is provided to the right of the diagram.
 
@@ -34,41 +37,52 @@ Above is a deployment diagram that illustrates the architecture of our deployed 
 Below are illustrations that show four different user journeys, which are common in the _Chirp!_ application. The first image is a legend which can be used to gain a better understanding of the following diagrams.
 
 <img src="images/DiagramExplanation.png" alt="Meaning of the boxes used in out activity diagrams" style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Meaning of the boxes used in out activity diagrams](images/DiagramExplanation.png){width=250px}
 
 Below is an activity diagram of an unauthorized user's journey logging in on the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
 
 <img src="images/Register.png" alt="Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.](images/Register.png){width=300px}
 
 Below is an activity diagram of an unauthenticated user's journey logging on to the _Chirp!_ application. Here, it is also possible to log in with either GitHub or with an email as well as password.
 
 <img src="images/Login.png" alt="Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.](images/Login.png){width=300px}
 
+\newpage
 Below is an activity diagram of an authenticated user's journey in the _Chirp!_ application, sending and deleting a cheep.
 
 <img src="images/SendingCheep.png" alt="Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Activity diagram of an authenticated user's journey in the _Chirp!_ application, sending of cheep.](images/SendingCheep.png){width=300px}
 
+\newpage
 Below is an activity diagram of an unauthenticated user's journey using the _Chirp!_ application. '{Username}' should be interpreted as an arbitrary user who has posted a cheep in the _Chirp!_ application.
 
 <img src="images/unauthenticatedUserActivities.png" alt="Activity diagram of an unauthenticated user's journey using the _Chirp!_ application." style="width:150px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Activity diagram of an unauthenticated user's journey using the _Chirp!_ application.](images/unauthenticatedUserActivities.png){width=150px}
 
 
 ## Sequence of functionality/calls through _Chirp!_
 <img src="images/SequenceCalls.png" alt="Sequence diagram of calls through the _Chirp!_ application." style="width:600px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png){width=600px}
 
 The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocol that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
 
+\newpage
 # Process
 
 ## Build, test, release, and deployment
 Below are three illustrations of our workflows: 'Build and Test', 'Release Chirp' and 'Build and Deploy'. 
 
 <img src="images/BuildAndTest.png" alt="Activity diagram of the workflow for build and test of the _Chirp!_ application" style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png){width=300px}
 
 The illustration above shows how the activities in our workflow 'build_and_test.yml' are activated after each other. This workflow runs on pushes and pull-requests to the main branch. This is done to make sure that none of our new changes or merges have destroyed our ability to build and test the program. 
 In the workflow, first our GitHub action version is checked out and chosen so that our workflow can access it. Next, dotnet is set up with version 7 before restoring our dependencies by running the command 'dotnet restore'. This command ensures that the packages that the _Chirp!_ application depends on, are downloaded and have no conflict between them. After this, the program is ready to get built. The command 'dotnet build --no-restore' is run which builds the project and its dependencies into a set of binaries. We use --no-restore since we just ran restore. The reason for splitting the processes up is to be able to locate the reason in case of errors. After the build, our tests are run with the command 'dotnet test test/Chirp.Infrastructure.Tests --no-build --verbosity normal' which will run our tests in the folder Chirp.Infrastructure.Tests. The reason for specifying the folder is to make sure that the Playwright tests are not run. The Playwright tests will fail due to the need for the application to run for them to succeed.
 
 
 <img src="images/ReleaseChirp.png" alt="Activity diagram of the workflow for release of the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Activity diagram of the workflow for release of the _Chirp!_ application.](images/ReleaseChirp.png){width=300px}
 
 The above illustration shows how the release of our _Chirp!_ application is run in the workflow 'release_chirp.yml'. The workflow is activated when a push to the main branch with a tag happens. By using a tag when pushing to the main branch, we are able to mark a checkpoint in the project and give the commit a 'title'. These marks can be small or larger depending on the tag. 
 In the workflow, first a 'Checkout' and 'Setup dotnet', with version 7, command is run followed by 'Restore Dependencies'. After these commands, four builds are run sequentially. Windows, Linux, MacOS and MacOS Arm executables are build. 
@@ -76,6 +90,7 @@ After the builds have finished, they get published. The executables are created 
 
 
 <img src="images/BuildAndDeploy.png" alt="Activity diagram of the workflow for build and deploy of the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png){width=280px}
 
 The illustration above shows the deployment of our _Chirp!_ application in the workflow 'main_bdsagroup1chirprazor.yml'. The workflow is activated through pushes to the main branch. This is to keep our web app updated whenever completed changes have been made, so it does not fall behind.
 The workflow consists of two parts. A building process and a deployment process. The building process is important as it assures that we do not deploy a program that does not work. In this process we first run the 'Checkout' and 'Setup dotnet', with version 7, commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' and a publish. Lastly, we upload an artifact for the deployment job. When the building process is done, the deployment can start on the condition that the build was successful. This process downloads the artifact from the building job and then deploy to our Azure web app. 
@@ -84,15 +99,18 @@ The workflow consists of two parts. A building process and a deployment process.
 ## Team work
 
 <img src="images/Issues.png" alt="Activity diagram of the workflow for issues in the GitHub project." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
+![Activity diagram of the workflow for issues in the GitHub project.](images/Issues.png){width=400px}
 
 The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritize all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically deleted. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
 
 <img src="images/IssuesStatus.png" alt="Status of our issues on GitHub" style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
+![Status of our issues on GitHub](images/IssuesStatus.png){width=400px}
 
 Above is
 
 
 <img src="images/LogbookClip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+![Screenshot of some of the logbook.](images/LogbookClip.png){width=400px}
 
 To further track the progress on the project, we kept an informal logbook in Google Docs. This was merely done for our own sake. Above is a screenshot of some clipped-together content from the logbook. For each of our meetings, we wrote down what was done that day together with potential questions for our meetings with our TA. We also wrote down some agenda of the next meeting, so it would be easy to get started. The logbook enabled us to attain more structure to our process as we were able to keep track of additional information that did not fit on the project board. Furthermore, it eased the process of catching up on the project if one of the group members did not attend a meeting.
 

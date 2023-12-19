@@ -1,3 +1,21 @@
 {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "cSpell.words": [
+        "Alberte",
+        "appsettings",
+        "BDSA",
+        "bdsagroup",
+        "Bjørnskov",
+        "chirpdb",
+        "chirprazor",
+        "CLIENTID",
+        "CLIENTSECRET",
+        "Høyer",
+        "Kold",
+        "Mathilde",
+        "Moesgaard",
+        "numbersections",
+        "Passw",
+        "Ruskjær"
+    ]
 }

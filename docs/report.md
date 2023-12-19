@@ -10,20 +10,19 @@ author:
 numbersections: true
 
 ---
-Vi skal huske det her: Store all sources of your diagrams, i.e., PlantUML diagram source code or DrawIO XML files under docs in a directory called diagrams.
 
 # Design and Architecture of _Chirp!_
 
 ## Domain model
 <img src="images/ClassDiagram.png" alt="Illustration of the _Chirp!_ data model as UML class diagram." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 
-Above is an UML class diagram of the domain model for our _Chirp!_ application. Here, you can see the fields the objects contain and how they associate with each other.
+Above is a UML class diagram of the domain model for our _Chirp!_ application. Here, you can see the fields the objects contain and how they associate with each other.
 
 ## Architecture — In the small
 
 <img src="images/OnionArchitecture.png" alt="Illustration of the _Chirp!_ architecture in the small." style="width:600px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Above is an illustration of the organization of our _Chirp!_ application. We use the architectural pattern called Onion Architecture to structure our code base. For each layer represented by a different nuance of grey, we illustrate the classes, interfaces, and packages that are part of the layer. The arrows illustrate the dependencies between the layers. For simplicity's sake, we have not illustrated the dependencies between the classes and interfaces within each layer. The illustration shows how dependencies flow inward and never outward, meaning that the inner layers have no knowledge of the outer layers. Our architecture consists of three layers, each represented by a different project in our code base. 
+Above is an illustration of the organization of our _Chirp!_ application. We use the architectural pattern called Onion Architecture to structure our code base. For each layer represented by a different nuance of gray, we illustrate the classes, interfaces, and packages that are part of the layer. The arrows illustrate the dependencies between the layers. For simplicity's sake, we have not illustrated the dependencies between the classes and interfaces within each layer. The illustration shows how dependencies flow inward and never outward, meaning that the inner layers have no knowledge of the outer layers. Our architecture consists of three layers, each represented by a different project in our code base. 
 
 ## Architecture of deployed application
 
@@ -36,11 +35,11 @@ Below are illustrations that show four different user journeys, which are common
 
 <img src="images/DiagramExplanation.png" alt="Meaning of the boxes used in out activity diagrams" style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Below is an activity diagram of an unautorized user's journey logging in to the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
+Below is an activity diagram of an unauthorized user's journey logging in to the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
 
 <img src="images/Register.png" alt="Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-Below is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application. Here, it is also possible to login with either GitHub or with an email as well as password.
+Below is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application. Here, it is also possible to log in with either GitHub or with an email as well as password.
 
 <img src="images/Login.png" alt="Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
@@ -50,7 +49,7 @@ Below is an activity diagram of an authenticated user's journey in the _Chirp!_ 
 
 Below is an activity diagram of an unauthenticated user's journey using the _Chirp!_ application. '{Username}' should be interpreted as an arbitrary user who has posted a cheep in the _Chirp!_ application.
 
-<img src="images/unauthenticated_user_acitivity.png" alt="Activity diagram of an unauthenticated user's journey using the _Chirp!_ application." style="width:150px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+<img src="images/unauthenticatedUserActivities.png" alt="Activity diagram of an unauthenticated user's journey using the _Chirp!_ application." style="width:150px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
 
 ## Sequence of functionality/calls through _Chirp!_
@@ -61,36 +60,36 @@ The illustration above shows a sequence diagram of calls through the _Chirp!_ ap
 # Process
 
 ## Build, test, release, and deployment
-Below are three illustrations of our workflows 'Build and Deploy', 'Build and Test' and 'Release Chirp'. 
+Below are three illustrations of our workflows: 'Build and Test', 'Release Chirp' and 'Build and Deploy'. 
 
 <img src="images/BuildAndTest.png" alt="Activity diagram of the workflow for build and test of the _Chirp!_ application" style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
 The illustration above shows how the activities in our workflow 'build_and_test.yml' are activated after each other. This workflow runs on pushes and pull-request to Main. This is done to make sure that none of our new changes or merges have destroyed our ability to build and test the program. 
-In the workflow, first our GitHub action version is checked out and chosen so that our workflow can access it. Next, .NET is set up with version 7 before restoring our dependencies by running the command 'dotnet restore'. This command ensures that the packages that the _Chirp!_ application depend on, are downloaded and have no conflict between them. After this, the program is ready to get built. The command 'dotnet build --no-restore' is run which builds the project and its dependencies into a set of binaries. After the build, our tests are run with the command 'dotnet test test/Chirp.Infrastructure.Tests --no-build --verbosity normal' which will run our tests in the folder Chirp.Infrastructure.Tests. The reason for specifying the folder is to make sure that the playwright tests are not run. The Playwright tests will fail due to the need for the application to run for them to succeed. 
+In the workflow, first our GitHub action version is checked out and chosen so that our workflow can access it. Next, dotnet is set up with version 7 before restoring our dependencies by running the command 'dotnet restore'. This command ensures that the packages that the _Chirp!_ application depends on, are downloaded and have no conflict between them. After this, the program is ready to get built. The command 'dotnet build --no-restore' is run which builds the project and its dependencies into a set of binaries. We use --no-restore since we just ran restore. The reason for splitting the processes up is to be able to locate the reason in case of errors. After the build, our tests are run with the command 'dotnet test test/Chirp.Infrastructure.Tests --no-build --verbosity normal' which will run our tests in the folder Chirp.Infrastructure.Tests. The reason for specifying the folder is to make sure that the playwright tests are not run. The Playwright tests will fail due to the need for the application to run for them to succeed.
 
 
 <img src="images/ReleaseChirp.png" alt="Activity diagram of the workflow for release of the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-The above illustration shows how the release of our _Chirp!_ Application is run in the workflow 'release_chirp.yml'. The workflow is activated when a push to Main with a tag happens. By using a tag when pushing to main, we are able to mark a checkpoint in the project and give the commit a "title". These marks can be small or larger depending on the tag. 
-In the workflow, first a 'Checkout' and 'Setup dotnet', with version 7, command is run followed by 'Restore Dependencies'. After these commands, four builds are run sequentially. Windows, Linux, MacOS and MacOS Arm exeuteables are build. 
-After the builds have finished, they get published. The executeable are created and released as zip-files that can be downladed and run on your computer. The Publish include all files that begin with "cheep". 
+The above illustration shows how the release of our _Chirp!_ application is run in the workflow 'release_chirp.yml'. The workflow is activated when a push to Main with a tag happens. By using a tag when pushing to main, we are able to mark a checkpoint in the project and give the commit a "title". These marks can be small or larger depending on the tag. 
+In the workflow, first a 'Checkout' and 'Setup dotnet', with version 7, command is run followed by 'Restore Dependencies'. After these commands, four builds are run sequentially. Windows, Linux, MacOS and MacOS Arm executables are build. 
+After the builds have finished, they get published. The executables are created and released as zip-files that can be downloaded and run on your computer. The publishing includes all files that begin with "cheep". 
 
 
 <img src="images/BuildAndDeploy.png" alt="Activity diagram of the workflow for build and deploy of the _Chirp!_ application." style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
 The illustration above shows the Deployment of our _Chirp!_ Application in the workflow 'main_bdsagroup1chirprazor.yml'. The workflow is activated through pushes to Main. This is to keep our Web App updated whenever completed changes have been made, so it does not fall behind. 
-The workflow consists of two parts. A buiding procces and a deployment process. The building process is importent as it assures that we do not deploy a program that does not work. In this process we first run the 'Checkout' and 'Setup dotnet', with version 7, commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' and a publish. Lastly we upload an aritfact for the depoyment job. When the building process is done the deployment can start on the condition that the build was succesfull. This next process now downloads the artifact from the building job and then deploy to our Azure Web App. 
+The workflow consists of two parts. A building process and a deployment process. The building process is important as it assures that we do not deploy a program that does not work. In this process we first run the 'Checkout' and 'Setup dotnet', with version 7, commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' and a publish. Lastly we upload an artifact for the deployment job. When the building process is done the deployment can start on the condition that the build was successful. This process downloads the artifact from the building job and then deploy to our Azure Web App. 
 
 
 ## Team work
 
 <img src="images/Issues.png" alt="Activity diagram of the workflow for issues in the GitHub project." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 
-The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritze all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically deleted. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
+The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritize all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically deleted. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
 
 <img src="images/logbook-clip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
-To further track the progress on the project, we kept an unformal logbook in Google Docs. This was merely done for our own sake. Above is a screenshot of some clipped-together content from the logbook. For each of our meetings, we wrote down what was done that day together with potential questions for our meetings with our TA. We also wrote down some of the agenda of the next meeting so it would be easy to get started. The logbook enabled us to attain more structure to our process as we were able to keep track of additional information that did not fit on the project board. Furthermore, it eased the process of catching up on the project if one of the group members did not attend a meeting.
+To further track the progress on the project, we kept an informal logbook in Google Docs. This was merely done for our own sake. Above is a screenshot of some clipped-together content from the logbook. For each of our meetings, we wrote down what was done that day together with potential questions for our meetings with our TA. We also wrote down some agenda of the next meeting, so it would be easy to get started. The logbook enabled us to attain more structure to our process as we were able to keep track of additional information that did not fit on the project board. Furthermore, it eased the process of catching up on the project if one of the group members did not attend a meeting.
 
 ## How to make _Chirp!_ work locally
 In order to run the _Chirp!_ application locally, the repository from GitHub needs to be cloned, which can be done from the following address: <https://github.com/ITU-BDSA23-GROUP1/Chirp>.
@@ -116,7 +115,7 @@ To connect the program and the database server, an appsettings.json file should 
 }
 ``````
 
-The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to setup the database server.
+The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to set up the database server.
 
 Another necessary step is to set up a GitHub OAuth app. This can be done by following this guide: <https://docs.github.com/en/developers/apps/creating-an-oauth-app>. The homepage URL should be set to <http://localhost> The callback URL should be set to <http://localhost/signin-github>. The Client ID and Client Secret from your OAuth App should be added to the appsettings.json file above the database connection string like so:
 
@@ -144,13 +143,41 @@ dotnet run
 
 
 ## How to run test suite locally
+The first thing needed is downloading the VSCode extension called 'Playwright Test for VSCode'. After this has downloaded, the command ">Test: Install Playwright Browsers" should be entered into the search box at the top of VSCode. During the installation of the Playwright browsers, it will at some point prompt for overwriting the 'playwright.config.ts' file in the terminal. This should not be done, and therefore you should answer 'n' to this prompt.
 
-To run the test suite locally, it is first needed to run the program such that our playwright tests can run. First the docker container with the local database should be started. It is then needed to have two terminals running. One should be navigated to "Chirp.Web". After being navigated there, the program should be run with the command: 'dotnet run', to which the program should start up and begin running locally.
-Another terminal should now be opened and navigated to the top folder "Chirp". Then the command 'dotnet test' should be run in this terminal which should run all our tests and give back their test results in the terminal.
+Before our test suite can be run locally, it is first need to run our program. This is the case as the playwright-tests need the program to be able to perform our UI-tests. We do this by starting the docker container with the local database. Then we start up two terminals. One terminal is navigated to the folder _src/Chirp.Web_. In this terminal, run the command:
 
-- Briefly describe what kinds of tests you have in your test suites and what they are testing.
-In our test suite we have some unit-tests an integration test and UI/E2E-tests. We have not made full code coverage and therefore only have unit-tests for some of our methods. These methods are _GetByFilter_, _GetByFollowers_, _FindAuthorByName_, _FindAuthorByEmail_, _CreateCheep_ and _DeleteCheep_.
-Our integration-test tests a few of our methods. These methods are _FindAuthorByName_, _FollowAuthor_, _CreateCheep_ and _GetByFollowers_.
+``` console
+dotnet build
+```
+
+Followed by the command:
+
+``` console
+dotnet run
+```
+
+This should start up our program.
+
+Afterwards, the other terminal should be navigated to our top folder, _Chirp_, and the following command should be run:
+
+```
+dotnet build
+```
+
+Followed by the command:
+
+```
+dotnet test
+```
+
+This should initialize all the tests being run and give back the test results in the terminal
+
+In our test suite, we have unit tests, UI/E2E-tests and an integration test. We have not made full code coverage, and therefore only have unit tests for some of our methods. These methods are _GetByFilter_, _GetByFollowers_, _FindAuthorByName_, _CreateCheep_, _FollowAuthor_ and _DeleteCheep_.
+
+Our integration test tests a few of our methods. These methods are _FindAuthorByName_, _FollowAuthor_, _CreateCheep_ and _GetByFollowers_.
+
+The UI/E2E-tests that we have created test the overall functionality along with the UI elements and the navigation between the URLs.
 
 # Ethics
 
@@ -160,7 +187,7 @@ In our software, we decided to use the MIT license. This was our decision as the
 ## LLMs, ChatGPT, CoPilot, and others
 During the development of our project, we used ChatGPT and Copilot. We only used ChatGPT once in the beginning of our project, when we were trying to create a process for running a bash script. We had prompted ChatGPT with our issue and asked for its help with generating some code. The given code was then fitted such that it fulfilled our needs. This code has since been deleted.
 
-We used Copilot more frequently during our development. This was activated for most of our development, and therefore gave suggestions and helped autofill the code we were writing. Sometimes, we did also prompt Copilot where it gave us suggestions on how to fix our current prompt. Also when having an error in our code, we sometimes asked it how to fix it. 
+We used Copilot more frequently during our development. This was activated for most of our development, and therefore gave suggestions and helped autofill the code we were writing. Sometimes, we did also prompt Copilot where it gave us suggestions on how to fix our current prompt. Also, when having an error in our code, we sometimes asked it how to fix it. 
 
 Often, when we were coding and Copilot gave suggestions, they were helpful and for the most parts completely correct. Additionally, we needed to make some small fixes. When we prompted Copilot to do something specific, it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially, when we asked about errors in our code it did not help at all.
 

@@ -60,7 +60,7 @@ The illustration above shows a sequence diagram of calls through the _Chirp!_ ap
 # Process
 
 ## Build, test, release, and deployment
-Below are three illustrations of our workflows: 'Build and Test', 'Release Chirp' and 'Build and Deploy'. 
+Below are three illustrations of our workflows that build and test, release Chirp and lastly build and deploy. 
 
 <img src="images/BuildAndTest.png" alt="Activity diagram of the workflow for build and test of the _Chirp!_ application" style="width:300px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
@@ -89,7 +89,7 @@ The activity diagram above shows how we have been working with the requirements 
 
 <img src="images/IssuesStatus.png" alt="Status of our issues on GitHub" style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 
-Above is an image of the backlog of our issues after we stoped working on our project. As you can see we do not have any undone issues. We either finished the task or it was deleted. Our workflow 'Close_inactive_issues.yml' is set to stale an issue after 30 days of being inactive, and then lastly close the issues if it was inactive for additionally 14 days.
+Above is an image of the backlog of our issues after we stoped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' is set to stale an issue after 30 days of being inactive, and then lastly close the issues if it was inactive for additionally 14 days.
 
 
 <img src="images/LogbookClip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>

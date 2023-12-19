@@ -148,8 +148,8 @@ The first thing needed is downloading the VSCode extension called 'Playwright Te
 Before our test suite can be run locally, it is first need to run our program. This is the case as the playwright-tests need the program to be able to perform our UI-tests. We do this by starting the docker container with the local database. Then we start up two terminals. One terminal is navigated to src/Chirp.Web. In this terminal, the command 'dotnet build' is run followed by the command 'dotnet run', which should start up our program.
 Afterwards, the other terminal should be navigated to our top folder, _Chirp_, and the commands 'dotnet build' and 'dotnet test' should be run. This should initialise all the tests being run and give back the test results in the terminal
 
-In our test suite, we have unit tests, UI/E2E-tests and an integration test. We have not made full code coverage, and therefore only have unit tests for some of our methods. These methods are _GetByFilter_, _GetByFollowers_, _FindAuthorByName_, _FindAuthorByEmail_, _CreateCheep_, _FollowAuthor_ and _DeleteCheep_.
-Our integration test tests a few of our methods. These methods are _FindAuthorByName_, _FollowAuthor_, _CreateCheep_ and _GetByFollowers_.
+In our test suite, we have unit tests, UI/E2E-tests and an integration test. We have not made full code coverage, and therefore only have unit tests for some of our methods. These methods are _GetByFilter_, _GetByFollowers_, _FindAuthorByName_, _CreateCheep_, _FollowAuthor_ and _DeleteCheep_.
+Our integration test tests a few of our methods. These methods are _FindAuthorByName_, _CreateCheep_ and _GetByFollowers_.
 The UI/E2E-tests that we have created test the overall functionality along with the UI elements and the navigation between the URLs.
 
 # Ethics

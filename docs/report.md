@@ -115,7 +115,7 @@ To connect the program and the database server, an appsettings.json file should 
 }
 ``````
 
-The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to setup the database server.
+The name of the connection string should be "Chirp_ConnectionStrings", as this is the connection string we are referring to in Program.cs. The connection string should contain the same port and password as in the command you used to set up the database server.
 
 Another necessary step is to set up a GitHub OAuth app. This can be done by following this guide: <https://docs.github.com/en/developers/apps/creating-an-oauth-app>. The homepage URL should be set to <http://localhost> The callback URL should be set to <http://localhost/signin-github>. The Client ID and Client Secret from your OAuth App should be added to the appsettings.json file above the database connection string like so:
 
@@ -171,7 +171,7 @@ Followed by the command:
 dotnet test
 ```
 
-This should initialise all the tests being run and give back the test results in the terminal
+This should initialize all the tests being run and give back the test results in the terminal
 
 In our test suite, we have unit tests, UI/E2E-tests and an integration test. We have not made full code coverage, and therefore only have unit tests for some of our methods. These methods are _GetByFilter_, _GetByFollowers_, _FindAuthorByName_, _CreateCheep_, _FollowAuthor_ and _DeleteCheep_.
 Our integration test tests a few of our methods. These methods are _FindAuthorByName_, _FollowAuthor_, _CreateCheep_ and _GetByFollowers_.
@@ -185,7 +185,7 @@ In our software, we decided to use the MIT license. This was our decision as the
 ## LLMs, ChatGPT, CoPilot, and others
 During the development of our project, we used ChatGPT and Copilot. We only used ChatGPT once in the beginning of our project, when we were trying to create a process for running a bash script. We had prompted ChatGPT with our issue and asked for its help with generating some code. The given code was then fitted such that it fulfilled our needs. This code has since been deleted.
 
-We used Copilot more frequently during our development. This was activated for most of our development, and therefore gave suggestions and helped autofill the code we were writing. Sometimes, we did also prompt Copilot where it gave us suggestions on how to fix our current prompt. Also when having an error in our code, we sometimes asked it how to fix it. 
+We used Copilot more frequently during our development. This was activated for most of our development, and therefore gave suggestions and helped autofill the code we were writing. Sometimes, we did also prompt Copilot where it gave us suggestions on how to fix our current prompt. Also, when having an error in our code, we sometimes asked it how to fix it. 
 
 Often, when we were coding and Copilot gave suggestions, they were helpful and for the most parts completely correct. Additionally, we needed to make some small fixes. When we prompted Copilot to do something specific, it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially, when we asked about errors in our code it did not help at all.
 

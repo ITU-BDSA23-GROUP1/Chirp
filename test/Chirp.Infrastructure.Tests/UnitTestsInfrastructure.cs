@@ -271,39 +271,6 @@ public class UnitTestsInfrastructure : IDisposable
     }
 
     [Fact]
-    public async void FindAuthorByEmail()
-    {
-
-        //Arrange
-        Author author1 = new Author
-        {
-            UserName = "John Doe",
-            Email = "john@john.dk",
-            Cheeps = new List<Cheep>(),
-            Id = Guid.NewGuid().ToString()
-        };
-
-        Author author2 = new Author
-        {
-            UserName = "Janet Doe",
-            Email = "janet@janet.dk",
-            Cheeps = new List<Cheep>(),
-            Id = Guid.NewGuid().ToString()
-        };
-
-        //Act
-        _context.Add(author1);
-        _context.Add(author2);
-        _context.SaveChanges();
-
-        var authorResult = await _authorRepo.FindAuthorByEmail("john@john.dk");
-
-        //Assert
-        Assert.Equal(author1.UserName, authorResult.UserName);
-        Assert.Equal(author1.Id, authorResult.Id);
-    }
-
-    [Fact]
     public async void CreateCheep_CheckIfCheepCreateCorrectly()
     {
         //Arrange
@@ -364,6 +331,56 @@ public class UnitTestsInfrastructure : IDisposable
         //Assert
         Assert.True(deletedCheep);
         Assert.False(_context.Cheeps.Any());
+    }
+
+    [Fact]
+    public async void FollowAuthor_CheckFollowingListContainsOneAuthor()
+    {
+        //Arrange
+
+        var authorWillFollowID = Guid.NewGuid().ToString();
+        var authorToBeFollowedID = Guid.NewGuid().ToString();
+
+        Author authorWillFollow = new Author
+        {
+            UserName = "John Doe",
+            Email = "john@john.dk",
+            Id = authorWillFollowID,
+            Cheeps = new List<Cheep>()
+        };
+
+        Author authorToBeFollowed = new Author
+        {
+            UserName = "Janet Doe",
+            Email = "janet@janet.dk",
+            Id = authorToBeFollowedID,
+            Cheeps = new List<Cheep>()
+        };
+
+        AuthorDTO authorWillFollowDTO = new AuthorDTO
+        {
+            UserName = "John Doe",
+            Email = "john@john.dk",
+            Id = authorWillFollowID
+        };
+
+        AuthorDTO authorToBeFollowedDTO = new AuthorDTO
+        {
+            UserName = "Janet Doe",
+            Email = "janet@janet.dk",
+            Id = authorToBeFollowedID
+        };
+
+        //Act
+
+        _context.Add(authorWillFollow);
+        _context.Add(authorToBeFollowed);
+        _context.SaveChanges();
+
+        await _authorRepo.FollowAuthor(authorWillFollowDTO, authorToBeFollowedDTO);
+
+        //Assert
+        Assert.Equal(1, _context.Authors.Where(a => a.Following.Contains(authorToBeFollowed)).Count());
     }
 
 }

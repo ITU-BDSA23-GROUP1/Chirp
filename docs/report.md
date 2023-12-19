@@ -33,13 +33,13 @@ Above is a deployment diagram that illustrates the architecture of our deployed 
 ## User activities
 Below are illustrations that show four different user journeys, which are common in the _Chirp!_ application. The first image is a legend which can be used to gain a better understanding of the following diagrams.
 
-![Meaning of the boxes used in out activity diagrams](images/DiagramExplanation.png){width=200px}
+![Meaning of the boxes used in our activity diagrams](images/DiagramExplanation.png){width=200px}
 
-Below is an activity diagram of an unauthorized user's journey logging in on the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
+Below is an activity diagram of an unauthorized user's journey logging in to the _Chirp!_ application. It shows the possibility to register with either GitHub or via the _Chirp!_ application's registration page.
 
 ![Activity diagram of an unauthorized user's journey registering for the _Chirp!_ application.](images/Register.png){width=230px}
 
-Below is an activity diagram of an unauthenticated user's journey logging on to the _Chirp!_ application. Here, it is also possible to log in with either GitHub or with an email as well as password.
+Below is an activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application. Here, it is also possible to log in with either GitHub or with an email as well as password.
 
 ![Activity diagram of an unauthenticated user's journey logging in to the _Chirp!_ application.](images/Login.png){width=375px}
 
@@ -57,13 +57,13 @@ Below is an activity diagram of an unauthenticated user's journey using the _Chi
 ## Sequence of functionality/calls through _Chirp!_
 ![Sequence diagram of calls through the _Chirp!_ application.](images/SequenceCalls.png){width=500px}
 
-The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The web browser should be interpreted as the client, Chirp.Web as the web application of the program, chirpdb as the database and OAuth as the web protocol that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
+The illustration above shows a sequence diagram of calls through the _Chirp!_ application. There are four lifelines; 'Web Browser', 'Chirp.Web', 'chirpdb' and 'OAuth' in the diagram. The 'Web Browser' should be interpreted as the client, 'Chirp.Web' as the web application of the program, 'chirpdb' as the database and 'OAuth' as the web protocol that handles the user authentication. The diagram illustrates some of the communication that goes through the lifelines when using the _Chirp!_ application.
 
 \newpage
 # Process
 
 ## Build, test, release, and deployment
-Below are three illustrations of our workflows that build and test, release Chirp and lastly build and deploy. 
+Below are three illustrations of our workflows that build, test, release and deploys the _Chirp!_ application. 
 
 ![Activity diagram of the workflow for build and test of the _Chirp!_ application](images/BuildAndTest.png){width=250px}
 
@@ -81,7 +81,7 @@ After the builds have finished, they get published. The executables are created 
 ![Activity diagram of the workflow for build and deploy of the _Chirp!_ application.](images/BuildAndDeploy.png){width=250px}
 
 The illustration above shows the deployment of our _Chirp!_ application in the workflow 'main_bdsagroup1chirprazor.yml'. The workflow is activated through pushes to the main branch. This is to keep our web app updated whenever completed changes have been made, so it does not fall behind.
-The workflow consists of two parts. A building process and a deployment process. The building process is important as it assures that we do not deploy a program that does not work. In this process we first run the 'Checkout' and 'Setup dotnet', with version 7, commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' and a publish. Lastly, we upload an artifact for the deployment job. When the building process is done, the deployment can start on the condition that the build was successful. This process downloads the artifact from the building job and then deploy to our Azure web app. 
+The workflow consists of two parts. A building process and a deployment process. The building process is important as it ensures that we do not deploy a program that does not work. In this process we first run the 'Checkout' and 'Setup dotnet', with version 7, commands. These are followed by the building command 'dotnet build src/Chirp.Web/ --configuration Release' and a publish. Lastly, we upload an artifact for the deployment job. When the building process is done, the deployment can start on the condition that the build was successful. This process downloads the artifact from the building job and then deploy to our Azure web app. 
 
 ## Team work
 
@@ -92,7 +92,7 @@ The activity diagram above shows how we have been working with the requirements 
 \newpage
 ![Status of our issues on GitHub](images/IssuesStatus.png){width=600px}
 
-Above is an image of the backlog of our issues after we stoped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' will stale an issue after 30 days of it being inactive, and then lastly close the issues if it was inactive for additionally 14 days. All closed issues are moved to the 'Done' folder. 
+Above is an image of the backlog of our issues after we stopped working on our project. As seen we do not have any undone issues. We either finished the task or it was moved to done due to it not being prioritized. Our workflow 'Close_inactive_issues.yml' will stale an issue after 30 days of it being inactive, and then lastly close the issues if it was inactive for additionally 14 days. All closed issues are moved to the 'Done' folder. 
 
 \newpage
 ![Screenshot of some of the logbook.](images/LogbookClip.png){width=500px}

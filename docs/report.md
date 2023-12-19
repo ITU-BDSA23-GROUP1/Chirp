@@ -87,7 +87,12 @@ The workflow consists of two parts. A building process and a deployment process.
 
 The activity diagram above shows how we have been working with the requirements for the project. We have aimed to create issues weekly as the requirements were published. We usually tried to prioritize all the issues, so most were initially put to 'in progress'. Some of the issues that related to features that were just 'nice to have', we did not always get to, so they were moved to 'on hold' and either reviewed again or automatically deleted. That way, our backlog did not get too cluttered, and we were able to navigate the most important issues.
 
-<img src="images/logbook-clip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
+<img src="images/IssuesStatus.png" alt="Status of our issues on GitHub" style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
+
+Above is
+
+
+<img src="images/LogbookClip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
 
 To further track the progress on the project, we kept an informal logbook in Google Docs. This was merely done for our own sake. Above is a screenshot of some clipped-together content from the logbook. For each of our meetings, we wrote down what was done that day together with potential questions for our meetings with our TA. We also wrote down some agenda of the next meeting, so it would be easy to get started. The logbook enabled us to attain more structure to our process as we were able to keep track of additional information that did not fit on the project board. Furthermore, it eased the process of catching up on the project if one of the group members did not attend a meeting.
 

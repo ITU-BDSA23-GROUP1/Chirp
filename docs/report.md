@@ -106,7 +106,7 @@ The activity diagram above shows how we have been working with the requirements 
 <img src="images/IssuesStatus.png" alt="Status of our issues on GitHub" style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;">
 ![Status of our issues on GitHub](images/IssuesStatus.png){width=400px}
 
-Above is
+Above is an image of the backlog of our issues after we stoped working on our project. As you can see we do not have any undone issues. We either finished the task or it was deleted. Our workflow 'Close_inactive_issues.yml' is set to stale an issue after 30 days of being inactive, and then lastly close the issues if it was inactive for additionally 14 days.
 
 
 <img src="images/LogbookClip.png" alt="Screenshot of some of the logbook." style="width:400px;height:auto;display:block;margin-left:auto;margin-right: auto;"></br>
@@ -212,6 +212,6 @@ During the development of our project, we used ChatGPT and Copilot. We only used
 
 We used Copilot more frequently during our development. This was activated for most of our development, and therefore gave suggestions and helped autofill the code we were writing. Sometimes, we did also prompt Copilot where it gave us suggestions on how to fix our current prompt. Also, when having an error in our code, we sometimes asked it how to fix it. 
 
-Often, when we were coding and Copilot gave suggestions, they were helpful and for the most parts completely correct. Additionally, we needed to make some small fixes. When we prompted Copilot to do something specific, it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially, when we asked about errors in our code it did not help at all.
+Often, when we were coding and Copilot gave suggestions, they were helpful and for the most parts completely correct. Occasionally, we needed to make some small fixes. When we prompted Copilot to do something specific, it did however not always go as well. The suggestions often went far from what we had intended or wanted. Especially, when we asked about errors in our code it did not help at all.
 
 We do believe that using LLMs sped up our development. It made it much faster when coding, since it autocompleted lines or even entire methods for us. Prompting the LLMs with questions did not always provide the answers we needed, but it did however provide some insights to how the LLM thought it could be done and in which direction we did not want to go.
